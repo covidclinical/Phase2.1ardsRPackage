@@ -77,8 +77,6 @@ runAnalysis <- function(obfusquation = TRUE, obfuscationThreeshord =3) {
     #
     # pheno_ICD = rbind(pheno_ICD9,pheno10_ICD10)
     #
-    #
-    #
     # ### load complication class
     # comp_class <- read.csv(paste0(path_pack,'/doc/complication_class.csv'),sep = ";")
     #
