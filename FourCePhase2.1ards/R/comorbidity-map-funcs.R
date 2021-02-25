@@ -151,7 +151,7 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
   icd9$concept_code <- as.character(icd9$concept_code)
 
   icd10_map <-
-    map_df(icd10_comorb_map, ~ as.data.frame(.x), .id = "name") %>%
+    purrr::map_df(icd10_comorb_map, ~ as.data.frame(.x), .id = "name") %>%
     `colnames<-`(c("Abbreviation", "concept_code")) %>%
     mutate(concept_code = as.character(concept_code)) %>%
     distinct() %>%
@@ -160,7 +160,7 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
     inner_join(icd10, by = "concept_code")
 
   icd9_map <-
-    map_df(icd9_comorb_map, ~ as.data.frame(.x), .id = "name") %>%
+    purrr::map_df(icd9_comorb_map, ~ as.data.frame(.x), .id = "name") %>%
     `colnames<-`(c("Abbreviation", "concept_code")) %>%
     mutate(concept_code = as.character(concept_code)) %>%
     distinct() %>%
