@@ -89,6 +89,13 @@ runAnalysis <- function(obfusquation = TRUE, obfuscationThreeshord =3) {
     # ## load medication
     # med_code= read.csv(paste0(path_pack,"/doc/4CE_medication.csv"))
 
+    data(pheno_ICD)
+    data(comp_class)
+    data(sev_proc_icd10)
+    data(lab_mapping)
+    data(med_code)
+
+
 
     ## input ###
     med_severe = c("SIANES","SICARDIAC")
