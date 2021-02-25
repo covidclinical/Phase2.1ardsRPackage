@@ -34,12 +34,12 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
 
   # quan prefixes revised charlson & elixhauser mapping
   if (map_type == "charlson") {
-    icd10_comorb_map = icd10_map_quan_deyo
-    icd9_comorb_map = icd9_map_quan_deyo
+    icd10_comorb_map = icd::icd10_map_quan_deyo
+    icd9_comorb_map = icd::icd9_map_quan_deyo
   }
   if (map_type == "elixhauser") {
-    icd10_comorb_map = icd10_map_quan_elix
-    icd9_comorb_map = icd9_map_quan_elix
+    icd10_comorb_map = icd::icd10_map_quan_elix
+    icd9_comorb_map = icd::icd9_map_quan_elix
   }
 
   ## Because the 4CE has truncated ICD codes, we will also truncate the icd package index maps
@@ -53,12 +53,12 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
     # convert icd code to short format (without decimals) to facilitate mapping
     # where diagnosis code is you non-truncated icd column
     icd10 <- icd10 %>%
-      mutate(diagnosis_code = decimal_to_short(diagnosis_code)) %>%
+      mutate(diagnosis_code = icd::decimal_to_short(diagnosis_code)) %>%
       select(-concept_code) %>%
       rename(concept_code = diagnosis_code)
 
     icd9 <- icd9 %>%
-      mutate(diagnosis_code = decimal_to_short(diagnosis_code)) %>%
+      mutate(diagnosis_code = icd::decimal_to_short(diagnosis_code)) %>%
       select(-concept_code) %>%
       rename(concept_code = diagnosis_code)
 
@@ -96,7 +96,7 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
 
   ## Calculate Index Scores
   if (map_type == 'charlson') {
-    charlson_score <- charlson_from_comorbid(
+    charlson_score <- icd::charlson_from_comorbid(
       icd_map,
       visit_name = "patient_num",
       scoring_system = "charlson",
@@ -115,7 +115,7 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
       mutate(HTN = pmax(HTN, HTNcx, na.rm = TRUE)) %>%
       select(-HTNcx)
 
-    van_walraven_score <- van_walraven_from_comorbid(
+    van_walraven_score <- icd::van_walraven_from_comorbid(
       icd_map,
       visit_name = 'patient_num',
       hierarchy = TRUE
@@ -170,7 +170,7 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
   # add if statements in order to handle sites that only have ICD 9 or 10 codes but not both
   if (nrow(icd10_map) > 0) {
     icd10_mapped_table <- unique(icd10_map$concept_code) %>%
-      explain_table() %>%
+      icd::explain_table() %>%
       left_join(icd10_map, ., by = c("concept_code" = "code")) %>%
       select(patient_num, concept_code, Abbreviation, long_desc) %>%
       distinct()
@@ -178,7 +178,7 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
 
   if (nrow(icd9_map) > 0) {
     icd9_mapped_table <- unique(icd9_map$concept_code) %>%
-      explain_table() %>%
+      icd::explain_table() %>%
       left_join(icd9_map, ., by = c("concept_code" = "code")) %>%
       select(patient_num, concept_code, Abbreviation, long_desc) %>%
       distinct()
@@ -235,14 +235,14 @@ get_table1 <- function(
 
 get_charlson_names <- function(){
   data.frame(
-    Comorbidity = do.call(rbind, names_charlson),
-    Abbreviation = do.call(rbind, names_charlson_abbrev))
+    Comorbidity = do.call(rbind, icd::names_charlson),
+    Abbreviation = do.call(rbind, icd::names_charlson_abbrev))
 }
 
 get_quan_elix_names <- function(){
   data.frame(
-    Comorbidity = do.call(rbind, names_quan_elix),
-    Abbreviation = do.call(rbind, names_quan_elix_abbrev))
+    Comorbidity = do.call(rbind, icd::names_quan_elix),
+    Abbreviation = do.call(rbind, icd::names_quan_elix_abbrev))
 }
 
 first_3 <- function(x) {

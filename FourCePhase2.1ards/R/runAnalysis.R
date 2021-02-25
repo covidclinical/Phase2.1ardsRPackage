@@ -95,8 +95,6 @@ runAnalysis <- function(obfusquation = TRUE, obfuscationThreeshord =3) {
     data(lab_mapping)
     data(med_code)
 
-
-
     ## input ###
     med_severe = c("SIANES","SICARDIAC")
     loinc_pao2 = "2703-7"
