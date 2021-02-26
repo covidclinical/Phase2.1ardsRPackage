@@ -8,9 +8,12 @@ devtools::install_github("https://github.com/covidclinical/Phase2.1ardsRPackage"
 ```
 
 The main function runAnalysis() has 2 required arguments.
+
 obfusquation => TRUE/ FALSE
 obfuscationThreeshord => integer 
 
+```
 library(Phase2.1ardsRPackage)
 
 FourCePhase2.1ards::runAnalysis(obfusquation = TRUE, obfuscationThreeshord =3)
+```
