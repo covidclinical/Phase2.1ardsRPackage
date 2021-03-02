@@ -13,7 +13,7 @@ obfusquation => TRUE/ FALSE
 obfuscationThreeshord => integer 
 
 ```
-library(Phase2.1ardsRPackage)
+library(FourCePhase2.1ards)
 
 FourCePhase2.1ards::runAnalysis(obfusquation = TRUE, obfuscationThreeshord =3)
 ```
