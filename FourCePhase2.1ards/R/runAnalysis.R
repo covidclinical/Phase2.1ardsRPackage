@@ -10,7 +10,7 @@
 #' @export
 #' @import dplyr tidyr stringr icd caret DT tidyverse icd.data
 #' @examples
-runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord =3) {
+runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     ## make sure this instance has the latest version of the quality control and data wrangling code available
     devtools::install_github("https://github.com/covidclinical/Phase2.1DataRPackage", subdir="FourCePhase2.1Data", upgrade=FALSE)
