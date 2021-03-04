@@ -35,7 +35,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     LocalPatientObservations=read.csv(paste0(FourCePhase2.1Data::getInputDataDirectoryName(),"/LocalPatientObservations.csv"),na.strings = '-999')
     LocalPatientSummary=read.csv(paste0(FourCePhase2.1Data::getInputDataDirectoryName(),"/LocalPatientSummary.csv"), na.strings = c('1900-01-01', '1/1/1900'))
 
-
     ## ========================================
     ## PART 2: load doc and reformat
     ## ========================================
@@ -124,7 +123,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     #remove patient entry after the last date of inclusion
     LocalPatientSummary <- LocalPatientSummary %>%
-        dplyr::mutate(admission_date = as.POSIXct(admission_date)) %>%
+        dplyr::mutate(admission_date = as.POSIXct((as.Date(admission_date)))) %>%
         dplyr::filter( admission_date <= last_date_inclusion)
 
     LocalPatientClinicalCourse <- LocalPatientClinicalCourse %>%
@@ -192,7 +191,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     LocalPatientClinicalCourse <- LocalPatientClinicalCourse %>%
         dplyr::filter( patient_num %in% LocalPatientSummary$patient_num) %>%
         dplyr::left_join(LocalPatientSummary[,c("patient_num","periode_group","GROUP","ARDS","PROC_SEVERE","MED_SEVERE")])%>%
-        dplyr::mutate(calendar_date = as.POSIXct(calendar_date))
+        dplyr::mutate(calendar_date = as.POSIXct((as.Date(calendar_date))))
 
 
     message("Group selection => OK")
