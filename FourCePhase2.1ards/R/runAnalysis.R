@@ -10,7 +10,7 @@
 #' @export
 #' @import dplyr tidyr stringr icd caret DT tidyverse icd.data
 #' @examples
-runAnalysis <- function(obfusquation = TRUE, obfuscationThreeshord =3) {
+runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord =3) {
 
     ## make sure this instance has the latest version of the quality control and data wrangling code available
     devtools::install_github("https://github.com/covidclinical/Phase2.1DataRPackage", subdir="FourCePhase2.1Data", upgrade=FALSE)
@@ -1514,18 +1514,18 @@ runAnalysis <- function(obfusquation = TRUE, obfuscationThreeshord =3) {
 
     ## add obfuscation
 
-    obfusc=data.frame("siteid" = siteid, "truefalse" = obfusquation, "value" = obfuscationThreeshord)
+    obfusc=data.frame("siteid" = siteid, "truefalse" = obfuscation, "value" = obfuscationThreshord)
 
     if(obfusquation){
 
         group_less_obf <- output_gen %>%
-            dplyr::filter(variable =="number" &  value< obfuscationThreeshord)%>%
+            dplyr::filter(variable =="number" &  value< obfuscationThreshord)%>%
             dplyr::select(GROUP,periode_group)
 
         output_gen <- output_gen %>%
             dplyr::mutate(
                 value = ifelse(
-                    test = variable %in% var_gen_num &  value < obfuscationThreeshord & value != 0,
+                    test = variable %in% var_gen_num &  value < obfuscationThreshord & value != 0,
                     yes = obfuscationValue, no = value),
                 value = ifelse(
                     test = (GROUP %in% group_less_obf$GROUP) & (periode_group %in% group_less_obf$periode_group) & (variable %in% var_gen_ag),
@@ -1534,31 +1534,31 @@ runAnalysis <- function(obfusquation = TRUE, obfuscationThreeshord =3) {
         output_day <- output_day %>%
             dplyr::mutate(
                 value = ifelse(
-                    test = value < obfuscationThreeshord & value != 0 & variable == "number",
+                    test = value < obfuscationThreshord & value != 0 & variable == "number",
                     yes = obfuscationValue, no = value))
 
         out_proc_diag_med <- out_proc_diag_med %>%
             dplyr::mutate(
                 value = ifelse(
-                    test = value < obfuscationThreeshord & value != 0,
+                    test = value < obfuscationThreshord & value != 0,
                     yes = obfuscationValue, no = value))
 
         output_lab <- output_lab %>%
             dplyr::mutate(
                 npat = ifelse(
-                    test = npat < obfuscationThreeshord & npat != 0,
+                    test = npat < obfuscationThreshord & npat != 0,
                     yes = obfuscationValue, no = npat),
                 mean_value = ifelse(
-                    test = npat < obfuscationThreeshord & npat != 0,
+                    test = npat < obfuscationThreshord & npat != 0,
                     yes = obfuscationValue, no = mean_value),
                 std_value= ifelse(
-                    test = npat < obfuscationThreeshord & npat != 0,
+                    test = npat < obfuscationThreshord & npat != 0,
                     yes = obfuscationValue, no = std_value),
                 mean_log_value= ifelse(
-                    test = npat < obfuscationThreeshord & npat != 0,
+                    test = npat < obfuscationThreshord & npat != 0,
                     yes = obfuscationValue, no = mean_log_value),
                 std_log_value= ifelse(
-                    test = npat < obfuscationThreeshord & npat != 0,
+                    test = npat < obfuscationThreshord & npat != 0,
                     yes = obfuscationValue, no = std_log_value))
 
     }
