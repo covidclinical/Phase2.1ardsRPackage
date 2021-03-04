@@ -18,6 +18,16 @@ library(FourCePhase2.1ards)
 FourCePhase2.1ards::runAnalysis(obfusquation = TRUE, obfuscationThreeshord =3)
 ```
 
+If your have a problem running the code it is maybe because you need to install two package 
+
+```
+install.packages("caret")
+install.packages("icd.data")
+library(caret)
+library(icd.data)
+
+```
+
 Finally, please submit the results to https://github.com/covidclinical/Phase2.1ardsRSummariesPublic:
 
 ```
@@ -32,4 +42,4 @@ https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-a
 
 Briefly, to generate a new token, go to your GitHub settings -> Developer settings -> Personal access tokens -> Generate.
 
-If somehow submitAnalysis() didn’t allow you to upload the results to Phase2.1ardsRSummariesPublic, you can share the results file with us (@bertrandmoal) via the #ards_young Slack channel.
+If somehow submitAnalysis() didn’t allow you to upload the results to Phase2.1ardsRSummariesPublic, you can share the results file with  @bertrandmoal via the #ards_young Slack channel.
