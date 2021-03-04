@@ -1,6 +1,17 @@
 # Phase2.1ardsRPackage
 R code to run, validate, and submit the analysis for the ards project.
 
+
+before installing the package you need to install the 2 following packages 
+
+```
+install.packages("caret")
+install.packages("icd.data")
+library(caret)
+library(icd.data)
+
+```
+
 To install this package in R:
 
 ```
@@ -18,15 +29,6 @@ library(FourCePhase2.1ards)
 FourCePhase2.1ards::runAnalysis(obfusquation = TRUE, obfuscationThreeshord =3)
 ```
 
-If your have a problem running the code it is maybe because you need to install two package 
-
-```
-install.packages("caret")
-install.packages("icd.data")
-library(caret)
-library(icd.data)
-
-```
 
 Finally, please submit the results to https://github.com/covidclinical/Phase2.1ardsRSummariesPublic:
 
