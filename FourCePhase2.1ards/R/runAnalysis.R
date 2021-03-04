@@ -115,6 +115,8 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     limit_d_after= 90
 
 
+
+    message("load doc and reformat=> OK")
     ## ========================================
     ## PART 3: Group selection
     ## ========================================
@@ -193,6 +195,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         dplyr::mutate(calendar_date = as.POSIXct(calendar_date))
 
 
+    message("Group selection => OK")
     ## ========================================
     ## PART 4 : Analysis
     ## ========================================
@@ -1487,9 +1490,10 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     output_gen=rbind(output_gen,status7,status7_p,status28,status28_p,status90,status90_p)
 
+    message("Analysis => OK")
 
     ## ========================================
-    ## PART 4 : Analysis
+    ## PART 5 : Saving output
     ## ========================================
 
 
@@ -1570,6 +1574,8 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     write.csv(out_proc_diag_med, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_ards_young_proc_diag_med",".csv")), row.names = FALSE, na = "")
     write.csv(obfusc, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_obfusc",".csv")), row.names = FALSE, na = "")
     write.csv(output_sens, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_sens",".csv")), row.names = FALSE, na = "")
+
+    message("Saving output => OK")
 
 }
 
