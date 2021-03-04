@@ -10,8 +10,6 @@
 #' @export
 #' @import dplyr tidyr stringr icd caret DT tidyverse icd.data
 #' @examples
-
-
 runAnalysis <- function(obfusquation = TRUE, obfuscationThreeshord =3) {
 
     ## make sure this instance has the latest version of the quality control and data wrangling code available
@@ -635,10 +633,10 @@ runAnalysis <- function(obfusquation = TRUE, obfuscationThreeshord =3) {
         colnames(xtab_ADRS_Pa02)=c("NO ARDS",	"ARDS")
         rownames(xtab_ADRS_Pa02)=c("No Pa02 sample between 5-20 days ",	"At least one Pa02 sample between 5-20 days")
 
-        SEN_PaO2_ARDS=sensitivity(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "1")
-        PPV_PaO2_ARDS=posPredValue(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "1")
-        NPV_PaO2_ARDS=negPredValue(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "0")
-        SPE_PaO2_ARDS=specificity(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "0")
+        SEN_PaO2_ARDS=caret::sensitivity(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "1")
+        PPV_PaO2_ARDS=caret::posPredValue(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "1")
+        NPV_PaO2_ARDS=caret::negPredValue(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "0")
+        SPE_PaO2_ARDS=caret::specificity(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "0")
 
         # create output
         output_sens <- data.frame(matrix(ncol = 5, nrow = 1))
@@ -679,10 +677,10 @@ runAnalysis <- function(obfusquation = TRUE, obfuscationThreeshord =3) {
         colnames(xtab_ADRS_Pa02_y)=c("NO ARDS",	"ARDS")
         rownames(xtab_ADRS_Pa02_y)=c("No Pa02 sample between 5-20 days ",	"At least one Pa02 sample between 5-20 days")
 
-        SEN_PaO2_ARDS_y=sensitivity(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "1")
-        PPV_PaO2_ARDS_y=posPredValue(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "1")
-        NPV_PaO2_ARDS_y=negPredValue(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "0")
-        SPE_PaO2_ARDS_y=specificity(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "0")
+        SEN_PaO2_ARDS_y=caret::sensitivity(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "1")
+        PPV_PaO2_ARDS_y=caret::posPredValue(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "1")
+        NPV_PaO2_ARDS_y=caret::negPredValue(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "0")
+        SPE_PaO2_ARDS_y=caret::specificity(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "0")
 
         # create output
         output_sens_y <- data.frame(matrix(ncol = 5, nrow = 1))
