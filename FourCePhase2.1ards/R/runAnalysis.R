@@ -3,8 +3,8 @@
 #'
 #' @keywords 4CE
 #'
-#' @param obfusquation
-#' @param obfuscationThreeshord
+#' @param obfuscation
+#' @param obfuscationThreshord
 #'
 #' @return
 #' @export
@@ -40,7 +40,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord =3) {
     ## PART 2: load doc and reformat
     ## ========================================
 
-    ## obfusquation
+    ## obfuscation
     obfuscationValue <- -99
 
     ### reformat ICD10  : keep only the 3 first digit
@@ -1516,7 +1516,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord =3) {
 
     obfusc=data.frame("siteid" = siteid, "truefalse" = obfuscation, "value" = obfuscationThreshord)
 
-    if(obfusquation){
+    if(obfuscation){
 
         group_less_obf <- output_gen %>%
             dplyr::filter(variable =="number" &  value< obfuscationThreshord)%>%
