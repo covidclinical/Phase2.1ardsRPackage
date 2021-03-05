@@ -114,7 +114,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     limit_d_after= 90
 
 
-
     message("load doc and reformat=> OK")
     ## ========================================
     ## PART 3: Group selection
@@ -603,102 +602,102 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     ### For the entire population
 
-    ### check if there Pa02
-    test_ADRS_Pa02 <- LocalPatientObservations %>%
-        dplyr::filter( days_since_admission >= 0 & concept_code ==loinc_pao2)
-
-    if (nrow(pat_ARDS)==0 | nrow(test_ADRS_Pa02)==0) {
-
-        # create output
-        output_sens <- data.frame(matrix(ncol = 5, nrow = 1))
-        x <- c("popu", "sensibility", "ppv", "npv","specificity")
-        colnames(output_sens) <- x
-
-        output_sens$popu="all"
-        output_sens$sensibility=-999
-        output_sens$ppv=-999
-        output_sens$npv=-999
-        output_sens$specificity=-999
-
-    }else {
-
-        ADRS_Pa02 <- LocalPatientObservations %>%
-            dplyr::filter( days_since_admission >= 0 & concept_code ==loinc_pao2) %>%
-            dplyr:: mutate( ARDS =  if_else(GROUP %in% c("ARDS_sup_49","ARDS_18_49"),1,0),
-                            PAO2= if_else(concept_code == loinc_pao2 & ( days_since_admission >= 5 & days_since_admission <= 20),1,0))%>%
-            dplyr::group_by(patient_num,ARDS,GROUP)%>%
-            dplyr::summarise(PAO2sup1 =if_else(sum(PAO2)>2,1,0))%>%
-            unique()
-
-        #on the entire population less than 50
-        xtab_ADRS_Pa02 <- table( ADRS_Pa02$PAO2sup1, ADRS_Pa02$ARDS,dnn = c( "more than 1 Pa02","ARDS"))
-        colnames(xtab_ADRS_Pa02)=c("NO ARDS",	"ARDS")
-        rownames(xtab_ADRS_Pa02)=c("No Pa02 sample between 5-20 days ",	"At least one Pa02 sample between 5-20 days")
-
-        SEN_PaO2_ARDS=caret::sensitivity(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "1")
-        PPV_PaO2_ARDS=caret::posPredValue(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "1")
-        NPV_PaO2_ARDS=caret::negPredValue(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "0")
-        SPE_PaO2_ARDS=caret::specificity(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "0")
-
-        # create output
-        output_sens <- data.frame(matrix(ncol = 5, nrow = 1))
-        x <- c("popu", "sensibility", "ppv", "npv","specificity")
-        colnames(output_sens) <- x
-
-        output_sens$popu="all"
-        output_sens$sensibility=SEN_PaO2_ARDS
-        output_sens$ppv=PPV_PaO2_ARDS
-        output_sens$npv=NPV_PaO2_ARDS
-        output_sens$specificity=SPE_PaO2_ARDS
-
-
-    }
-
-
-    ### For the  population less than 49 year old
-
-    n_ards_y=num_pat$npat[num_pat$GROUP=="ARDS_18_49"]
-
-    if (length(n_ards_y)==0 | nrow(test_ADRS_Pa02)==0) {
-        # create output
-        output_sens_y <- data.frame(matrix(ncol = 5, nrow = 1))
-        colnames(output_sens_y) <- x
-
-        output_sens_y$popu="less_50"
-        output_sens_y$sensibility=-999
-        output_sens_y$ppv=-999
-        output_sens_y$npv=-999
-        output_sens_y$specificity=-999
-
-    }else {
-
-        ADRS_Pa02_y<-ADRS_Pa02  %>% dplyr::filter( GROUP %in% c("ARDS_18_49", "NO_ARDS_18_49", "OTHERS_18_49"))
-        xtab_ADRS_Pa02_y <- table(ADRS_Pa02_y$ARDS, ADRS_Pa02_y$PAO2sup1, dnn = c("ARDS", "more than 1 Pa02"))
-
-        xtab_ADRS_Pa02_y  <- table( ADRS_Pa02_y$PAO2sup1,ADRS_Pa02_y$ARDS,dnn = c( "more than 1 Pa02","ARDS"))
-        colnames(xtab_ADRS_Pa02_y)=c("NO ARDS",	"ARDS")
-        rownames(xtab_ADRS_Pa02_y)=c("No Pa02 sample between 5-20 days ",	"At least one Pa02 sample between 5-20 days")
-
-        SEN_PaO2_ARDS_y=caret::sensitivity(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "1")
-        PPV_PaO2_ARDS_y=caret::posPredValue(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "1")
-        NPV_PaO2_ARDS_y=caret::negPredValue(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "0")
-        SPE_PaO2_ARDS_y=caret::specificity(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "0")
-
-        # create output
-        output_sens_y <- data.frame(matrix(ncol = 5, nrow = 1))
-        colnames(output_sens_y) <- x
-
-        output_sens_y$popu="less_50"
-        output_sens_y$sensibility=SEN_PaO2_ARDS_y
-        output_sens_y$ppv=PPV_PaO2_ARDS_y
-        output_sens_y$npv=NPV_PaO2_ARDS_y
-        output_sens_y$specificity=SPE_PaO2_ARDS_y
-
-    }
-
-
-
-    output_sens=rbind(output_sens,output_sens_y)
+    # ### check if there Pa02
+    # test_ADRS_Pa02 <- LocalPatientObservations %>%
+    #     dplyr::filter( days_since_admission >= 0 & concept_code ==loinc_pao2)
+    #
+    # if (nrow(pat_ARDS)==0 | nrow(test_ADRS_Pa02)==0) {
+    #
+    #     # create output
+    #     output_sens <- data.frame(matrix(ncol = 5, nrow = 1))
+    #     x <- c("popu", "sensibility", "ppv", "npv","specificity")
+    #     colnames(output_sens) <- x
+    #
+    #     output_sens$popu="all"
+    #     output_sens$sensibility=-999
+    #     output_sens$ppv=-999
+    #     output_sens$npv=-999
+    #     output_sens$specificity=-999
+    #
+    # }else {
+    #
+    #     ADRS_Pa02 <- LocalPatientObservations %>%
+    #         dplyr::filter( days_since_admission >= 0 & concept_code ==loinc_pao2) %>%
+    #         dplyr:: mutate( ARDS =  if_else(GROUP %in% c("ARDS_sup_49","ARDS_18_49"),1,0),
+    #                         PAO2= if_else(concept_code == loinc_pao2 & ( days_since_admission >= 5 & days_since_admission <= 20),1,0))%>%
+    #         dplyr::group_by(patient_num,ARDS,GROUP)%>%
+    #         dplyr::summarise(PAO2sup1 =if_else(sum(PAO2)>2,1,0))%>%
+    #         unique()
+    #
+    #     #on the entire population less than 50
+    #     xtab_ADRS_Pa02 <- table( ADRS_Pa02$PAO2sup1, ADRS_Pa02$ARDS,dnn = c( "more than 1 Pa02","ARDS"))
+    #     colnames(xtab_ADRS_Pa02)=c("NO ARDS",	"ARDS")
+    #     rownames(xtab_ADRS_Pa02)=c("No Pa02 sample between 5-20 days ",	"At least one Pa02 sample between 5-20 days")
+    #
+    #     SEN_PaO2_ARDS=caret::sensitivity(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "1")
+    #     PPV_PaO2_ARDS=caret::posPredValue(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "1")
+    #     NPV_PaO2_ARDS=caret::negPredValue(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "0")
+    #     SPE_PaO2_ARDS=caret::specificity(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "0")
+    #
+    #     # create output
+    #     output_sens <- data.frame(matrix(ncol = 5, nrow = 1))
+    #     x <- c("popu", "sensibility", "ppv", "npv","specificity")
+    #     colnames(output_sens) <- x
+    #
+    #     output_sens$popu="all"
+    #     output_sens$sensibility=SEN_PaO2_ARDS
+    #     output_sens$ppv=PPV_PaO2_ARDS
+    #     output_sens$npv=NPV_PaO2_ARDS
+    #     output_sens$specificity=SPE_PaO2_ARDS
+    #
+    #
+    # }
+    #
+    #
+    # ### For the  population less than 49 year old
+    #
+    # n_ards_y=num_pat$npat[num_pat$GROUP=="ARDS_18_49"]
+    #
+    # if (length(n_ards_y)==0 | nrow(test_ADRS_Pa02)==0) {
+    #     # create output
+    #     output_sens_y <- data.frame(matrix(ncol = 5, nrow = 1))
+    #     colnames(output_sens_y) <- x
+    #
+    #     output_sens_y$popu="less_50"
+    #     output_sens_y$sensibility=-999
+    #     output_sens_y$ppv=-999
+    #     output_sens_y$npv=-999
+    #     output_sens_y$specificity=-999
+    #
+    # }else {
+    #
+    #     ADRS_Pa02_y<-ADRS_Pa02  %>% dplyr::filter( GROUP %in% c("ARDS_18_49", "NO_ARDS_18_49", "OTHERS_18_49"))
+    #     xtab_ADRS_Pa02_y <- table(ADRS_Pa02_y$ARDS, ADRS_Pa02_y$PAO2sup1, dnn = c("ARDS", "more than 1 Pa02"))
+    #
+    #     xtab_ADRS_Pa02_y  <- table( ADRS_Pa02_y$PAO2sup1,ADRS_Pa02_y$ARDS,dnn = c( "more than 1 Pa02","ARDS"))
+    #     colnames(xtab_ADRS_Pa02_y)=c("NO ARDS",	"ARDS")
+    #     rownames(xtab_ADRS_Pa02_y)=c("No Pa02 sample between 5-20 days ",	"At least one Pa02 sample between 5-20 days")
+    #
+    #     SEN_PaO2_ARDS_y=caret::sensitivity(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "1")
+    #     PPV_PaO2_ARDS_y=caret::posPredValue(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "1")
+    #     NPV_PaO2_ARDS_y=caret::negPredValue(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "0")
+    #     SPE_PaO2_ARDS_y=caret::specificity(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "0")
+    #
+    #     # create output
+    #     output_sens_y <- data.frame(matrix(ncol = 5, nrow = 1))
+    #     colnames(output_sens_y) <- x
+    #
+    #     output_sens_y$popu="less_50"
+    #     output_sens_y$sensibility=SEN_PaO2_ARDS_y
+    #     output_sens_y$ppv=PPV_PaO2_ARDS_y
+    #     output_sens_y$npv=NPV_PaO2_ARDS_y
+    #     output_sens_y$specificity=SPE_PaO2_ARDS_y
+    #
+    # }
+    #
+    #
+    #
+    # output_sens=rbind(output_sens,output_sens_y)
 
     ### age
 
@@ -1502,7 +1501,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     output_gen$siteid=siteid
     output_lab$siteid=siteid
     out_proc_diag_med$siteid=siteid
-    output_sens$siteid=siteid
+    #output_sens$siteid=siteid
 
     ## manage std with 1 patient
     output_lab <- output_lab %>%
@@ -1572,7 +1571,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     write.csv(output_lab, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_ards_young_lab",".csv")), row.names = FALSE, na = "")
     write.csv(out_proc_diag_med, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_ards_young_proc_diag_med",".csv")), row.names = FALSE, na = "")
     write.csv(obfusc, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_obfusc",".csv")), row.names = FALSE, na = "")
-    write.csv(output_sens, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_sens",".csv")), row.names = FALSE, na = "")
+    #write.csv(output_sens, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_sens",".csv")), row.names = FALSE, na = "")
 
     message("Saving output => OK")
 
