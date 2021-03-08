@@ -678,7 +678,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     }else {
 
-        ADRS_Pa02_y<-ADRS_Pa02  %>% dplyr::filter( GROUP %in% c("ARDS_18_49", "NO_ARDS_18_49", "OTHERS_18_49"))
         xtab_ADRS_Pa02_y <- table(ADRS_Pa02_y$ARDS, ADRS_Pa02_y$PAO2sup1, dnn = c("ARDS", "more than 1 Pa02"))
 
         xtab_ADRS_Pa02_y  <- table( ADRS_Pa02_y$PAO2sup1,ADRS_Pa02_y$ARDS,dnn = c( "more than 1 Pa02","ARDS"))
@@ -1507,7 +1506,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     output_gen$siteid=siteid
     output_lab$siteid=siteid
     out_proc_diag_med$siteid=siteid
-    #output_sens$siteid=siteid
+    output_sens$siteid=siteid
 
     ## manage std with 1 patient
     output_lab <- output_lab %>%
@@ -1577,7 +1576,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     write.csv(output_lab, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_ards_young_lab",".csv")), row.names = FALSE, na = "")
     write.csv(out_proc_diag_med, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_ards_young_proc_diag_med",".csv")), row.names = FALSE, na = "")
     write.csv(obfusc, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_obfusc",".csv")), row.names = FALSE, na = "")
-    #write.csv(output_sens, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_sens",".csv")), row.names = FALSE, na = "")
+    write.csv(output_sens, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_sens",".csv")), row.names = FALSE, na = "")
 
     message("Saving output => OK")
 
