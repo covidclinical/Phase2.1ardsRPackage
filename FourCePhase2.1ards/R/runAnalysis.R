@@ -120,7 +120,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     ## ========================================
 
 
-    #remove patient entry after the last date of inclusion
+    #remove patient admitted after the last date of inclusion
     LocalPatientSummary <- LocalPatientSummary %>%
         dplyr::mutate(admission_date = as.POSIXct((as.Date(admission_date)))) %>%
         dplyr::filter( admission_date <= last_date_inclusion)%>%
@@ -145,7 +145,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
                 admission_date >= end_date_p1 &  admission_date <= start_date_p2 ~ "P2"))%>%
         data.frame()
 
-
     ### patients with ARDS
     pat_ARDS <- LocalPatientObservations %>%
         dplyr::filter( patient_num %in% LocalPatientSummary$patient_num) %>%
@@ -153,7 +152,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         dplyr::select( patient_num)%>%
         dplyr::distinct()%>%
         data.frame()
-
 
     ### patients with ventilation
     pat_vent <- LocalPatientObservations %>%
@@ -174,7 +172,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     ### add groups to file
-
     LocalPatientSummary <- LocalPatientSummary %>%
         dplyr::filter( patient_num %in% LocalPatientSummary$patient_num) %>%
         dplyr::mutate(ARDS = if_else(patient_num %in% pat_ARDS$patient_num ,1,0),
@@ -189,8 +186,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
                           ARDS==0 & (MED_SEVERE==1 | PROC_SEVERE==1) & age_group_spe== "sup_49" ~ "OTHERS_sup_49"))%>%
         data.frame()
 
-
-
     LocalPatientObservations <- LocalPatientObservations %>%
         dplyr::filter( patient_num %in% LocalPatientSummary$patient_num) %>%
         dplyr::left_join(LocalPatientSummary[,c("patient_num","periode_group","GROUP","ARDS","PROC_SEVERE","MED_SEVERE")])%>%
@@ -201,7 +196,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         dplyr::left_join(LocalPatientSummary[,c("patient_num","periode_group","GROUP","ARDS","PROC_SEVERE","MED_SEVERE")])%>%
         dplyr::mutate(calendar_date = as.POSIXct((as.Date(calendar_date))))%>%
         data.frame()
-
 
     message( paste("ncol LocalPatientSummary = ",ncol(LocalPatientSummary)))
     message( paste("nrow LocalPatientSummary = ",nrow(LocalPatientSummary)))
@@ -215,13 +209,11 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     ## PART 4 : Analysis
     ## ========================================
 
-
     ## patient by groups
     num_pat <- LocalPatientSummary %>%
         dplyr::group_by( GROUP) %>%
         dplyr::summarise(npat=n_distinct(patient_num))%>%
         data.frame()
-
 
     ###output
     output<- num_pat %>%
@@ -238,7 +230,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     output_gen=rbind(output,output_p)
-
 
     ## patient by groups
     output_day <- LocalPatientClinicalCourse %>%
@@ -260,7 +251,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     output_day=rbind(output_day,output_day_p)
 
-
     ## quartil of number of associated ICD10 code/Procedure/medication/labs
 
     el_freq<- LocalPatientObservations %>%
@@ -276,7 +266,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         dplyr::rename(concept=concept_type)%>%
         data.frame()
 
-
     el_freq_p<- LocalPatientObservations %>%
         dplyr::filter( days_since_admission >= 0) %>%
         dplyr::group_by(patient_num,GROUP,concept_type,periode_group)%>%
@@ -290,7 +279,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     output_gen=rbind(output_gen,el_freq,el_freq_p)
-
 
     ## quartil of number of associated ICD10 code/Procedure/medication/labs
 
@@ -356,7 +344,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
 
     ### Diagnostic: Percentage of patient without any diagnostic
-
 
     diag_no_day <- LocalPatientObservations %>%
         dplyr::filter(concept_type %in%  c("DIAG-ICD10","DIAG-ICD9")) %>%
@@ -455,11 +442,9 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     output_day=rbind(output_day,proc_no_day,proc_no_day_p)
 
-
     ## Laboratory
 
     ### Average number of laboratory per day
-
 
     lab_day <- LocalPatientObservations %>%
         dplyr::filter( concept_type =="LAB-LOINC") %>%
@@ -487,7 +472,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     output_day=rbind(output_day,lab_day,lab_day_p)
-
 
     ### Percentage of patient without any labs
 
@@ -669,7 +653,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         output_sens$npv=NPV_PaO2_ARDS
         output_sens$specificity=SPE_PaO2_ARDS
 
-
     }
 
 
@@ -812,7 +795,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     output_gen=rbind(output_gen,rehosp,rehosp_p)
 
     ### elixhauser_score
-
 
     comorb_names_elix <- get_quan_elix_names()
     comorbs_elix <- as.vector(comorb_names_elix$Abbreviation)
@@ -1030,7 +1012,6 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     out_iCD=rbind(out_iCD_all,out_iCD_before,out_iCD_after,out_iCD_after90,out_iCD_all_p,out_iCD_before_p,out_iCD_after_p,out_iCD_after90_p)
-
 
     ### add phenotype
 
@@ -1428,14 +1409,14 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     ### status
 
     patnum_day <- LocalPatientSummary %>%
-        dplyr::select("siteid","patient_num","GROUP","periode_group")%>%
+        dplyr::select("patient_num","GROUP","periode_group")%>%
         dplyr::distinct()
 
     patnum_day=patnum_day[rep(1:nrow(patnum_day),times = 3),]
     patnum_day$days_since_admission <- rep(c(6,27,89), each=nrow(patnum_day)/3)
 
     status7 <- LocalPatientClinicalCourse %>%
-        dplyr::right_join(patnum_day,by = c("patient_num","days_since_admission","siteid","GROUP","periode_group"))%>%
+        dplyr::right_join(patnum_day,by = c("patient_num","days_since_admission","GROUP","periode_group"))%>%
         dplyr::filter(days_since_admission == "6" )%>%
         dplyr::mutate(status_at_d = ifelse(is.na(deceased),"no_data",
                                            ifelse(deceased==1,"death",
@@ -1448,7 +1429,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     status28 <- LocalPatientClinicalCourse %>%
-        dplyr::right_join(patnum_day,by = c("patient_num","days_since_admission","siteid","GROUP","periode_group"))%>%
+        dplyr::right_join(patnum_day,by = c("patient_num","days_since_admission","GROUP","periode_group"))%>%
         dplyr::filter(days_since_admission == "27" )%>%
         dplyr::mutate(status_at_d = ifelse(is.na(deceased),"no_data",
                                            ifelse(deceased==1,"death",
@@ -1461,7 +1442,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     status90 <- LocalPatientClinicalCourse %>%
-        dplyr::right_join(patnum_day,by = c("patient_num","days_since_admission","siteid","GROUP","periode_group"))%>%
+        dplyr::right_join(patnum_day,by = c("patient_num","days_since_admission","GROUP","periode_group"))%>%
         dplyr::filter(days_since_admission == "89" )%>%
         dplyr::mutate(status_at_d = ifelse(is.na(deceased),"no_data",
                                            ifelse(deceased==1,"death",
@@ -1475,7 +1456,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
 
     status7_p <- LocalPatientClinicalCourse %>%
-        dplyr::right_join(patnum_day,by = c("patient_num","days_since_admission","siteid","GROUP","periode_group"))%>%
+        dplyr::right_join(patnum_day,by = c("patient_num","days_since_admission","GROUP","periode_group"))%>%
         dplyr::filter(days_since_admission == "6" )%>%
         dplyr::mutate(status_at_d = ifelse(is.na(deceased),"no_data",
                                            ifelse(deceased==1,"death",
@@ -1487,7 +1468,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     status28_p <- LocalPatientClinicalCourse %>%
-        dplyr::right_join(patnum_day,by = c("patient_num","days_since_admission","siteid","GROUP","periode_group"))%>%
+        dplyr::right_join(patnum_day,by = c("patient_num","days_since_admission","GROUP","periode_group"))%>%
         dplyr::filter(days_since_admission == "27" )%>%
         dplyr::mutate(status_at_d = ifelse(is.na(deceased),"no_data",
                                            ifelse(deceased==1,"death",
@@ -1499,7 +1480,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     status90_p <- LocalPatientClinicalCourse %>%
-        dplyr::right_join(patnum_day,by = c("patient_num","days_since_admission","siteid","GROUP","periode_group"))%>%
+        dplyr::right_join(patnum_day,by = c("patient_num","days_since_admission","GROUP","periode_group"))%>%
         dplyr::filter(days_since_admission == "89" )%>%
         dplyr::mutate(status_at_d = ifelse(is.na(deceased),"no_data",
                                            ifelse(deceased==1,"death",
