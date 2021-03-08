@@ -123,14 +123,16 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     #remove patient entry after the last date of inclusion
     LocalPatientSummary <- LocalPatientSummary %>%
         dplyr::mutate(admission_date = as.POSIXct((as.Date(admission_date)))) %>%
-        dplyr::filter( admission_date <= last_date_inclusion)
+        dplyr::filter( admission_date <= last_date_inclusion)%>%
+        data.frame()
 
     LocalPatientClinicalCourse <- LocalPatientClinicalCourse %>%
-        dplyr::filter( patient_num %in% unique(LocalPatientSummary$patient_num))
+        dplyr::filter( patient_num %in% unique(LocalPatientSummary$patient_num))%>%
+        data.frame()
 
     LocalPatientObservations <- LocalPatientObservations %>%
-        dplyr::filter( patient_num %in% unique(LocalPatientSummary$patient_num))
-
+        dplyr::filter( patient_num %in% unique(LocalPatientSummary$patient_num))%>%
+        data.frame()
 
     ## select patient by age
     LocalPatientSummary <- LocalPatientSummary %>%
@@ -140,7 +142,8 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
             age_group %in% c("50to69","70to79","80plus")~ "sup_49"),
             periode_group = dplyr::case_when(
                 admission_date >= start_date_p1 &  admission_date < end_date_p1 ~ "P1",
-                admission_date >= end_date_p1 &  admission_date <= start_date_p2 ~ "P2"))
+                admission_date >= end_date_p1 &  admission_date <= start_date_p2 ~ "P2"))%>%
+        data.frame()
 
 
     ### patients with ARDS
@@ -148,7 +151,8 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         dplyr::filter( patient_num %in% LocalPatientSummary$patient_num) %>%
         dplyr::filter(grepl(paste(ARDS,collapse="|"), concept_code) & days_since_admission >=0) %>%
         dplyr::select( patient_num)%>%
-        unique()
+        dplyr::distinct()%>%
+        data.frame()
 
 
     ### patients with ventilation
@@ -157,15 +161,17 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         dplyr::filter(concept_type == "PROC-ICD10"
                       & days_since_admission >=0
                       & concept_code %in% sev_proc_icd10$code) %>%
-        dplyr::select( patient_num)%>%
-        unique()
+        dplyr::select(patient_num)%>%
+        dplyr::distinct()%>%
+        data.frame()
 
     ### patients with severe medication
     pat_med_severe <- LocalPatientObservations %>%
         dplyr::filter( patient_num %in% LocalPatientSummary$patient_num) %>%
         dplyr::filter(concept_code %in% c("SIANES","SICARDIAC") & days_since_admission >=0) %>%
         dplyr::select( patient_num)%>%
-        unique()
+        dplyr::distinct()%>%
+        data.frame()
 
     ### add groups to file
 
@@ -180,20 +186,31 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
                           ARDS==0 & MED_SEVERE==0 & PROC_SEVERE==0 & age_group_spe== "18_49" ~ "NO_ARDS_18_49",
                           ARDS==0 & MED_SEVERE==0 & PROC_SEVERE==0 & age_group_spe== "sup_49" ~ "NO_ARDS_sup_49",
                           ARDS==0 & (MED_SEVERE==1 | PROC_SEVERE==1) & age_group_spe== "18_49" ~ "OTHERS_18_49",
-                          ARDS==0 & (MED_SEVERE==1 | PROC_SEVERE==1) & age_group_spe== "sup_49" ~ "OTHERS_sup_49"))
+                          ARDS==0 & (MED_SEVERE==1 | PROC_SEVERE==1) & age_group_spe== "sup_49" ~ "OTHERS_sup_49"))%>%
+        data.frame()
+
 
 
     LocalPatientObservations <- LocalPatientObservations %>%
         dplyr::filter( patient_num %in% LocalPatientSummary$patient_num) %>%
-        dplyr::left_join(LocalPatientSummary[,c("patient_num","periode_group","GROUP","ARDS","PROC_SEVERE","MED_SEVERE")])
+        dplyr::left_join(LocalPatientSummary[,c("patient_num","periode_group","GROUP","ARDS","PROC_SEVERE","MED_SEVERE")])%>%
+        data.frame()
 
     LocalPatientClinicalCourse <- LocalPatientClinicalCourse %>%
         dplyr::filter( patient_num %in% LocalPatientSummary$patient_num) %>%
         dplyr::left_join(LocalPatientSummary[,c("patient_num","periode_group","GROUP","ARDS","PROC_SEVERE","MED_SEVERE")])%>%
-        dplyr::mutate(calendar_date = as.POSIXct((as.Date(calendar_date))))
+        dplyr::mutate(calendar_date = as.POSIXct((as.Date(calendar_date))))%>%
+        data.frame()
 
+
+    message( paste("ncol LocalPatientSummary = ",ncol(LocalPatientSummary)))
+    message( paste("nrow LocalPatientSummary = ",nrow(LocalPatientSummary)))
+
+    print(table(LocalPatientSummary$GROUP))
+    print(table(LocalPatientSummary$GROUP,LocalPatientSummary$periode_group))
 
     message("Group selection => OK")
+
     ## ========================================
     ## PART 4 : Analysis
     ## ========================================
@@ -202,7 +219,9 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     ## patient by groups
     num_pat <- LocalPatientSummary %>%
         dplyr::group_by( GROUP) %>%
-        dplyr::summarise(npat=n_distinct(patient_num))
+        dplyr::summarise(npat=n_distinct(patient_num))%>%
+        data.frame()
+
 
     ###output
     output<- num_pat %>%
@@ -248,7 +267,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         dplyr::filter( days_since_admission >= 0) %>%
         dplyr::group_by(patient_num,GROUP,concept_type)%>%
         dplyr::summarise(freqi= n())%>%
-        unique()%>%
+        dplyr::distinct()%>%
         dplyr::group_by(GROUP,concept_type)%>%
         dplyr::summarise(mean_freq=mean(freqi,na.rm = TRUE),
                          std_freq = sd(freqi,na.rm = TRUE))%>%
@@ -285,7 +304,8 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
                          still_at_hospital= min(days_since_admission[temp==-1]) == Inf,
                          number_rehospit= sum(temp==1),
                          delay_1rehospit_1admin= min(days_since_admission[temp==1]),
-                         delay_hospi_rehosp= delay_1rehospit_1admin-length_duration_1)
+                         delay_hospi_rehosp= delay_1rehospit_1admin-length_duration_1)%>%
+        data.frame()
 
 
     ## Length of stay per patient
@@ -403,7 +423,8 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     npat_day_all<- output_day%>%
         dplyr::filter( periode_group =="all")%>%
-        dplyr::filter(concept == "patient")
+        dplyr::filter(concept == "patient")%>%
+        data.frame()
 
     proc_no_day <- LocalPatientObservations %>%
         dplyr::filter(concept_type %in% c("PROC-ICD10","PROC-ICD9")) %>%
@@ -602,102 +623,103 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     ### For the entire population
 
-    # ### check if there Pa02
-    # test_ADRS_Pa02 <- LocalPatientObservations %>%
-    #     dplyr::filter( days_since_admission >= 0 & concept_code ==loinc_pao2)
-    #
-    # if (nrow(pat_ARDS)==0 | nrow(test_ADRS_Pa02)==0) {
-    #
-    #     # create output
-    #     output_sens <- data.frame(matrix(ncol = 5, nrow = 1))
-    #     x <- c("popu", "sensibility", "ppv", "npv","specificity")
-    #     colnames(output_sens) <- x
-    #
-    #     output_sens$popu="all"
-    #     output_sens$sensibility=-999
-    #     output_sens$ppv=-999
-    #     output_sens$npv=-999
-    #     output_sens$specificity=-999
-    #
-    # }else {
-    #
-    #     ADRS_Pa02 <- LocalPatientObservations %>%
-    #         dplyr::filter( days_since_admission >= 0 & concept_code ==loinc_pao2) %>%
-    #         dplyr:: mutate( ARDS =  if_else(GROUP %in% c("ARDS_sup_49","ARDS_18_49"),1,0),
-    #                         PAO2= if_else(concept_code == loinc_pao2 & ( days_since_admission >= 5 & days_since_admission <= 20),1,0))%>%
-    #         dplyr::group_by(patient_num,ARDS,GROUP)%>%
-    #         dplyr::summarise(PAO2sup1 =if_else(sum(PAO2)>2,1,0))%>%
-    #         unique()
-    #
-    #     #on the entire population less than 50
-    #     xtab_ADRS_Pa02 <- table( ADRS_Pa02$PAO2sup1, ADRS_Pa02$ARDS,dnn = c( "more than 1 Pa02","ARDS"))
-    #     colnames(xtab_ADRS_Pa02)=c("NO ARDS",	"ARDS")
-    #     rownames(xtab_ADRS_Pa02)=c("No Pa02 sample between 5-20 days ",	"At least one Pa02 sample between 5-20 days")
-    #
-    #     SEN_PaO2_ARDS=caret::sensitivity(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "1")
-    #     PPV_PaO2_ARDS=caret::posPredValue(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "1")
-    #     NPV_PaO2_ARDS=caret::negPredValue(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "0")
-    #     SPE_PaO2_ARDS=caret::specificity(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "0")
-    #
-    #     # create output
-    #     output_sens <- data.frame(matrix(ncol = 5, nrow = 1))
-    #     x <- c("popu", "sensibility", "ppv", "npv","specificity")
-    #     colnames(output_sens) <- x
-    #
-    #     output_sens$popu="all"
-    #     output_sens$sensibility=SEN_PaO2_ARDS
-    #     output_sens$ppv=PPV_PaO2_ARDS
-    #     output_sens$npv=NPV_PaO2_ARDS
-    #     output_sens$specificity=SPE_PaO2_ARDS
-    #
-    #
-    # }
-    #
-    #
-    # ### For the  population less than 49 year old
-    #
-    # n_ards_y=num_pat$npat[num_pat$GROUP=="ARDS_18_49"]
-    #
-    # if (length(n_ards_y)==0 | nrow(test_ADRS_Pa02)==0) {
-    #     # create output
-    #     output_sens_y <- data.frame(matrix(ncol = 5, nrow = 1))
-    #     colnames(output_sens_y) <- x
-    #
-    #     output_sens_y$popu="less_50"
-    #     output_sens_y$sensibility=-999
-    #     output_sens_y$ppv=-999
-    #     output_sens_y$npv=-999
-    #     output_sens_y$specificity=-999
-    #
-    # }else {
-    #
-    #     ADRS_Pa02_y<-ADRS_Pa02  %>% dplyr::filter( GROUP %in% c("ARDS_18_49", "NO_ARDS_18_49", "OTHERS_18_49"))
-    #     xtab_ADRS_Pa02_y <- table(ADRS_Pa02_y$ARDS, ADRS_Pa02_y$PAO2sup1, dnn = c("ARDS", "more than 1 Pa02"))
-    #
-    #     xtab_ADRS_Pa02_y  <- table( ADRS_Pa02_y$PAO2sup1,ADRS_Pa02_y$ARDS,dnn = c( "more than 1 Pa02","ARDS"))
-    #     colnames(xtab_ADRS_Pa02_y)=c("NO ARDS",	"ARDS")
-    #     rownames(xtab_ADRS_Pa02_y)=c("No Pa02 sample between 5-20 days ",	"At least one Pa02 sample between 5-20 days")
-    #
-    #     SEN_PaO2_ARDS_y=caret::sensitivity(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "1")
-    #     PPV_PaO2_ARDS_y=caret::posPredValue(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "1")
-    #     NPV_PaO2_ARDS_y=caret::negPredValue(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "0")
-    #     SPE_PaO2_ARDS_y=caret::specificity(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "0")
-    #
-    #     # create output
-    #     output_sens_y <- data.frame(matrix(ncol = 5, nrow = 1))
-    #     colnames(output_sens_y) <- x
-    #
-    #     output_sens_y$popu="less_50"
-    #     output_sens_y$sensibility=SEN_PaO2_ARDS_y
-    #     output_sens_y$ppv=PPV_PaO2_ARDS_y
-    #     output_sens_y$npv=NPV_PaO2_ARDS_y
-    #     output_sens_y$specificity=SPE_PaO2_ARDS_y
-    #
-    # }
-    #
-    #
-    #
-    # output_sens=rbind(output_sens,output_sens_y)
+    ### check if there is enough patient for sensibility and specificity analysis
+
+    ADRS_Pa02 <- LocalPatientObservations %>%
+        dplyr::filter( days_since_admission >= 0 & concept_code ==loinc_pao2) %>%
+        dplyr:: mutate( ARDS =  if_else(GROUP %in% c("ARDS_sup_49","ARDS_18_49"),1,0),
+                        PAO2= if_else(concept_code == loinc_pao2 & ( days_since_admission >= 5 & days_since_admission <= 20),1,0))%>%
+        dplyr::group_by(patient_num,ARDS,GROUP)%>%
+        dplyr::summarise(PAO2sup1 =if_else(sum(PAO2)>2,1,0))%>%
+        dplyr::distinct()%>%
+        data.frame()
+
+    if (nrow(pat_ARDS)==0 |length(unique(ADRS_Pa02$PAO2sup1))<2) {
+
+        # create output
+        output_sens <- data.frame(matrix(ncol = 5, nrow = 1))
+        colnames(output_sens)  <- c("popu", "sensibility", "ppv", "npv","specificity")
+
+        output_sens$popu="all"
+        output_sens$sensibility=-999
+        output_sens$ppv=-999
+        output_sens$npv=-999
+        output_sens$specificity=-999
+
+    }else {
+
+        #on the entire population less than 50
+        xtab_ADRS_Pa02 <- table(ADRS_Pa02$PAO2sup1, ADRS_Pa02$ARDS,dnn = c( "more than 1 Pa02","ARDS"))
+        colnames(xtab_ADRS_Pa02)=c("NO ARDS","ARDS")
+        rownames(xtab_ADRS_Pa02)=c("No Pa02 sample between 5-20 days ",	"At least one Pa02 sample between 5-20 days")
+
+        SEN_PaO2_ARDS=caret::sensitivity(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "1")
+        PPV_PaO2_ARDS=caret::posPredValue(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "1")
+        NPV_PaO2_ARDS=caret::negPredValue(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "0")
+        SPE_PaO2_ARDS=caret::specificity(as.factor(ADRS_Pa02$PAO2sup1), as.factor(ADRS_Pa02$ARDS), "0")
+
+        # create output
+        output_sens <- data.frame(matrix(ncol = 5, nrow = 1))
+        x <- c("popu", "sensibility", "ppv", "npv","specificity")
+        colnames(output_sens) <- x
+
+        output_sens$popu="all"
+        output_sens$sensibility=SEN_PaO2_ARDS
+        output_sens$ppv=PPV_PaO2_ARDS
+        output_sens$npv=NPV_PaO2_ARDS
+        output_sens$specificity=SPE_PaO2_ARDS
+
+
+    }
+
+
+    ### For the  population less than 49 year old
+
+    n_ards_y=num_pat$npat[num_pat$GROUP=="ARDS_18_49"]
+
+    ADRS_Pa02_y<-ADRS_Pa02  %>%
+        dplyr::filter( GROUP %in% c("ARDS_18_49", "NO_ARDS_18_49", "OTHERS_18_49"))%>%
+        dplyr::distinct()%>%
+        data.frame()
+
+    if (length(n_ards_y)==0 | length(unique(ADRS_Pa02_y$PAO2sup1))<2) {
+        # create output
+        output_sens_y <- data.frame(matrix(ncol = 5, nrow = 1))
+        colnames(output_sens_y) <- x
+
+        output_sens_y$popu="less_50"
+        output_sens_y$sensibility=-999
+        output_sens_y$ppv=-999
+        output_sens_y$npv=-999
+        output_sens_y$specificity=-999
+
+    }else {
+
+        ADRS_Pa02_y<-ADRS_Pa02  %>% dplyr::filter( GROUP %in% c("ARDS_18_49", "NO_ARDS_18_49", "OTHERS_18_49"))
+        xtab_ADRS_Pa02_y <- table(ADRS_Pa02_y$ARDS, ADRS_Pa02_y$PAO2sup1, dnn = c("ARDS", "more than 1 Pa02"))
+
+        xtab_ADRS_Pa02_y  <- table( ADRS_Pa02_y$PAO2sup1,ADRS_Pa02_y$ARDS,dnn = c( "more than 1 Pa02","ARDS"))
+        colnames(xtab_ADRS_Pa02_y)=c("NO ARDS",	"ARDS")
+        rownames(xtab_ADRS_Pa02_y)=c("No Pa02 sample between 5-20 days ",	"At least one Pa02 sample between 5-20 days")
+
+        SEN_PaO2_ARDS_y=caret::sensitivity(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "1")
+        PPV_PaO2_ARDS_y=caret::posPredValue(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "1")
+        NPV_PaO2_ARDS_y=caret::negPredValue(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "0")
+        SPE_PaO2_ARDS_y=caret::specificity(as.factor(ADRS_Pa02_y$PAO2sup1), as.factor(ADRS_Pa02_y$ARDS), "0")
+
+        # create output
+        output_sens_y <- data.frame(matrix(ncol = 5, nrow = 1))
+        colnames(output_sens_y) <- x
+
+        output_sens_y$popu="less_50"
+        output_sens_y$sensibility=SEN_PaO2_ARDS_y
+        output_sens_y$ppv=PPV_PaO2_ARDS_y
+        output_sens_y$npv=NPV_PaO2_ARDS_y
+        output_sens_y$specificity=SPE_PaO2_ARDS_y
+
+    }
+
+    output_sens=rbind(output_sens,output_sens_y)
 
     ### age
 
@@ -743,7 +765,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         dplyr::filter(concept_type %in% c("DIAG-ICD10","DIAG-ICD9") & days_since_admission <= limit_d_befor ) %>%
         dplyr::mutate(previous_hospi = "YES") %>%
         dplyr::select( patient_num, GROUP,previous_hospi) %>%
-        unique()%>%
+        dplyr::distinct()%>%
         dplyr::right_join(LocalPatientSummary[,c("patient_num","GROUP")],by =c("patient_num","GROUP"))%>%
         dplyr::mutate(previous_hospi = if_else(is.na(previous_hospi),"no_previous_hospi","previous_hospi")) %>%
         dplyr::group_by(GROUP,previous_hospi) %>%
@@ -757,7 +779,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         dplyr::filter(concept_type %in% c("DIAG-ICD10","DIAG-ICD9") & days_since_admission <= limit_d_befor ) %>%
         dplyr::mutate(previous_hospi = "YES") %>%
         dplyr::select( patient_num, GROUP,previous_hospi) %>%
-        unique()%>%
+        dplyr::distinct()%>%
         dplyr::right_join(LocalPatientSummary[,c("patient_num","GROUP","periode_group")],by =c("patient_num","GROUP"))%>%
         dplyr::mutate(previous_hospi = if_else(is.na(previous_hospi),"no_previous_hospi","previous_hospi")) %>%
         dplyr::group_by(GROUP,previous_hospi,periode_group) %>%
@@ -840,7 +862,8 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     comorb_elix_90 <- comorb_elix_90$index_scores %>%
         rename('elixhauser_score' = van_walraven_score)%>%
-        mutate(patient_num = as.integer(patient_num))
+        mutate(patient_num = as.integer(patient_num))%>%
+        data.frame()
 
     output_elix_90 <- LocalPatientSummary  %>%
         dplyr::inner_join(comorb_elix_90, by = "patient_num")%>%
@@ -1404,7 +1427,9 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     ### status
 
-    patnum_day=unique(LocalPatientSummary[,c("siteid","patient_num","GROUP","periode_group")])
+    patnum_day <- LocalPatientSummary %>%
+        dplyr::select("siteid","patient_num","GROUP","periode_group")%>%
+        dplyr::distinct()
 
     patnum_day=patnum_day[rep(1:nrow(patnum_day),times = 3),]
     patnum_day$days_since_admission <- rep(c(6,27,89), each=nrow(patnum_day)/3)
