@@ -3,13 +3,13 @@
 #'
 #' @keywords 4CE
 #'
-#' @param obfuscation
-#' @param obfuscationThreshord
+#' @param obfuscation True/False
+#' @param obfuscationThreshord level of obfuscation
 #'
 #' @return
 #' @export
 #' @import dplyr tidyr stringr icd caret DT tidyverse icd.data
-#' @examples
+
 runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     ## make sure this instance has the latest version of the quality control and data wrangling code available
@@ -86,11 +86,11 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     # ## load medication
     # med_code= read.csv(paste0(path_pack,"/doc/4CE_medication.csv"))
 
-    data(pheno_ICD)
-    data(comp_class)
-    data(sev_proc_icd10)
-    data(lab_mapping)
-    data(med_code)
+    # FourCePhase2.1ards::pheno_ICD
+    # data(comp_class)
+    # data(sev_proc_icd10)
+    # data(lab_mapping)
+    # data(med_code)
 
     ## input ###
     med_severe = c("SIANES","SICARDIAC")

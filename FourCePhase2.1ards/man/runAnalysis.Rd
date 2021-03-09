@@ -4,10 +4,12 @@
 \alias{runAnalysis}
 \title{Runs the analytic workflow for the ards project}
 \usage{
-runAnalysis(obfusquation = TRUE, obfuscationThreeshord = 3)
+runAnalysis(obfuscation = TRUE, obfuscationThreshord = 3)
 }
 \arguments{
-\item{obfuscationThreeshord}{}
+\item{obfuscation}{True/False}
+
+\item{obfuscationThreshord}{level of obfuscation}
 }
 \value{
 
