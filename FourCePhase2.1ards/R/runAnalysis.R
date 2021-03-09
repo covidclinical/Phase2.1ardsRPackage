@@ -91,11 +91,11 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     # sev_proc_icd10=FourCePhase2.1ards::sev_proc_icd10
     # lab_mapping=FourCePhase2.1ards::lab_mapping
     # med_code= FourCePhase2.1ards::med_code
-    data(pheno_ICD)
-    data(comp_class)
-    data(sev_proc_icd10)
-    data(lab_mapping)
-    data(med_code)
+    # data(pheno_ICD)
+    # data(comp_class)
+    # data(sev_proc_icd10)
+    # data(lab_mapping)
+    # data(med_code)
 
     ## input ###
     med_severe = c("SIANES","SICARDIAC")
@@ -163,7 +163,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         dplyr::filter( patient_num %in% LocalPatientSummary$patient_num) %>%
         dplyr::filter((concept_type == "PROC-ICD10"
                       & days_since_admission >=0
-                      & concept_code %in% sev_proc_icd10$code)
+                      & concept_code %in% FourCePhase2.1ards::sev_proc_icd10$code)
                       |(concept_type == "PROC-CPT"
                         & days_since_admission >=0
                         & concept_code %in% proc_cpt))%>%
@@ -1024,7 +1024,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     diag_pheno<-LocalPatientObservations %>%
         dplyr::filter( concept_type %in% c("DIAG-ICD10","DIAG-ICD9" )) %>%
-        dplyr::left_join( pheno_ICD[,c("ICD","ICD.String","PheCode","Phenotype")],by =c( "concept_code" = "ICD"))%>%
+        dplyr::left_join( FourCePhase2.1ards::pheno_ICD[,c("ICD","ICD.String","PheCode","Phenotype")],by =c( "concept_code" = "ICD"))%>%
         data.frame()
 
 
@@ -1117,7 +1117,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     diag_comp<-LocalPatientObservations %>%
         dplyr::filter( concept_type == "DIAG-ICD10") %>%
-        dplyr::left_join( comp_class,by =c( "concept_code" = "ICD10"))%>%
+        dplyr::left_join( FourCePhase2.1ards::comp_class,by =c( "concept_code" = "ICD10"))%>%
         data.frame()
 
 
