@@ -86,7 +86,12 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     # ## load medication
     # med_code= read.csv(paste0(path_pack,"/doc/4CE_medication.csv"))
 
-    # FourCePhase2.1ards::pheno_ICD
+    FourCePhase2.1ards::pheno_ICD
+    FourCePhase2.1ards::comp_class
+    FourCePhase2.1ards::sev_proc_icd10
+    FourCePhase2.1ards::lab_mapping
+    FourCePhase2.1ards::med_code
+    # data(pheno_ICD)
     # data(comp_class)
     # data(sev_proc_icd10)
     # data(lab_mapping)
