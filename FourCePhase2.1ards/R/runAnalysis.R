@@ -96,7 +96,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     med_severe = c("SIANES","SICARDIAC")
     loinc_pao2 = "2703-7"
     ARDS=c('J80','518.82')
-
+    proc_cpt= c("CPT4:31500","CPT4:94656","CPT4:94657","CPT4:94002")
 
     # P1 : january - july
     # P2 : august - december
@@ -156,9 +156,12 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     ### patients with ventilation
     pat_vent <- LocalPatientObservations %>%
         dplyr::filter( patient_num %in% LocalPatientSummary$patient_num) %>%
-        dplyr::filter(concept_type == "PROC-ICD10"
+        dplyr::filter((concept_type == "PROC-ICD10"
                       & days_since_admission >=0
-                      & concept_code %in% sev_proc_icd10$code) %>%
+                      & concept_code %in% sev_proc_icd10$code)
+                      |(concept_type == "PROC-CPT"
+                        & days_since_admission >=0
+                        & concept_code %in% proc_cpt))%>%
         dplyr::select(patient_num)%>%
         dplyr::distinct()%>%
         data.frame()
@@ -379,7 +382,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     ### Average number of procedure per day
 
     proc_day <- LocalPatientObservations %>%
-        dplyr::filter(concept_type %in% c("PROC-ICD10","PROC-ICD9")) %>%
+        dplyr::filter(concept_type %in% c("PROC-ICD10","PROC-ICD9","PROC-CPT")) %>%
         dplyr::group_by(patient_num,GROUP,days_since_admission) %>%
         dplyr::summarise(count_proc=n()) %>%
         dplyr::right_join(LocalPatientClinicalCourse[,c("patient_num","GROUP","days_since_admission")],by =c("patient_num","GROUP","days_since_admission"))%>%
@@ -392,7 +395,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     proc_day_p <- LocalPatientObservations %>%
-        dplyr::filter( concept_type %in% c("PROC-ICD10","PROC-ICD9")) %>%
+        dplyr::filter( concept_type %in% c("PROC-ICD10","PROC-ICD9","PROC-CPT")) %>%
         dplyr::group_by(patient_num,GROUP,days_since_admission,periode_group) %>%
         dplyr::summarise(count_proc=n()) %>%
         dplyr::right_join(LocalPatientClinicalCourse[,c("patient_num","GROUP","days_since_admission")],by =c("patient_num","GROUP","days_since_admission"))%>%
@@ -414,7 +417,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     proc_no_day <- LocalPatientObservations %>%
-        dplyr::filter(concept_type %in% c("PROC-ICD10","PROC-ICD9")) %>%
+        dplyr::filter(concept_type %in% c("PROC-ICD10","PROC-ICD9","PROC-CPT")) %>%
         dplyr::group_by(GROUP,days_since_admission) %>%
         dplyr::summarise(count_pat=n_distinct(patient_num)) %>%
         dplyr::right_join(npat_day_all[,c("value","GROUP","days_since_admission")],by =c("GROUP","days_since_admission"))%>%
@@ -428,7 +431,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     proc_no_day_p <- LocalPatientObservations %>%
-        dplyr::filter( concept_type %in% c("PROC-ICD10","PROC-ICD9")) %>%
+        dplyr::filter( concept_type %in% c("PROC-ICD10","PROC-ICD9","PROC-CPT")) %>%
         dplyr::group_by(GROUP,days_since_admission,periode_group) %>%
         dplyr::summarise(count_pat=n_distinct(patient_num)) %>%
         dplyr::right_join(npat_day_all[,c("value","GROUP","days_since_admission")],by =c("GROUP","days_since_admission"))%>%
@@ -1251,7 +1254,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     # all time
     out_proc_all <- LocalPatientObservations %>%
-        dplyr::filter( concept_type =="PROC-ICD10") %>%
+        dplyr::filter( concept_type %in% c("PROC-ICD10","PROC-ICD9","PROC-CPT")) %>%
         dplyr::group_by(concept_code, GROUP, concept_type) %>%
         dplyr::summarise(value=n_distinct(patient_num))%>%
         dplyr::rename(variable=concept_code,
@@ -1261,7 +1264,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     out_proc_all_p <- LocalPatientObservations %>%
-        dplyr::filter( concept_type =="PROC-ICD10")  %>%
+        dplyr::filter( concept_type %in% c("PROC-ICD10","PROC-ICD9","PROC-CPT")) %>%
         dplyr::group_by(concept_code,concept_type, GROUP,periode_group) %>%
         dplyr::summarise(value=n_distinct(patient_num))%>%
         dplyr::rename(variable=concept_code,
@@ -1271,7 +1274,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     # before time
     out_proc_before <- LocalPatientObservations %>%
-        dplyr::filter( concept_type =="PROC-ICD10") %>%
+        dplyr::filter( concept_type %in% c("PROC-ICD10","PROC-ICD9","PROC-CPT")) %>%
         dplyr::filter( days_since_admission < 0) %>%
         dplyr::group_by(concept_code, GROUP, concept_type) %>%
         dplyr::summarise(value=n_distinct(patient_num))%>%
@@ -1282,7 +1285,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     out_proc_before_p <- LocalPatientObservations %>%
-        dplyr::filter( concept_type =="PROC-ICD10")  %>%
+        dplyr::filter( concept_type %in% c("PROC-ICD10","PROC-ICD9","PROC-CPT"))  %>%
         dplyr::filter( days_since_admission < 0) %>%
         dplyr::group_by(concept_code,concept_type, GROUP,periode_group) %>%
         dplyr::summarise(value=n_distinct(patient_num))%>%
@@ -1293,7 +1296,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     # after time
     out_proc_after <- LocalPatientObservations %>%
-        dplyr::filter( concept_type =="PROC-ICD10")  %>%
+        dplyr::filter( concept_type %in% c("PROC-ICD10","PROC-ICD9","PROC-CPT"))  %>%
         dplyr::filter( days_since_admission >= 0) %>%
         dplyr::group_by(concept_code, GROUP, concept_type) %>%
         dplyr::summarise(value=n_distinct(patient_num))%>%
@@ -1304,7 +1307,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     out_proc_after_p <- LocalPatientObservations %>%
-        dplyr::filter( concept_type =="PROC-ICD10") %>%
+        dplyr::filter( concept_type %in% c("PROC-ICD10","PROC-ICD9","PROC-CPT"))%>%
         dplyr::filter( days_since_admission >= 0) %>%
         dplyr::group_by(concept_code,concept_type, GROUP,periode_group) %>%
         dplyr::summarise(value=n_distinct(patient_num))%>%
@@ -1315,7 +1318,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     # after 90 days after admission time
     out_proc_after90 <- LocalPatientObservations %>%
-        dplyr::filter( concept_type =="PROC-ICD10")  %>%
+        dplyr::filter( concept_type %in% c("PROC-ICD10","PROC-ICD9","PROC-CPT")) %>%
         dplyr::filter( days_since_admission >= 0) %>%
         dplyr::group_by(concept_code, GROUP, concept_type) %>%
         dplyr::summarise(value=n_distinct(patient_num))%>%
@@ -1326,7 +1329,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
     out_proc_after90_p <- LocalPatientObservations %>%
-        dplyr::filter( concept_type =="PROC-ICD10")  %>%
+        dplyr::filter( concept_type %in% c("PROC-ICD10","PROC-ICD9","PROC-CPT"))  %>%
         dplyr::filter( days_since_admission >= 0) %>%
         dplyr::group_by(concept_code,concept_type, GROUP,periode_group) %>%
         dplyr::summarise(value=n_distinct(patient_num))%>%
