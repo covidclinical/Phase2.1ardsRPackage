@@ -698,7 +698,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
         # create output
         output_sens_y <- data.frame(matrix(ncol = 5, nrow = 1))
-        colnames(output_sens_y) <- x
+        colnames(output_sens_y) <- c("popu", "sensibility", "ppv", "npv","specificity")
 
         output_sens_y$popu="less_50"
         output_sens_y$sensibility=SEN_PaO2_ARDS_y
