@@ -1,0 +1,24 @@
+Package: FourCePhase2.1ards
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "First",
+           family = "Last",
+           role = c("aut", "cre"),
+           email = "first.last@example.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+        license
+Depends: R (>= 2.10)
+Imports: caret, devtools, dplyr, DT, FourCePhase2.1Data,
+        FourCePhase2.1Utilities, icd, icd.data, purrr, stringr, tibble,
+        tidyr, tidyverse
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+NeedsCompilation: no
+Packaged: 2021-03-15 07:16:33 UTC; moalb
+Author: First Last [aut, cre] (YOUR-ORCID-ID)
+Maintainer: First Last <first.last@example.com>
