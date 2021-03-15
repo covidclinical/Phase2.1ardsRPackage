@@ -652,8 +652,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
         # create output
         output_sens <- data.frame(matrix(ncol = 5, nrow = 1))
-        x <- c("popu", "sensibility", "ppv", "npv","specificity")
-        colnames(output_sens) <- x
+        colnames(output_sens) <- c("popu", "sensibility", "ppv", "npv","specificity")
 
         output_sens$popu="all"
         output_sens$sensibility=SEN_PaO2_ARDS
@@ -676,7 +675,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     if (length(n_ards_y)==0 | length(unique(ADRS_Pa02_y$PAO2sup1))<2) {
         # create output
         output_sens_y <- data.frame(matrix(ncol = 5, nrow = 1))
-        colnames(output_sens_y) <- x
+        colnames(output_sens_y) <- c("popu", "sensibility", "ppv", "npv","specificity")
 
         output_sens_y$popu="less_50"
         output_sens_y$sensibility=-999
