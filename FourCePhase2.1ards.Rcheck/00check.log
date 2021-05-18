@@ -97,6 +97,10 @@ runAnalysis: no visible binding for global variable
 runAnalysis: no visible binding for global variable ‘calendar_date’
 runAnalysis: no visible binding for global variable ‘GROUP’
 runAnalysis: no visible binding for global variable ‘npat’
+runAnalysis: no visible binding for global variable ‘count_pat’
+runAnalysis: no visible binding for global variable ‘value’
+runAnalysis: no visible binding for global variable ‘nodiag_npat’
+runAnalysis: no visible binding for global variable ‘pat_noday’
 runAnalysis: no visible binding for global variable ‘periode_group’
 runAnalysis: no visible binding for global variable ‘in_hospital’
 runAnalysis: no visible binding for global variable ‘freqi’
@@ -110,15 +114,11 @@ runAnalysis: no visible binding for global variable ‘length_duration_1’
 runAnalysis: no visible binding for global variable ‘mean_los’
 runAnalysis: no visible binding for global variable ‘std_los’
 runAnalysis: no visible binding for global variable ‘severe’
-runAnalysis: no visible binding for global variable ‘count_pat’
-runAnalysis: no visible binding for global variable ‘value’
-runAnalysis: no visible binding for global variable ‘nodiag_npat’
 runAnalysis: no visible binding for global variable ‘count_proc’
 runAnalysis: no visible binding for global variable ‘concept’
 runAnalysis: no visible binding for global variable ‘pao2’
 runAnalysis: no visible binding for global variable ‘numvalue’
 runAnalysis: no visible binding for global variable ‘PAO2’
-runAnalysis: no visible binding for global variable ‘x’
 runAnalysis: no visible binding for global variable ‘previous_hospi’
 runAnalysis: no visible binding for global variable ‘number_rehospit’
 runAnalysis: no visible binding for global variable
@@ -141,6 +141,10 @@ runAnalysis: no visible binding for global variable ‘dead’
 runAnalysis: no visible binding for global variable ‘dead_less_28’
 runAnalysis: no visible binding for global variable ‘dead_less_90’
 runAnalysis: no visible binding for global variable ‘status_at_d’
+runAnalysis : run_logicregression: no visible global function
+  definition for ‘glm’
+runAnalysis : run_logicregression: no visible global function
+  definition for ‘as.formula’
 runAnalysis: no visible binding for global variable ‘std_value’
 runAnalysis: no visible binding for global variable ‘std_log_value’
 runAnalysis: no visible binding for global variable ‘variable’
@@ -149,19 +153,20 @@ runAnalysis: no visible binding for global variable ‘mean_log_value’
 runAnalysis: no visible global function definition for ‘write.csv’
 Undefined global functions or variables:
   . := Abbreviation GROUP HTN HTNcx PAO2 PheCode admission_date
-  age_group blur_it calendar_date code complication_class concept
-  concept_code concept_type count_pat count_proc days_since_admission
-  dead dead_28 dead_90 dead_less_28 dead_less_90 death_date deceased
-  delay_1rehospit_1admin diagnosis_code elix_mean_90 elix_mean_min7
-  elix_std_90 elix_std_min7 elixhauser_score freqi in_hospital
-  length_duration_1 long_desc mean_freq mean_log_value mean_los
-  mean_value n_patients nodiag_npat npat number_rehospit numvalue
-  out_hospit_28 out_hospit_90 pao2 patient_num periode_group
-  previous_hospi prop_patients read.csv rownames_to_column sd severe
-  status_at_d std_freq std_log_value std_los std_value temp value
-  van_walraven_score variable write.csv x
+  age_group as.formula blur_it calendar_date code complication_class
+  concept concept_code concept_type count_pat count_proc
+  days_since_admission dead dead_28 dead_90 dead_less_28 dead_less_90
+  death_date deceased delay_1rehospit_1admin diagnosis_code
+  elix_mean_90 elix_mean_min7 elix_std_90 elix_std_min7
+  elixhauser_score freqi glm in_hospital length_duration_1 long_desc
+  mean_freq mean_log_value mean_los mean_value n_patients nodiag_npat
+  npat number_rehospit numvalue out_hospit_28 out_hospit_90 pao2
+  pat_noday patient_num periode_group previous_hospi prop_patients
+  read.csv rownames_to_column sd severe status_at_d std_freq
+  std_log_value std_los std_value temp value van_walraven_score
+  variable write.csv
 Consider adding
-  importFrom("stats", "sd")
+  importFrom("stats", "as.formula", "glm", "sd")
   importFrom("utils", "read.csv", "write.csv")
 to your NAMESPACE file.
 * checking Rd files ... NOTE
@@ -171,7 +176,15 @@ prepare_Rd: runAnalysis.Rd:14-16: Dropping empty section \value
 * checking Rd cross-references ... OK
 * checking for missing documentation entries ... OK
 * checking for code/documentation mismatches ... OK
-* checking Rd \usage sections ... OK
+* checking Rd \usage sections ... WARNING
+Documented arguments not in \usage in documentation object 'runAnalysis':
+  ‘obfuscation’ ‘obfuscationThreshord’
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
 * checking Rd contents ... OK
 * checking for unstated dependencies in examples ... OK
 * checking contents of ‘data’ directory ... OK
@@ -193,4 +206,4 @@ prepare_Rd: runAnalysis.Rd:14-16: Dropping empty section \value
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 2 WARNINGs, 3 NOTEs
+Status: 3 WARNINGs, 3 NOTEs

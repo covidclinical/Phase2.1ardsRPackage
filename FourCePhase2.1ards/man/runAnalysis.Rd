@@ -4,7 +4,7 @@
 \alias{runAnalysis}
 \title{Runs the analytic workflow for the ards project}
 \usage{
-runAnalysis(obfuscation = TRUE, obfuscationThreshord = 3)
+runAnalysis()
 }
 \arguments{
 \item{obfuscation}{True/False}

@@ -10,7 +10,7 @@
 #' @export
 #' @import dplyr tidyr stringr icd caret DT tidyverse icd.data
 
-runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
+runAnalysis <- function() {
 
     ## make sure this instance has the latest version of the quality control and data wrangling code available
     devtools::install_github("https://github.com/covidclinical/Phase2.1DataRPackage", subdir="FourCePhase2.1Data", upgrade=FALSE)
@@ -41,6 +41,14 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     ## obfuscation
     obfuscationValue <- -99
+
+    obfuscationThreshord= as.numeric(FourCePhase2.1Data::getObfuscation(currSiteId))
+
+    if(obfuscationThreshord==0){
+      obfuscation = FALSE
+    } else {
+      obfuscation = TRUE
+    }
 
     ### reformat ICD10  : keep only the 3 first digit
     LocalPatientObservations <- LocalPatientObservations %>%
@@ -111,11 +119,11 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     start_date_p2=as.POSIXct(as.Date("2020-12-31"), tz = Sys.timezone())
 
     # date of inclusion
-    last_date_inclusion=as.POSIXct(as.Date("2020-12-01"), tz = Sys.timezone())
+    last_date_inclusion=as.POSIXct(as.Date("2020-12-31"), tz = Sys.timezone())
 
 
     ### limit before / after
-    limit_d_befor= -8
+    limit_d_befor= -14
     limit_d_after= 90
 
 
@@ -205,6 +213,60 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         dplyr::mutate(calendar_date = as.POSIXct((as.Date(calendar_date))))%>%
         data.frame()
 
+
+    #remove patient without any diagnostics
+
+
+    ### number patient per groups
+    output_temp <- LocalPatientSummary %>%
+      dplyr::group_by( GROUP) %>%
+      dplyr::summarise(npat=n_distinct(patient_num)) %>%
+      dplyr::rename(value=npat)%>%
+      dplyr::mutate(concept="patient",
+                    variable="number",
+                    periode_group="all")%>%
+      data.frame()
+
+    ### number patient without diagnostics
+    diag_no_day <- LocalPatientObservations %>%
+      dplyr::filter(concept_type %in%  c("DIAG-ICD10","DIAG-ICD9")) %>%
+      dplyr::group_by(GROUP) %>%
+      dplyr::summarise(count_pat=n_distinct(patient_num)) %>%
+      dplyr::right_join(output_temp[,c("value","GROUP")],by =c("GROUP"))%>%
+      dplyr::mutate(count_pat=ifelse(is.na(count_pat),0,count_pat))%>%
+      dplyr::mutate(nodiag_npat=value-count_pat) %>%
+      dplyr::select(- c(value,count_pat)) %>%
+      dplyr::rename(value=nodiag_npat) %>%
+      dplyr::mutate(concept="DIAG-ICD",
+                    variable="npat_nodiag",
+                    periode_group="all")%>%
+      data.frame()
+
+    ### remove patients without diag from LocalPatientObservations ,LocalPatientSummary, LocalPatientClinicalCourse
+    pat_withday <- LocalPatientObservations %>%
+      dplyr::filter(concept_type %in%  c("DIAG-ICD10","DIAG-ICD9"))%>%
+      dplyr::select(patient_num)%>%
+      unique()%>%
+      data.frame()
+
+    pat_nodiag=setdiff(LocalPatientSummary$patient_num,pat_withday$patient_num)
+
+   if (!length(pat_nodiag) == 0) {
+
+     LocalPatientSummary <- LocalPatientSummary %>%
+       dplyr::filter(! patient_num %in% pat_nodiag )%>%
+       data.frame()
+
+     LocalPatientObservations <- LocalPatientObservations %>%
+       dplyr::filter(! patient_num %in% pat_nodiag )%>%
+       data.frame()
+
+     LocalPatientClinicalCourse <- LocalPatientClinicalCourse %>%
+       dplyr::filter(! patient_num %in% pat_nodiag )%>%
+       data.frame()
+
+   }
+
     message( paste("ncol LocalPatientSummary = ",ncol(LocalPatientSummary)))
     message( paste("nrow LocalPatientSummary = ",nrow(LocalPatientSummary)))
 
@@ -212,6 +274,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     print(table(LocalPatientSummary$GROUP,LocalPatientSummary$periode_group))
 
     message("Group selection => OK")
+
 
     ## ========================================
     ## PART 4 : Analysis
@@ -353,34 +416,35 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     ### Diagnostic: Percentage of patient without any diagnostic
 
-    diag_no_day <- LocalPatientObservations %>%
-        dplyr::filter(concept_type %in%  c("DIAG-ICD10","DIAG-ICD9")) %>%
-        dplyr::group_by(GROUP) %>%
-        dplyr::summarise(count_pat=n_distinct(patient_num)) %>%
-        dplyr::right_join(output[,c("value","GROUP")],by =c("GROUP"))%>%
-        dplyr::mutate(count_pat=ifelse(is.na(count_pat),0,count_pat))%>%
-        dplyr::mutate(nodiag_npat=value-count_pat) %>%
-        dplyr::select(- c(value,count_pat)) %>%
-        dplyr::rename(value=nodiag_npat) %>%
-        dplyr::mutate(concept="DIAG-ICD",
-                      variable="npat_nodiag",
-                      periode_group="all")%>%
-        data.frame()
+    # diag_no_day <- LocalPatientObservations %>%
+    #     dplyr::filter(concept_type %in%  c("DIAG-ICD10","DIAG-ICD9")) %>%
+    #     dplyr::group_by(GROUP) %>%
+    #     dplyr::summarise(count_pat=n_distinct(patient_num)) %>%
+    #     dplyr::right_join(output[,c("value","GROUP")],by =c("GROUP"))%>%
+    #     dplyr::mutate(count_pat=ifelse(is.na(count_pat),0,count_pat))%>%
+    #     dplyr::mutate(nodiag_npat=value-count_pat) %>%
+    #     dplyr::select(- c(value,count_pat)) %>%
+    #     dplyr::rename(value=nodiag_npat) %>%
+    #     dplyr::mutate(concept="DIAG-ICD",
+    #                   variable="npat_nodiag",
+    #                   periode_group="all")%>%
+    #     data.frame()
+    #
+    # diag_no_day_p <- LocalPatientObservations %>%
+    #     dplyr::filter( concept_type %in% c("DIAG-ICD10","DIAG-ICD9")) %>%
+    #     dplyr::group_by(GROUP,periode_group) %>%
+    #     dplyr::summarise(count_pat=n_distinct(patient_num)) %>%
+    #     dplyr::right_join(output[,c("value","GROUP")],by =c("GROUP"))%>%
+    #     dplyr::mutate(count_pat=ifelse(is.na(count_pat),0,count_pat))%>%
+    #     dplyr::mutate(nodiag_npat=value-count_pat) %>%
+    #     dplyr::select(- c(value,count_pat)) %>%
+    #     dplyr::rename(value=nodiag_npat) %>%
+    #     dplyr::mutate(concept="DIAG-ICD",
+    #                   variable="npat_nodiag")%>%
+    #     data.frame()
 
-    diag_no_day_p <- LocalPatientObservations %>%
-        dplyr::filter( concept_type %in% c("DIAG-ICD10","DIAG-ICD9")) %>%
-        dplyr::group_by(GROUP,periode_group) %>%
-        dplyr::summarise(count_pat=n_distinct(patient_num)) %>%
-        dplyr::right_join(output[,c("value","GROUP")],by =c("GROUP"))%>%
-        dplyr::mutate(count_pat=ifelse(is.na(count_pat),0,count_pat))%>%
-        dplyr::mutate(nodiag_npat=value-count_pat) %>%
-        dplyr::select(- c(value,count_pat)) %>%
-        dplyr::rename(value=nodiag_npat) %>%
-        dplyr::mutate(concept="DIAG-ICD",
-                      variable="npat_nodiag")%>%
-        data.frame()
-
-    output_gen=rbind(output_gen,diag_no_day,diag_no_day_p)
+    # output_gen=rbind(output_gen,diag_no_day,diag_no_day_p)
+    output_gen=rbind(output_gen,diag_no_day)
 
     ## Procedure:
 
@@ -750,6 +814,13 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     ### output
 
+    pre_hospit_tmp<-  LocalPatientObservations %>%
+      dplyr::filter(concept_type %in% c("DIAG-ICD10","DIAG-ICD9") & days_since_admission <= limit_d_befor) %>%
+      dplyr::mutate(previous_hospi = "YES")%>%
+      dplyr::select( patient_num, GROUP,previous_hospi) %>%
+      dplyr::distinct()
+
+
     pre_hospit<-  LocalPatientObservations %>%
         dplyr::filter(concept_type %in% c("DIAG-ICD10","DIAG-ICD9") & days_since_admission <= limit_d_befor ) %>%
         dplyr::mutate(previous_hospi = "YES") %>%
@@ -805,7 +876,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     comorb_names_elix <- get_quan_elix_names()
     comorbs_elix <- as.vector(comorb_names_elix$Abbreviation)
 
-    comorb_elix_min7 <- map_char_elix_codes(
+    comorb_elix_before <- map_char_elix_codes(
         df = LocalPatientObservations,
         comorb_names = comorb_names_elix,
         t1 = -365,
@@ -814,12 +885,12 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         truncate = TRUE
     )
 
-    comorb_elix_min7 <- comorb_elix_min7$index_scores %>%
+    comorb_elix_before <- comorb_elix_before$index_scores %>%
         rename('elixhauser_score' = van_walraven_score)%>%
         mutate(patient_num = as.integer(patient_num))
 
-    output_elix_min7 <- LocalPatientSummary  %>%
-        dplyr::inner_join(comorb_elix_min7, by = "patient_num")%>%
+    output_elix_before <- LocalPatientSummary  %>%
+        dplyr::inner_join(comorb_elix_before, by = "patient_num")%>%
         dplyr::group_by(GROUP) %>%
         dplyr::summarise(elix_mean_min7=mean(elixhauser_score, na.rm = TRUE),
                          elix_std_min7=sd(elixhauser_score, na.rm = TRUE))%>%
@@ -828,8 +899,8 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         dplyr::mutate(periode_group="all")%>%
         data.frame()
 
-    output_elix_min7_p <- LocalPatientSummary  %>%
-        dplyr::inner_join(comorb_elix_min7, by = "patient_num")%>%
+    output_elix_before_p <- LocalPatientSummary  %>%
+        dplyr::inner_join(comorb_elix_before, by = "patient_num")%>%
         dplyr::group_by(GROUP,periode_group) %>%
         dplyr::summarise(elix_mean_min7=mean(elixhauser_score, na.rm = TRUE),
                          elix_std_min7=sd(elixhauser_score, na.rm = TRUE))%>%
@@ -837,7 +908,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         dplyr::mutate(concept="patient")%>%
         data.frame()
 
-    output_gen=rbind(output_gen,output_elix_min7,output_elix_min7_p)
+    output_gen=rbind(output_gen,output_elix_before,output_elix_before_p)
 
     comorb_elix_90 <- map_char_elix_codes(
         df = LocalPatientObservations,
@@ -877,8 +948,8 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
 
     ### elixhauser_score by commorbdities
 
-    output_elix_min7_score <- LocalPatientSummary  %>%
-        dplyr::inner_join(comorb_elix_min7, by = "patient_num")%>%
+    output_elix_before_score <- LocalPatientSummary  %>%
+        dplyr::inner_join(comorb_elix_before, by = "patient_num")%>%
         dplyr::group_by(GROUP) %>%
         dplyr::summarise(across(comorbs_elix, ~sum(.x, na.rm = TRUE)))%>%
         pivot_longer(comorbs_elix,names_to = "variable", values_to = "value")%>%
@@ -887,8 +958,8 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
                       time="before")%>%
         data.frame()
 
-    output_elix_min7_score_p <- LocalPatientSummary  %>%
-        dplyr::inner_join(comorb_elix_min7, by = "patient_num")%>%
+    output_elix_before_score_p <- LocalPatientSummary  %>%
+        dplyr::inner_join(comorb_elix_before, by = "patient_num")%>%
         dplyr::group_by(GROUP,periode_group) %>%
         dplyr::summarise(across(comorbs_elix, ~sum(.x, na.rm = TRUE)))%>%
         pivot_longer(comorbs_elix,names_to = "variable", values_to = "value")%>%
@@ -916,7 +987,7 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
         data.frame()
 
 
-    out_elix=rbind(output_elix_min7_score,output_elix_min7_score_p,output_elix_90_score,output_elix_90_score_p)
+    out_elix=rbind(output_elix_before_score,output_elix_before_score_p,output_elix_90_score,output_elix_90_score_p)
 
     ### manage ICD10 and 9
 
@@ -1503,7 +1574,83 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     message("Analysis => OK")
 
     ## ========================================
-    ## PART 5 : Saving output
+    ## PART 5 : Multivariate analysis
+    ## ========================================
+
+
+    run_logicregression <-
+      function(df, depend_var, ind_vars) {
+        # if (length(unique(df[, depend_var, drop = T])) <= 1)
+        #   return(NULL)
+        independ_vars <- paste(ind_vars, collapse = ' + ')
+        output <- tryCatch(
+          {glm(as.formula(paste(depend_var, '~', independ_vars)),
+               family = 'binomial', data = df) %>%
+              summary()},
+          error = function(cond) {
+            message(paste("Error when regressing", depend_var))
+            message("Original error message:")
+            message(cond)
+            message('Skipping for now...')
+            return(NULL) # return NA in case of error
+          }
+        )
+        # if (!is.null(output)){
+        #   output$deviance.resid <- NULL
+        #   output$na.action <- NULL
+        #   output$terms <- NULL
+        # }
+
+      }
+
+    data_multi <- LocalPatientSummary%>%
+      mutate(pre_hospit = ifelse((patient_num %in% pre_hospit_tmp$patient_num),1,0))%>%
+      inner_join(comorb_elix_90, by = c("patient_num"))%>%
+      filter(GROUP %in% c("ARDS_18_49","NO_ARDS_18_49"))
+
+    ALL_LR <-run_logicregression(
+      df= data_multi,
+      depend_var= "ARDS",
+      ind_vars= c("sex","Pulmonary","Renal","DM","Liver","Obesity","Alcohol","Drugs","CHF","HTN"))
+
+    ALL_LR_wout_RENAL <-run_logicregression(
+      df= data_multi,
+      depend_var= "ARDS",
+      ind_vars= c("sex","Pulmonary","DM","Liver","Obesity","Alcohol","Drugs","CHF","HTN"))
+
+    LR_CHF <-run_logicregression(
+      df= data_multi,
+      depend_var= "ARDS",
+      ind_vars= c("sex","Obesity","DM","HTN","Alcohol","CHF"))
+
+    LR_OBESITY <-run_logicregression(
+      df= data_multi,
+      depend_var= "ARDS",
+      ind_vars= c("sex","Obesity","DM","Alcohol"))
+
+    LR_DM <-run_logicregression(
+      df= data_multi,
+      depend_var= "ARDS",
+      ind_vars= c("sex","Obesity","DM"))
+
+    LR_HT <-run_logicregression(
+      df= data_multi,
+      depend_var= "ARDS",
+      ind_vars= c("sex","Obesity","DM","Renal","HTN"))
+
+    LR_LIVER <-run_logicregression(
+      df= data_multi,
+      depend_var= "ARDS",
+      ind_vars= c("sex","Obesity","DM","HTN","Liver"))
+
+    LR_ABUSES <-run_logicregression(
+      df= data_multi,
+      depend_var= "ARDS",
+      ind_vars= c("sex","Alcohol","Drugs"))
+
+
+    ## ========================================
+    ## PART 6 : Saving output
     ## ========================================
 
 
@@ -1585,7 +1732,41 @@ runAnalysis <- function(obfuscation = TRUE, obfuscationThreshord = 3) {
     write.csv(obfusc, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_obfusc",".csv")), row.names = FALSE, na = "")
     write.csv(output_sens, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_sens",".csv")), row.names = FALSE, na = "")
 
-    message("Saving output => OK")
+
+
+    ## save multi variate analysis
+
+    multiresults <- list(
+      site = currSiteId,
+      ALL_LR =ALL_LR,
+      ALL_LR_wout_RENAL = ALL_LR_wout_RENAL,
+      LR_CHF = LR_CHF,
+      LR_OBESITY = LR_OBESITY,
+      LR_DM = LR_DM,
+      LR_HT = LR_HT,
+      LR_LIVER = LR_LIVER,
+      LR_ABUSES = LR_ABUSES )
+
+    site_results <- paste0(currSiteId, "_multiresults")
+    assign(site_results, multiresults)
+
+    save(
+      list = site_results,
+      file = file.path(
+        getProjectOutputDirectory(),
+        paste0(currSiteId, "_results.rda")
+      )
+    )
+
+    cat(
+      "Result is saved in",
+      file.path(
+        getProjectOutputDirectory()
+      ),
+      "\nPlease submit the result file by running submitAnalysis()\n"
+    )
+
+
 
 }
 
