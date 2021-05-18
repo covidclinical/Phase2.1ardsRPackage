@@ -1608,12 +1608,12 @@ runAnalysis <- function() {
       inner_join(comorb_elix_90, by = c("patient_num"))%>%
       filter(GROUP %in% c("ARDS_18_49","NO_ARDS_18_49"))
 
-    ALL_LR <-run_logicregression(
+    LR_ALL <-run_logicregression(
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Pulmonary","Renal","DM","Liver","Obesity","Alcohol","Drugs","CHF","HTN"))
 
-    ALL_LR_wout_RENAL <-run_logicregression(
+    LR_ALL_wout_RENAL <-run_logicregression(
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Pulmonary","DM","Liver","Obesity","Alcohol","Drugs","CHF","HTN"))
@@ -1733,19 +1733,18 @@ runAnalysis <- function() {
     write.csv(output_sens, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_sens",".csv")), row.names = FALSE, na = "")
 
 
-
     ## save multi variate analysis
 
     multiresults <- list(
       site = currSiteId,
-      ALL_LR =ALL_LR,
-      ALL_LR_wout_RENAL = ALL_LR_wout_RENAL,
-      LR_CHF = LR_CHF,
-      LR_OBESITY = LR_OBESITY,
-      LR_DM = LR_DM,
-      LR_HT = LR_HT,
-      LR_LIVER = LR_LIVER,
-      LR_ABUSES = LR_ABUSES )
+      LR_ALL =LR_ALL$coefficients,
+      LR_ALL_wout_RENAL = LR_ALL_wout_RENAL$coefficients,
+      LR_CHF = LR_CHF$coefficients,
+      LR_OBESITY = LR_OBESITY$coefficients,
+      LR_DM = LR_DM$coefficients,
+      LR_HT = LR_HT$coefficients,
+      LR_LIVER = LR_LIVER$coefficients,
+      LR_ABUSES = LR_ABUSES$coefficients)
 
     site_results <- paste0(currSiteId, "_multiresults")
     assign(site_results, multiresults)
