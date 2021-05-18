@@ -1580,8 +1580,7 @@ runAnalysis <- function() {
 
     run_logicregression <-
       function(df, depend_var, ind_vars) {
-        # if (length(unique(df[, depend_var, drop = T])) <= 1)
-        #   return(NULL)
+
         independ_vars <- paste(ind_vars, collapse = ' + ')
         output <- tryCatch(
           {glm(as.formula(paste(depend_var, '~', independ_vars)),
@@ -1595,12 +1594,14 @@ runAnalysis <- function() {
             return(NULL) # return NA in case of error
           }
         )
-        # if (!is.null(output)){
-        #   output$deviance.resid <- NULL
-        #   output$na.action <- NULL
-        #   output$terms <- NULL
-        # }
 
+        if (!is.null(output)){
+          output$deviance.resid <- NULL
+          output$na.action <- NULL
+          output$terms <- NULL
+        }
+
+      return(output)
       }
 
     data_multi <- LocalPatientSummary%>%
@@ -1648,7 +1649,7 @@ runAnalysis <- function() {
       depend_var= "ARDS",
       ind_vars= c("sex","Alcohol","Drugs"))
 
-
+    message("Multivariate analysis  => OK")
     ## ========================================
     ## PART 6 : Saving output
     ## ========================================
@@ -1737,7 +1738,7 @@ runAnalysis <- function() {
 
     multiresults <- list(
       site = currSiteId,
-      LR_ALL =LR_ALL$coefficients,
+      LR_ALL = LR_ALL$coefficients,
       LR_ALL_wout_RENAL = LR_ALL_wout_RENAL$coefficients,
       LR_CHF = LR_CHF$coefficients,
       LR_OBESITY = LR_OBESITY$coefficients,
