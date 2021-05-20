@@ -1579,7 +1579,7 @@ runAnalysis <- function() {
 
 
     run_logicregression <-
-      function(df, depend_var, ind_vars) {
+      function(name, currSiteId,df, depend_var, ind_vars) {
 
         independ_vars <- paste(ind_vars, collapse = ' + ')
         output <- tryCatch(
@@ -1596,12 +1596,15 @@ runAnalysis <- function() {
         )
 
         if (!is.null(output)){
-          output$deviance.resid <- NULL
-          output$na.action <- NULL
-          output$terms <- NULL
-        }
 
-      return(output)
+        multi=data.frame(output$coefficients)
+        multi$site=currSiteId
+        multi$variable <- rownames(multi)
+        multi$name=name
+        }
+        else { multi = NULL}
+
+      return(multi)
       }
 
     data_multi <- LocalPatientSummary%>%
@@ -1610,44 +1613,70 @@ runAnalysis <- function() {
       filter(GROUP %in% c("ARDS_18_49","NO_ARDS_18_49"))
 
     LR_ALL <-run_logicregression(
+      name = "ALL",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Pulmonary","Renal","DM","Liver","Obesity","Alcohol","Drugs","CHF","HTN"))
 
     LR_ALL_wout_RENAL <-run_logicregression(
+      name = "ALL_wout_RENAL",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Pulmonary","DM","Liver","Obesity","Alcohol","Drugs","CHF","HTN"))
 
     LR_CHF <-run_logicregression(
+      name = "CHF",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Obesity","DM","HTN","Alcohol","CHF"))
 
     LR_OBESITY <-run_logicregression(
+      name = "OBESITY",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Obesity","DM","Alcohol"))
 
     LR_DM <-run_logicregression(
+      name = "DM",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Obesity","DM"))
 
     LR_HT <-run_logicregression(
+      name = "HT",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Obesity","DM","Renal","HTN"))
 
     LR_LIVER <-run_logicregression(
+      name = "LIVER",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Obesity","DM","HTN","Liver"))
 
+    LR_RENAL <-run_logicregression(
+      name = "RENAL",
+      currSiteId = currSiteId,
+      df= data_multi,
+      depend_var= "ARDS",
+      ind_vars= c("sex","Obesity","DM","HTN","Renal"))
+
+
     LR_ABUSES <-run_logicregression(
+      name = "ABUSES",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Alcohol","Drugs"))
+
+    multiresults <- rbind(LR_ALL,LR_ALL_wout_RENAL,LR_CHF,LR_OBESITY,LR_DM, LR_HT, LR_LIVER, LR_RENAL,LR_ABUSES)
 
     message("Multivariate analysis  => OK")
     ## ========================================
@@ -1732,31 +1761,10 @@ runAnalysis <- function() {
     write.csv(out_proc_diag_med, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_ards_young_proc_diag_med",".csv")), row.names = FALSE, na = "")
     write.csv(obfusc, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_obfusc",".csv")), row.names = FALSE, na = "")
     write.csv(output_sens, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_sens",".csv")), row.names = FALSE, na = "")
+    write.csv(multiresults, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_multiresults",".csv")), row.names = FALSE, na = "")
 
 
     ## save multi variate analysis
-
-    multiresults <- list(
-      site = currSiteId,
-      LR_ALL = LR_ALL$coefficients,
-      LR_ALL_wout_RENAL = LR_ALL_wout_RENAL$coefficients,
-      LR_CHF = LR_CHF$coefficients,
-      LR_OBESITY = LR_OBESITY$coefficients,
-      LR_DM = LR_DM$coefficients,
-      LR_HT = LR_HT$coefficients,
-      LR_LIVER = LR_LIVER$coefficients,
-      LR_ABUSES = LR_ABUSES$coefficients)
-
-    site_results <- paste0(currSiteId, "_multiresults")
-    assign(site_results, multiresults)
-
-    save(
-      list = site_results,
-      file = file.path(
-        getProjectOutputDirectory(),
-        paste0(currSiteId, "_results.rda")
-      )
-    )
 
     cat(
       "Result is saved in",
