@@ -42,7 +42,7 @@ runAnalysis <- function() {
     ## obfuscation
     obfuscationValue <- -99
 
-    obfuscationThreshord= as.numeric(FourCePhase2.1Data::getObfuscation(currSiteId))
+    obfuscationThreshord= as.numeric(FourCePhase2.1Data::getObfuscation(toupper(currSiteId)))
 
     if(obfuscationThreshord==0){
       obfuscation = FALSE
