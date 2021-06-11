@@ -1616,7 +1616,7 @@ runAnalysis <- function() {
                              "popu_eval" = popu_eval,
                              "popu_ref" = popu_ref,
                              "yi"=temp_yivi$yi,
-                             "yi"=temp_yivi$vi)
+                             "vi"=temp_yivi$vi)
 
       return(output_metha)
     }
@@ -1739,7 +1739,7 @@ runAnalysis <- function() {
                             "popu_eval" = popu_eval,
                             "popu_ref" = popu_ref,
                             "yi"=uni_sex_ards_yivi$yi,
-                            "yi"=uni_sex_ards_yivi$vi)
+                            "vi"=uni_sex_ards_yivi$vi)
 
     uni_demo = rbind(uni_age,uni_sex,uni_prehosp,uni_sex_ards_yivi_out )
 
