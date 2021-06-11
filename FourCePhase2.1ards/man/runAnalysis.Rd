@@ -6,11 +6,6 @@
 \usage{
 runAnalysis()
 }
-\arguments{
-\item{obfuscation}{True/False}
-
-\item{obfuscationThreshord}{level of obfuscation}
-}
 \value{
 
 }

@@ -19,6 +19,6 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2021-05-18 13:58:24 UTC; moalb
+Packaged: 2021-06-11 11:56:28 UTC; moalb
 Author: First Last [aut, cre] (YOUR-ORCID-ID)
 Maintainer: First Last <first.last@example.com>

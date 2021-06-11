@@ -1,4 +1,6 @@
 library(dplyr)
+library(readr)
+library(stringr)
 
 ### load pheno_code with ICD10
 pheno10_ICD10=read.csv("data-raw/phecode_icd10.csv")
@@ -29,4 +31,11 @@ lab_mapping <- read.csv('data-raw/4CE_loinc.csv')
 ## load medication
 med_code= read.csv("data-raw/4CE_medication.csv")
 
-usethis::use_data(pheno_ICD,comp_class,sev_proc_icd10,lab_mapping, med_code, overwrite = TRUE)
+## ICD
+ICD_comor_comp <- read_csv2('data-raw/ICD_comor_comp.csv')
+
+## load elix
+elix_score= read_csv2("data-raw/elix_score.csv")
+
+
+usethis::use_data(pheno_ICD,comp_class,sev_proc_icd10,lab_mapping, med_code, ICD_comor_comp,elix_score,   overwrite = TRUE)

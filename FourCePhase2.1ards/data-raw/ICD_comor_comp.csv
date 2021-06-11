@@ -1,0 +1,1140 @@
+ICD10;long_desc;Complication;Commorbities;Cotation
+A02;Other salmonella infections;1;NA;NA
+A04;Other bacterial intestinal infections;1;NA;4
+A05;Other bacterial foodborne intoxications, not elsewhere classified;1;NA;NA
+A07;Other protozoal intestinal diseases;1;NA;NA
+A08;Viral and other specified intestinal infections;1;NA;1
+A09;Infectious gastroenteritis and colitis, unspecified;1;NA;5
+A37;Whooping cough;NA;NA;NA
+A40;Streptococcal sepsis;1;NA;3
+A41;Other sepsis;1;NA;5
+A42;Actinomycosis;1;NA;NA
+A46;Erysipelas;1;NA;3
+A49;Bacterial infection of unspecified site;1;NA;3
+A51;Early syphilis;1;NA;NA
+A53;Other and unspecified syphilis;1;NA;0
+A54;Gonococcal infection;1;NA;NA
+A55;Chlamydial lymphogranuloma (venereum);1;NA;0
+A56;Other sexually transmitted chlamydial diseases;1;NA;0
+A58;Granuloma inguinale;1;NA;NA
+A59;Trichomoniasis;1;NA;NA
+A60;Anogenital herpesviral [herpes simplex] infections;1;NA;0
+A63;Other predominantly sexually transmitted diseases, not elsewhere classified;1;NA;NA
+A64;Unspecified sexually transmitted disease;1;NA;NA
+A74;Other diseases caused by chlamydiae;1;NA;NA
+A85;Other viral encephalitis, not elsewhere classified;1;NA;NA
+A86;Unspecified viral encephalitis;1;NA;NA
+A87;Viral meningitis;1;NA;0
+B00;Herpesviral [herpes simplex] infections;1;NA;4
+B01;Varicella [chickenpox];1;NA;NA
+B02;Zoster [herpes zoster];1;NA;4
+B07;Viral warts;1;NA;NA
+B15;Acute hepatitis A;1;NA;NA
+B16;Acute hepatitis B;NA;1;0
+B17;Other acute viral hepatitis;1;NA;NA
+B18;Chronic viral hepatitis;NA;1;3
+B19;Unspecified viral hepatitis;NA;1;NA
+B20;Human immunodeficiency virus [HIV] disease;NA;1;3
+B24;NA;NA;1;NA
+B25;Cytomegaloviral disease;1;NA;2
+B27;Infectious mononucleosis;1;NA;NA
+B33;Other viral diseases, not elsewhere classified;1;NA;NA
+B34;Viral infection of unspecified site;1;NA;1
+B35;Dermatophytosis;1;NA;NA
+B36;Other superficial mycoses;1;NA;3
+B37;Candidiasis;1;NA;5
+B44;Aspergillosis;1;NA;5
+B48;Other mycoses, not elsewhere classified;1;NA;NA
+B49;Unspecified mycosis;1;NA;4
+B50;Plasmodium falciparum malaria;1;NA;0
+B59;Pneumocystosis;1;NA;NA
+B78;Strongyloidiasis;1;NA;NA
+B86;Scabies;1;NA;NA
+B87;Myiasis;1;NA;NA
+B88;Other infestations;1;NA;NA
+B89;Unspecified parasitic disease;1;NA;NA
+B94;Sequelae of other and unspecified infectious and parasitic diseases;NA;1;0
+B95;Streptococcus, Staphylococcus, and Enterococcus as the cause of diseases classified elsewhere;1;NA;5
+B96;Other bacterial agents as the cause of diseases classified elsewhere;1;NA;5
+B97;Viral agents as the cause of diseases classified elsewhere;1;NA;2
+B99;Other and unspecified infectious diseases;1;NA;NA
+C07;Malignant neoplasm of parotid gland;NA;1;NA
+C11;Malignant neoplasm of nasopharynx;NA;1;1
+C16;Malignant neoplasm of stomach;NA;1;1
+C25;Malignant neoplasm of pancreas;NA;1;NA
+C32;Malignant neoplasm of larynx;NA;1;NA
+C44;Other and unspecified malignant neoplasm of skin;NA;1;1
+C48;Malignant neoplasm of retroperitoneum and peritoneum;NA;1;NA
+C49;Malignant neoplasm of other connective and soft tissue;NA;1;1
+C50;Malignant neoplasm of breast;NA;1;1
+C53;Malignant neoplasm of cervix uteri;NA;1;NA
+C54;Malignant neoplasm of corpus uteri;NA;1;NA
+C56;Malignant neoplasm of ovary;NA;1;1
+C62;Malignant neoplasm of testis;NA;1;NA
+C67;Malignant neoplasm of bladder;NA;1;1
+C68;Malignant neoplasm of other and unspecified urinary organs;NA;1;NA
+C73;Malignant neoplasm of thyroid gland;NA;1;NA
+C76;Malignant neoplasm of other and ill-defined sites;NA;1;1
+C77;Secondary and unspecified malignant neoplasm of lymph nodes;NA;1;0
+C78;Secondary malignant neoplasm of respiratory and digestive organs;NA;1;0
+C79;Secondary malignant neoplasm of other and unspecified sites;NA;1;0
+C80;Malignant neoplasm without specification of site;NA;1;NA
+C82;Follicular lymphoma;NA;1;0
+C83;Non-follicular lymphoma;NA;1;0
+C85;Other specified and unspecified types of non-Hodgkin lymphoma;NA;1;0
+C90;Multiple myeloma and malignant plasma cell neoplasms;NA;1;0
+C91;Lymphoid leukemia;NA;1;0
+C92;Myeloid leukemia;NA;1;0
+C95;Leukemia of unspecified cell type;NA;1;NA
+D05;Carcinoma in situ of breast;NA;1;NA
+D06;Carcinoma in situ of cervix uteri;NA;1;NA
+D11;Benign neoplasm of major salivary glands;NA;1;NA
+D12;Benign neoplasm of colon, rectum, anus and anal canal;NA;1;0
+D13;Benign neoplasm of other and ill-defined parts of digestive system;NA;1;0
+D14;Benign neoplasm of middle ear and respiratory system;NA;1;NA
+D16;Benign neoplasm of bone and articular cartilage;NA;1;NA
+D17;Benign lipomatous neoplasm;NA;1;0
+D18;Hemangioma and lymphangioma, any site;NA;1;0
+D20;Benign neoplasm of soft tissue of retroperitoneum and peritoneum;NA;1;NA
+D21;Other benign neoplasms of connective and other soft tissue;NA;1;NA
+D22;Melanocytic nevi;NA;1;NA
+D23;Other benign neoplasms of skin;NA;1;0
+D24;Benign neoplasm of breast;NA;1;NA
+D25;Leiomyoma of uterus;NA;1;0
+D26;Other benign neoplasms of uterus;NA;1;0
+D27;Benign neoplasm of ovary;NA;1;NA
+D31;Benign neoplasm of eye and adnexa;NA;1;NA
+D32;Benign neoplasm of meninges;NA;1;0
+D35;Benign neoplasm of other and unspecified endocrine glands;NA;1;0
+D36;Benign neoplasm of other and unspecified sites;NA;1;NA
+D39;Neoplasm of uncertain behavior of female genital organs;NA;1;NA
+D47;Other neoplasms of uncertain behavior of lymphoid, hematopoietic and related tissue;NA;1;0
+D48;Neoplasm of uncertain behavior of other and unspecified sites;NA;1;0
+D49;Neoplasms of unspecified behavior;NA;1;NA
+D50;Iron deficiency anemia;NA;1;1
+D51;Vitamin B12 deficiency anemia;NA;1;NA
+D52;Folate deficiency anemia;NA;1;0
+D53;Other nutritional anemias;NA;1;0
+D55;Anemia due to enzyme disorders;NA;1;0
+D56;Thalassemia;NA;1;0
+D57;Sickle-cell disorders;NA;1;0
+D58;Other hereditary hemolytic anemias;NA;1;NA
+D59;Acquired hemolytic anemia;1;NA;0
+D61;Other aplastic anemias and other bone marrow failure syndromes;1;NA;0
+D62;Acute posthemorrhagic anemia;1;NA;4
+D63;Anemia in chronic diseases classified elsewhere;1;NA;0
+D64;Other anemias;1;NA;4
+D65;Disseminated intravascular coagulation [defibrination syndrome];1;NA;NA
+D68;Other coagulation defects;1;NA;4
+D69;Purpura and other hemorrhagic conditions;1;NA;4
+D70;Neutropenia;1;NA;4
+D72;Other disorders of white blood cells;1;NA;4
+D73;Diseases of spleen;NA;1;4
+D75;Other and unspecified diseases of blood and blood-forming organs;NA;1;4
+D76;Other specified diseases with participation of lymphoreticular and reticulohistiocytic tissue;NA;1;NA
+D80;Immunodeficiency with predominantly antibody defects;NA;1;4
+D82;Immunodeficiency associated with other major defects;NA;1;NA
+D83;Common variable immunodeficiency;NA;1;NA
+D84;Other immunodeficiencies;NA;1;4
+D86;Sarcoidosis;NA;1;0
+D89;Other disorders involving the immune mechanism, not elsewhere classified;NA;NA;0
+E01;Iodine-deficiency related thyroid disorders and allied conditions;NA;NA;NA
+E02;Subclinical iodine-deficiency hypothyroidism;NA;NA;NA
+E03;Other hypothyroidism;NA;NA;0
+E04;Other nontoxic goiter;NA;NA;0
+E05;Thyrotoxicosis [hyperthyroidism];NA;NA;0
+E06;Thyroiditis;NA;NA;0
+E07;Other disorders of thyroid;NA;NA;NA
+E08;Diabetes mellitus due to underlying condition;NA;1;NA
+E09;Drug or chemical induced diabetes mellitus;1;NA;NA
+E10;Type 1 diabetes mellitus;NA;1;5
+E11;Type 2 diabetes mellitus;NA;1;5
+E13;Other specified diabetes mellitus;NA;1;5
+E14;NA;NA;NA;NA
+E16;Other disorders of pancreatic internal secretion;NA;1;4
+E21;Hyperparathyroidism and other disorders of parathyroid gland;1;NA;2
+E22;Hyperfunction of pituitary gland;NA;NA;0
+E23;Hypofunction and other disorders of the pituitary gland;NA;NA;0
+E27;Other disorders of adrenal gland;NA;NA;0
+E28;Ovarian dysfunction;NA;1;NA
+E29;Testicular dysfunction;NA;1;NA
+E34;Other endocrine disorders;NA;NA;NA
+E43;Unspecified severe protein-calorie malnutrition;NA;1;5
+E44;Protein-calorie malnutrition of moderate and mild degree;NA;1;5
+E46;Unspecified protein-calorie malnutrition;NA;NA;0
+E51;Thiamine deficiency;NA;NA;NA
+E53;Deficiency of other B group vitamins;NA;NA;0
+E55;Vitamin D deficiency;NA;NA;0
+E56;Other vitamin deficiencies;NA;NA;NA
+E60;Dietary zinc deficiency;NA;NA;NA
+E61;Deficiency of other nutrient elements;NA;NA;0
+E63;Other nutritional deficiencies;NA;NA;NA
+E65;Localized adiposity;NA;NA;0
+E66;Overweight and obesity;NA;1;5
+E71;Disorders of branched-chain amino-acid metabolism and fatty-acid metabolism;NA;NA;NA
+E72;Other disorders of amino-acid metabolism;NA;NA;NA
+E73;Lactose intolerance;NA;NA;NA
+E74;Other disorders of carbohydrate metabolism;NA;NA;0
+E78;Disorders of lipoprotein metabolism and other lipidemias;NA;1;5
+E79;Disorders of purine and pyrimidine metabolism;NA;1;0
+E80;Disorders of porphyrin and bilirubin metabolism;NA;1;0
+E83;Disorders of mineral metabolism;NA;1;4
+E86;Volume depletion;1;NA;5
+E87;Other disorders of fluid, electrolyte and acid-base balance;1;NA;5
+E88;Other and unspecified metabolic disorders;NA;1;3
+E89;Postprocedural endocrine and metabolic complications and disorders, not elsewhere classified;NA;1;3
+F02;Dementia in other diseases classified elsewhere;NA;1;0
+F03;Unspecified dementia;NA;1;0
+F05;Delirium due to known physiological condition;NA;1;0
+F06;Other mental disorders due to known physiological condition;NA;1;0
+F07;Personality and behavioral disorders due to known physiological condition;NA;1;0
+F09;Unspecified mental disorder due to known physiological condition;NA;1;NA
+F10;Alcohol related disorders;NA;1;3
+F11;Opioid related disorders;NA;1;3
+F12;Cannabis related disorders;NA;1;3
+F13;Sedative, hypnotic, or anxiolytic related disorders;NA;1;0
+F14;Cocaine related disorders;NA;1;3
+F15;Other stimulant related disorders;NA;1;0
+F16;Hallucinogen related disorders;NA;1;NA
+F17;Nicotine dependence;NA;1;5
+F19;Other psychoactive substance related disorders;NA;1;0
+F20;Schizophrenia;NA;1;0
+F21;Schizotypal disorder;NA;1;NA
+F22;Delusional disorders;NA;1;0
+F23;Brief psychotic disorder;NA;1;NA
+F25;Schizoaffective disorders;NA;1;0
+F28;Other psychotic disorder not due to a substance or known physiological condition;NA;1;NA
+F29;Unspecified psychosis not due to a substance or known physiological condition;NA;1;0
+F30;Manic episode;NA;1;0
+F31;Bipolar disorder;NA;1;0
+F32;Major depressive disorder, single episode;NA;1;4
+F33;Major depressive disorder, recurrent;NA;1;0
+F34;Persistent mood [affective] disorders;NA;1;0
+F39;Unspecified mood [affective] disorder;NA;1;0
+F40;Phobic anxiety disorders;NA;1;4
+F41;Other anxiety disorders;NA;1;5
+F42;Obsessive-compulsive disorder;NA;1;NA
+F43;Reaction to severe stress, and adjustment disorders;NA;1;4
+F44;Dissociative and conversion disorders;NA;1;0
+F45;Somatoform disorders;NA;1;0
+F48;Other nonpsychotic mental disorders;NA;1;0
+F50;Eating disorders;NA;1;0
+F51;Sleep disorders not due to a substance or known physiological condition;NA;1;4
+F52;Sexual dysfunction not due to a substance or known physiological condition;NA;1;NA
+F53;Puerperal psychosis;NA;1;0
+F54;Psychological and behavioral factors associated with disorders or diseases classified elsewhere;NA;1;NA
+F60;Specific personality disorders;NA;1;0
+F63;Impulse disorders;NA;1;NA
+F64;Gender identity disorders;NA;1;NA
+F69;Unspecified disorder of adult personality and behavior;NA;1;3
+F70;Mild intellectual disabilities;NA;1;0
+F71;Moderate intellectual disabilities;NA;1;0
+F72;Severe intellectual disabilities;NA;1;NA
+F73;Profound intellectual disabilities;NA;1;NA
+F79;Unspecified intellectual disabilities;NA;1;0
+F80;Specific developmental disorders of speech and language;NA;1;NA
+F81;Specific developmental disorders of scholastic skills;NA;1;NA
+F84;Pervasive developmental disorders;NA;1;NA
+F88;Other disorders of psychological development;NA;1;NA
+F89;Unspecified disorder of psychological development;NA;1;NA
+F90;Attention-deficit hyperactivity disorders;NA;1;NA
+F91;Conduct disorders;NA;1;0
+F93;Emotional disorders with onset specific to childhood;NA;1;0
+F95;Tic disorder;NA;1;NA
+F98;Other behavioral and emotional disorders with onset usually occurring in childhood and adolescence;NA;1;0
+F99;Mental disorder, not otherwise specified;NA;1;NA
+G00;Bacterial meningitis, not elsewhere classified;1;NA;0
+G02;Meningitis in other infectious and parasitic diseases classified elsewhere;1;NA;2
+G03;Meningitis due to other and unspecified causes;1;NA;NA
+G04;Encephalitis, myelitis and encephalomyelitis;1;NA;0
+G06;Intracranial and intraspinal abscess and granuloma;1;NA;0
+G11;Hereditary ataxia;NA;1;0
+G20;Parkinson's disease;NA;1;0
+G21;Secondary parkinsonism;NA;1;0
+G23;Other degenerative diseases of basal ganglia;NA;1;NA
+G24;Dystonia;NA;1;0
+G25;Other extrapyramidal and movement disorders;NA;1;0
+G31;Other degenerative diseases of nervous system, not elsewhere classified;NA;1;1
+G32;Other degenerative disorders of nervous system in diseases classified elsewhere;NA;1;NA
+G35;Multiple sclerosis;NA;1;1
+G36;Other acute disseminated demyelination;NA;1;0
+G37;Other demyelinating diseases of central nervous system;NA;1;0
+G40;Epilepsy and recurrent seizures;NA;1;0
+G43;Migraine;NA;1;0
+G44;Other headache syndromes;NA;1;0
+G45;Transient cerebral ischemic attacks and related syndromes;NA;1;4
+G47;Sleep disorders;NA;1;4
+G50;Disorders of trigeminal nerve;NA;1;0
+G51;Facial nerve disorders;NA;1;0
+G52;Disorders of other cranial nerves;NA;1;0
+G54;Nerve root and plexus disorders;NA;1;0
+G55;Nerve root and plexus compressions in diseases classified elsewhere;NA;1;0
+G56;Mononeuropathies of upper limb;1;NA;3
+G57;Mononeuropathies of lower limb;NA;1;3
+G58;Other mononeuropathies;NA;1;0
+G60;Hereditary and idiopathic neuropathy;NA;1;0
+G61;Inflammatory polyneuropathy;NA;1;NA
+G62;Other and unspecified polyneuropathies;1;NA;5
+G63;Polyneuropathy in diseases classified elsewhere;NA;1;4
+G70;Myasthenia gravis and other myoneural disorders;NA;1;0
+G72;Other and unspecified myopathies;1;NA;5
+G73;Disorders of myoneural junction and muscle in diseases classified elsewhere;NA;1;NA
+G80;Cerebral palsy;NA;1;NA
+G81;Hemiplegia and hemiparesis;NA;1;0
+G82;Paraplegia (paraparesis) and quadriplegia (quadriparesis);1;NA;5
+G83;Other paralytic syndromes;1;NA;5
+G89;Pain, not elsewhere classified;1;NA;NA
+G90;Disorders of autonomic nervous system;NA;1;0
+G91;Hydrocephalus;NA;1;0
+G92;Toxic encephalopathy;NA;NA;0
+G93;Other disorders of brain;NA;1;4
+G94;Other disorders of brain in diseases classified elsewhere;NA;1;4
+G95;Other and unspecified diseases of spinal cord;NA;NA;0
+G96;Other disorders of central nervous system;NA;NA;NA
+G97;Intraoperative and postprocedural complications and disorders of nervous system, not elsewhere classified;NA;NA;0
+G99;Other disorders of nervous system in diseases classified elsewhere;NA;NA;0
+H00;Hordeolum and chalazion;NA;NA;NA
+H01;Other inflammation of eyelid;NA;NA;NA
+H02;Other disorders of eyelid;NA;NA;0
+H04;Disorders of lacrimal system;NA;NA;NA
+H05;Disorders of orbit;NA;NA;0
+H10;Conjunctivitis;NA;NA;0
+H11;Other disorders of conjunctiva;NA;NA;0
+H15;Disorders of sclera;NA;NA;NA
+H16;Keratitis;NA;NA;0
+H18;Other disorders of cornea;NA;NA;0
+H20;Iridocyclitis;NA;NA;0
+H21;Other disorders of iris and ciliary body;NA;NA;NA
+H25;Age-related cataract;NA;NA;0
+H26;Other cataract;NA;NA;0
+H27;Other disorders of lens;NA;NA;NA
+H30;Chorioretinal inflammation;NA;NA;0
+H33;Retinal detachments and breaks;NA;NA;NA
+H34;Retinal vascular occlusions;NA;NA;0
+H35;Other retinal disorders;NA;NA;0
+H36;Retinal disorders in diseases classified elsewhere;NA;NA;0
+H40;Glaucoma;NA;NA;0
+H43;Disorders of vitreous body;NA;NA;0
+H44;Disorders of globe;NA;NA;0
+H46;Optic neuritis;NA;NA;0
+H47;Other disorders of optic [2nd] nerve and visual pathways;NA;NA;0
+H49;Paralytic strabismus;NA;NA;0
+H50;Other strabismus;NA;NA;NA
+H51;Other disorders of binocular movement;NA;NA;0
+H52;Disorders of refraction and accommodation;NA;NA;NA
+H53;Visual disturbances;NA;NA;0
+H54;Blindness and low vision;NA;NA;0
+H55;Nystagmus and other irregular eye movements;NA;NA;0
+H57;Other disorders of eye and adnexa;1;NA;2
+H58;NA;NA;NA;0
+H60;Otitis externa;NA;NA;0
+H61;Other disorders of external ear;NA;NA;0
+H65;Nonsuppurative otitis media;NA;NA;NA
+H66;Suppurative and unspecified otitis media;NA;NA;NA
+H67;Otitis media in diseases classified elsewhere;NA;NA;NA
+H69;Other and unspecified disorders of Eustachian tube;NA;NA;NA
+H70;Mastoiditis and related conditions;NA;NA;NA
+H72;Perforation of tympanic membrane;NA;NA;NA
+H81;Disorders of vestibular function;NA;NA;0
+H83;Other diseases of inner ear;NA;NA;NA
+H90;Conductive and sensorineural hearing loss;NA;NA;0
+H91;Other and unspecified hearing loss;NA;NA;0
+H92;Otalgia and effusion of ear;NA;NA;0
+H93;Other disorders of ear, not elsewhere classified;NA;NA;NA
+H94;Other disorders of ear in diseases classified elsewhere;NA;NA;NA
+I00;Rheumatic fever without heart involvement;NA;1;NA
+I05;Rheumatic mitral valve diseases;NA;1;0
+I06;Rheumatic aortic valve diseases;NA;1;0
+I07;Rheumatic tricuspid valve diseases;NA;1;0
+I08;Multiple valve diseases;NA;1;4
+I09;Other rheumatic heart diseases;NA;1;NA
+I10;Essential (primary) hypertension;NA;1;5
+I11;Hypertensive heart disease;NA;1;4
+I12;Hypertensive chronic kidney disease;NA;1;4
+I13;Hypertensive heart and chronic kidney disease;NA;1;4
+I15;Secondary hypertension;NA;1;4
+I16;NA;1;NA;NA
+I20;Angina pectoris;1;NA;0
+I21;ST elevation (STEMI) and non-ST elevation (NSTEMI) myocardial infarction;1;NA;4
+I22;Subsequent ST elevation (STEMI) and non-ST elevation (NSTEMI) myocardial infarction;1;NA;NA
+I24;Other acute ischemic heart diseases;1;NA;0
+I25;Chronic ischemic heart disease;NA;1;5
+I26;Pulmonary embolism;1;NA;5
+I27;Other pulmonary heart diseases;1;NA;4
+I28;Other diseases of pulmonary vessels;1;NA;0
+I30;Acute pericarditis;1;NA;3
+I31;Other diseases of pericardium;1;NA;3
+I32;Pericarditis in diseases classified elsewhere;1;NA;0
+I33;Acute and subacute endocarditis;1;NA;0
+I34;Nonrheumatic mitral valve disorders;NA;1;5
+I35;Nonrheumatic aortic valve disorders;NA;1;5
+I36;Nonrheumatic tricuspid valve disorders;NA;1;5
+I37;Nonrheumatic pulmonary valve disorders;NA;1;5
+I38;Endocarditis, valve unspecified;1;NA;NA
+I40;Acute myocarditis;1;NA;4
+I42;Cardiomyopathy;1;NA;5
+I43;Cardiomyopathy in diseases classified elsewhere;1;NA;0
+I44;Atrioventricular and left bundle-branch block;1;NA;3
+I45;Other conduction disorders;1;NA;2
+I46;Cardiac arrest;1;NA;5
+I47;Paroxysmal tachycardia;1;NA;5
+I48;Atrial fibrillation and flutter;1;NA;5
+I49;Other cardiac arrhythmias;1;NA;5
+I50;Heart failure;1;1;5
+I51;Complications and ill-defined descriptions of heart disease;1;NA;5
+I60;Nontraumatic subarachnoid hemorrhage;1;NA;0
+I61;Nontraumatic intracerebral hemorrhage;1;NA;0
+I62;Other and unspecified nontraumatic intracranial hemorrhage;1;NA;4
+I63;Cerebral infarction;1;NA;4
+I65;Occlusion and stenosis of precerebral arteries, not resulting in cerebral infarction;1;NA;0
+I66;Occlusion and stenosis of cerebral arteries, not resulting in cerebral infarction;1;NA;4
+I67;Other cerebrovascular diseases;1;NA;3
+I69;Sequelae of cerebrovascular disease;NA;1;4
+I70;Atherosclerosis;NA;1;2
+I71;Aortic aneurysm and dissection;1;NA;2
+I72;Other aneurysm;1;NA;0
+I73;Other peripheral vascular diseases;1;NA;3
+I74;Arterial embolism and thrombosis;1;NA;3
+I76;Septic arterial embolism;1;NA;NA
+I77;Other disorders of arteries and arterioles;1;NA;0
+I78;Diseases of capillaries;1;NA;0
+I79;Disorders of arteries, arterioles and capillaries in diseases classified elsewhere;1;NA;0
+I80;Phlebitis and thrombophlebitis;1;NA;5
+I81;Portal vein thrombosis;1;NA;0
+I82;Other venous embolism and thrombosis;1;NA;5
+I83;Varicose veins of lower extremities;1;NA;4
+I85;Esophageal varices;1;NA;NA
+I86;Varicose veins of other sites;1;NA;NA
+I87;Other disorders of veins;1;NA;3
+I88;Nonspecific lymphadenitis;1;NA;NA
+I89;Other noninfective disorders of lymphatic vessels and lymph nodes;1;NA;0
+I95;Hypotension;1;NA;4
+I96;Gangrene, not elsewhere classified;1;NA;NA
+I97;Intraoperative and postprocedural complications and disorders of circulatory system, not elsewhere classified;1;NA;NA
+I98;NA;1;NA;NA
+I99;Other and unspecified disorders of circulatory system;1;NA;0
+IMO;NA;1;NA;NA
+J00;Acute nasopharyngitis [common cold];1;NA;0
+J01;Acute sinusitis;1;NA;0
+J02;Acute pharyngitis;1;NA;0
+J03;Acute tonsillitis;1;NA;NA
+J04;Acute laryngitis and tracheitis;1;NA;NA
+J06;Acute upper respiratory infections of multiple and unspecified sites;1;NA;NA
+J09;Influenza due to certain identified influenza viruses;1;NA;NA
+J10;Influenza due to other identified influenza virus;1;NA;NA
+J11;Influenza due to unidentified influenza virus;1;NA;NA
+J12;Viral pneumonia, not elsewhere classified;1;NA;5
+J13;Pneumonia due to Streptococcus pneumoniae;1;NA;4
+J14;Pneumonia due to Hemophilus influenzae;1;NA;4
+J15;Bacterial pneumonia, not elsewhere classified;1;NA;5
+J16;Pneumonia due to other infectious organisms, not elsewhere classified;1;NA;0
+J17;Pneumonia in diseases classified elsewhere;1;NA;1
+J18;Pneumonia, unspecified organism;1;NA;4
+J20;Acute bronchitis;1;NA;3
+J21;Acute bronchiolitis;1;NA;NA
+J22;Unspecified acute lower respiratory infection;1;NA;NA
+J30;Vasomotor and allergic rhinitis;1;NA;0
+J31;Chronic rhinitis, nasopharyngitis and pharyngitis;1;NA;0
+J32;Chronic sinusitis;1;NA;0
+J33;Nasal polyp;1;NA;NA
+J34;Other and unspecified disorders of nose and nasal sinuses;1;NA;0
+J35;Chronic diseases of tonsils and adenoids;1;NA;NA
+J36;Peritonsillar abscess;1;NA;NA
+J37;Chronic laryngitis and laryngotracheitis;1;NA;NA
+J38;Diseases of vocal cords and larynx, not elsewhere classified;1;NA;0
+J39;Other diseases of upper respiratory tract;1;NA;0
+J40;Bronchitis, not specified as acute or chronic;1;NA;0
+J42;Unspecified chronic bronchitis;NA;1;0
+J43;Emphysema;NA;1;5
+J44;Other chronic obstructive pulmonary disease;NA;1;4
+J45;Asthma;NA;1;4
+J47;Bronchiectasis;NA;1;3
+J69;Pneumonitis due to solids and liquids;1;NA;1
+J80;Acute respiratory distress syndrome;1;NA;5
+J81;Pulmonary edema;1;NA;0
+J82;Pulmonary eosinophilia, not elsewhere classified;1;NA;NA
+J84;Other interstitial pulmonary diseases;1;NA;3
+J85;Abscess of lung and mediastinum;1;NA;NA
+J86;Pyothorax;1;NA;NA
+J90;Pleural effusion, not elsewhere classified;1;NA;4
+J91;Pleural effusion in conditions classified elsewhere;1;NA;4
+J92;Pleural plaque;1;NA;0
+J93;Pneumothorax and air leak;1;NA;0
+J94;Other pleural conditions;1;NA;0
+J95;Intraoperative and postprocedural complications and disorders of respiratory system, not elsewhere classified;1;NA;4
+J96;Respiratory failure, not elsewhere classified;1;NA;5
+J98;Other respiratory disorders;1;NA;5
+K01;Embedded and impacted teeth;NA;NA;NA
+K02;Dental caries;NA;NA;0
+K03;Other diseases of hard tissues of teeth;NA;NA;NA
+K04;Diseases of pulp and periapical tissues;NA;NA;0
+K05;Gingivitis and periodontal diseases;NA;NA;0
+K06;Other disorders of gingiva and edentulous alveolar ridge;NA;NA;NA
+K08;Other disorders of teeth and supporting structures;NA;NA;0
+K11;Diseases of salivary glands;NA;NA;0
+K12;Stomatitis and related lesions;NA;NA;0
+K13;Other diseases of lip and oral mucosa;NA;NA;0
+K14;Diseases of tongue;NA;NA;0
+K20;Esophagitis;NA;1;0
+K21;Gastro-esophageal reflux disease;1;NA;5
+K22;Other diseases of esophagus;1;NA;0
+K25;Gastric ulcer;1;NA;0
+K26;Duodenal ulcer;1;NA;0
+K27;Peptic ulcer, site unspecified;1;NA;0
+K28;Gastrojejunal ulcer;1;NA;5
+K29;Gastritis and duodenitis;1;NA;5
+K30;Functional dyspepsia;1;NA;NA
+K31;Other diseases of stomach and duodenum;1;NA;5
+K35;Acute appendicitis;1;NA;0
+K37;Unspecified appendicitis;1;NA;NA
+K40;Inguinal hernia;1;NA;0
+K42;Umbilical hernia;1;NA;0
+K43;Ventral hernia;1;NA;0
+K44;Diaphragmatic hernia;1;NA;0
+K45;Other abdominal hernia;1;NA;NA
+K46;Unspecified abdominal hernia;1;NA;0
+K50;Crohn's disease [regional enteritis];1;NA;0
+K51;Ulcerative colitis;1;NA;0
+K52;Other and unspecified noninfective gastroenteritis and colitis;1;NA;0
+K55;Vascular disorders of intestine;1;NA;0
+K56;Paralytic ileus and intestinal obstruction without hernia;1;NA;4
+K57;Diverticular disease of intestine;1;NA;0
+K58;Irritable bowel syndrome;1;NA;0
+K59;Other functional intestinal disorders;1;NA;5
+K60;Fissure and fistula of anal and rectal regions;1;NA;0
+K62;Other diseases of anus and rectum;1;NA;0
+K63;Other diseases of intestine;1;NA;0
+K64;Hemorrhoids and perianal venous thrombosis;1;NA;0
+K65;Peritonitis;1;NA;0
+K66;Other disorders of peritoneum;NA;1;0
+K70;Alcoholic liver disease;1;NA;0
+K71;Toxic liver disease;1;NA;0
+K72;Hepatic failure, not elsewhere classified;1;NA;0
+K74;Fibrosis and cirrhosis of liver;NA;1;0
+K75;Other inflammatory liver diseases;1;NA;0
+K76;Other diseases of liver;1;NA;0
+K80;Cholelithiasis;1;NA;0
+K81;Cholecystitis;1;NA;0
+K82;Other diseases of gallbladder;1;NA;0
+K83;Other diseases of biliary tract;1;NA;3
+K85;Acute pancreatitis;1;NA;0
+K86;Other diseases of pancreas;1;NA;0
+K87;Disorders of gallbladder, biliary tract and pancreas in diseases classified elsewhere;1;NA;NA
+K90;Intestinal malabsorption;1;NA;0
+K91;Intraoperative and postprocedural complications and disorders of digestive system, not elsewhere classified;1;NA;0
+K92;Other diseases of digestive system;1;NA;3
+K94;Complications of artificial openings of the digestive system;1;NA;NA
+K95;Complications of bariatric procedures;1;NA;NA
+L01;Impetigo;1;NA;NA
+L02;Cutaneous abscess, furuncle and carbuncle;1;NA;0
+L03;Cellulitis and acute lymphangitis;1;NA;0
+L04;Acute lymphadenitis;1;NA;NA
+L08;Other local infections of skin and subcutaneous tissue;1;NA;0
+L20;Atopic dermatitis;1;NA;0
+L21;Seborrheic dermatitis;1;NA;0
+L23;Allergic contact dermatitis;1;NA;NA
+L24;Irritant contact dermatitis;1;NA;NA
+L25;Unspecified contact dermatitis;1;NA;NA
+L27;Dermatitis due to substances taken internally;1;NA;0
+L28;Lichen simplex chronicus and prurigo;1;NA;NA
+L29;Pruritus;1;NA;0
+L30;Other and unspecified dermatitis;1;NA;0
+L40;Psoriasis;1;NA;0
+L42;Pityriasis rosea;1;NA;NA
+L50;Urticaria;1;NA;0
+L51;Erythema multiforme;1;NA;0
+L53;Other erythematous conditions;1;NA;0
+L55;Sunburn;1;NA;NA
+L56;Other acute skin changes due to ultraviolet radiation;1;NA;NA
+L58;Radiodermatitis;1;NA;NA
+L59;Other disorders of skin and subcutaneous tissue related to radiation;1;NA;NA
+L60;Nail disorders;1;NA;0
+L64;Androgenic alopecia;1;NA;NA
+L65;Other nonscarring hair loss;1;NA;0
+L68;Hypertrichosis;1;NA;NA
+L70;Acne;1;NA;0
+L71;Rosacea;1;NA;NA
+L72;Follicular cysts of skin and subcutaneous tissue;1;NA;NA
+L73;Other follicular disorders;1;NA;0
+L74;Eccrine sweat disorders;1;NA;0
+L76;Intraoperative and postprocedural complications of skin and subcutaneous tissue;1;NA;NA
+L80;Vitiligo;1;NA;0
+L81;Other disorders of pigmentation;1;NA;0
+L82;Seborrheic keratosis;1;NA;NA
+L84;Corns and callosities;1;NA;0
+L85;Other epidermal thickening;1;NA;0
+L89;Pressure ulcer;1;NA;5
+L90;Atrophic disorders of skin;1;NA;0
+L91;Hypertrophic disorders of skin;1;NA;0
+L92;Granulomatous disorders of skin and subcutaneous tissue;1;NA;NA
+L93;Lupus erythematosus;1;NA;NA
+L95;Vasculitis limited to skin, not elsewhere classified;1;NA;0
+L97;Non-pressure chronic ulcer of lower limb, not elsewhere classified;1;NA;0
+L98;Other disorders of skin and subcutaneous tissue, not elsewhere classified;1;NA;0
+M00;Pyogenic arthritis;1;NA;0
+M02;Postinfective and reactive arthropathies;1;NA;NA
+M05;Rheumatoid arthritis with rheumatoid factor;1;NA;0
+M06;Other rheumatoid arthritis;1;NA;0
+M10;Gout;1;NA;0
+M11;Other crystal arthropathies;1;NA;0
+M12;Other and unspecified arthropathy;1;NA;NA
+M13;Other arthritis;1;NA;0
+M16;Osteoarthritis of hip;1;NA;0
+M17;Osteoarthritis of knee;1;NA;0
+M19;Other and unspecified osteoarthritis;1;NA;0
+M1A;Chronic gout;NA;1;NA
+M20;Acquired deformities of fingers and toes;1;NA;0
+M21;Other acquired deformities of limbs;1;NA;0
+M22;Disorder of patella;1;NA;NA
+M23;Internal derangement of knee;1;NA;NA
+M24;Other specific joint derangements;1;NA;NA
+M25;Other joint disorder, not elsewhere classified;1;NA;0
+M26;Dentofacial anomalies [including malocclusion];1;NA;NA
+M30;Polyarteritis nodosa and related conditions;1;NA;0
+M31;Other necrotizing vasculopathies;1;NA;0
+M32;Systemic lupus erythematosus (SLE);NA;1;0
+M33;Dermatopolymyositis;NA;1;0
+M34;Systemic sclerosis [scleroderma];NA;1;0
+M35;Other systemic involvement of connective tissue;NA;1;0
+M40;Kyphosis and lordosis;NA;1;0
+M41;Scoliosis;NA;1;0
+M43;Other deforming dorsopathies;NA;1;0
+M46;Other inflammatory spondylopathies;NA;1;0
+M47;Spondylosis;NA;1;0
+M48;Other spondylopathies;NA;1;0
+M50;Cervical disc disorders;NA;1;NA
+M51;Thoracic, thoracolumbar, and lumbosacral intervertebral disc disorders;NA;1;0
+M53;Other and unspecified dorsopathies, not elsewhere classified;NA;1;0
+M54;Dorsalgia;NA;NA;0
+M60;Myositis;NA;NA;NA
+M62;Other disorders of muscle;1;NA;2
+M65;Synovitis and tenosynovitis;NA;NA;0
+M67;Other disorders of synovium and tendon;NA;NA;NA
+M70;Soft tissue disorders related to use, overuse and pressure;NA;NA;NA
+M71;Other bursopathies;NA;NA;0
+M72;Fibroblastic disorders;NA;NA;NA
+M75;Shoulder lesions;NA;NA;0
+M76;Enthesopathies, lower limb, excluding foot;NA;NA;0
+M77;Other enthesopathies;NA;NA;0
+M79;Other and unspecified soft tissue disorders, not elsewhere classified;NA;1;4
+M81;Osteoporosis without current pathological fracture;NA;1;0
+M84;Disorder of continuity of bone;NA;1;0
+M85;Other disorders of bone density and structure;NA;1;0
+M86;Osteomyelitis;NA;1;0
+M87;Osteonecrosis;NA;1;0
+M88;Osteitis deformans [Paget's disease of bone];NA;1;0
+M89;Other disorders of bone;NA;1;0
+M90;Osteopathies in diseases classified elsewhere;NA;1;0
+M92;Other juvenile osteochondrosis;NA;NA;NA
+M94;Other disorders of cartilage;NA;NA;0
+M95;Other acquired deformities of musculoskeletal system and connective tissue;NA;NA;0
+M96;Intraoperative and postprocedural complications and disorders of musculoskeletal system, not elsewhere classified;NA;NA;0
+M99;Biomechanical lesions, not elsewhere classified;NA;NA;0
+N00;Acute nephritic syndrome;1;NA;0
+N02;Recurrent and persistent hematuria;NA;1;0
+N03;Chronic nephritic syndrome;NA;1;0
+N04;Nephrotic syndrome;NA;1;0
+N05;Unspecified nephritic syndrome;1;NA;0
+N06;Isolated proteinuria with specified morphological lesion;1;NA;NA
+N08;Glomerular disorders in diseases classified elsewhere;1;NA;0
+N10;Acute tubulo-interstitial nephritis;1;NA;0
+N11;Chronic tubulo-interstitial nephritis;1;NA;0
+N12;Tubulo-interstitial nephritis, not specified as acute or chronic;1;NA;NA
+N13;Obstructive and reflux uropathy;1;NA;0
+N14;Drug- and heavy-metal-induced tubulo-interstitial and tubular conditions;1;NA;0
+N15;Other renal tubulo-interstitial diseases;1;NA;0
+N17;Acute kidney failure;1;NA;5
+N18;Chronic kidney disease (CKD);NA;1;5
+N19;Unspecified kidney failure;1;NA;1
+N20;Calculus of kidney and ureter;1;NA;0
+N21;Calculus of lower urinary tract;1;NA;NA
+N23;Unspecified renal colic;1;NA;0
+N25;Disorders resulting from impaired renal tubular function;1;NA;0
+N26;Unspecified contracted kidney;1;NA;0
+N27;Small kidney of unknown cause;1;NA;NA
+N28;Other disorders of kidney and ureter, not elsewhere classified;1;NA;0
+N30;Cystitis;1;NA;0
+N31;Neuromuscular dysfunction of bladder, not elsewhere classified;1;NA;0
+N32;Other disorders of bladder;1;NA;0
+N33;Bladder disorders in diseases classified elsewhere;1;NA;NA
+N34;Urethritis and urethral syndrome;1;NA;0
+N36;Other disorders of urethra;1;NA;0
+N39;Other disorders of urinary system;1;NA;3
+N41;Inflammatory diseases of prostate;1;NA;0
+N43;Hydrocele and spermatocele;1;NA;0
+N45;Orchitis and epididymitis;1;NA;0
+N46;Male infertility;1;NA;NA
+N47;Disorders of prepuce;NA;NA;NA
+N48;Other disorders of penis;NA;NA;0
+N50;Other and unspecified disorders of male genital organs;NA;NA;0
+N52;Male erectile dysfunction;NA;NA;NA
+N60;Benign mammary dysplasia;NA;NA;NA
+N61;Inflammatory disorders of breast;NA;NA;NA
+N62;Hypertrophy of breast;NA;NA;0
+N63;Unspecified lump in breast;NA;NA;NA
+N64;Other disorders of breast;NA;NA;0
+N70;Salpingitis and oophoritis;NA;NA;NA
+N72;Inflammatory disease of cervix uteri;NA;NA;NA
+N73;Other female pelvic inflammatory diseases;NA;NA;0
+N74;Female pelvic inflammatory disorders in diseases classified elsewhere;NA;NA;0
+N75;Diseases of Bartholin's gland;NA;NA;NA
+N76;Other inflammation of vagina and vulva;NA;NA;NA
+N77;Vulvovaginal ulceration and inflammation in diseases classified elsewhere;NA;NA;0
+N80;Endometriosis;NA;NA;0
+N81;Female genital prolapse;NA;NA;NA
+N83;Noninflammatory disorders of ovary, fallopian tube and broad ligament;NA;NA;0
+N84;Polyp of female genital tract;NA;NA;NA
+N85;Other noninflammatory disorders of uterus, except cervix;NA;NA;NA
+N87;Dysplasia of cervix uteri;NA;NA;0
+N88;Other noninflammatory disorders of cervix uteri;NA;NA;NA
+N89;Other noninflammatory disorders of vagina;NA;NA;NA
+N90;Other noninflammatory disorders of vulva and perineum;NA;NA;NA
+N91;Absent, scanty and rare menstruation;NA;NA;NA
+N92;Excessive, frequent and irregular menstruation;NA;NA;0
+N93;Other abnormal uterine and vaginal bleeding;NA;NA;0
+N94;Pain and other conditions associated with female genital organs and menstrual cycle;NA;NA;0
+N95;Menopausal and other perimenopausal disorders;NA;NA;NA
+N96;Recurrent pregnancy loss;NA;NA;NA
+N97;Female infertility;NA;NA;NA
+N99;Intraoperative and postprocedural complications and disorders of genitourinary system, not elsewhere classified;NA;NA;NA
+O00;Ectopic pregnancy;NA;NA;NA
+O02;Other abnormal products of conception;NA;NA;NA
+O03;Spontaneous abortion;NA;NA;NA
+O04;Complications following (induced) termination of pregnancy;NA;NA;NA
+O07;Failed attempted termination of pregnancy;NA;NA;NA
+O09;Supervision of high risk pregnancy;NA;NA;NA
+O10;Pre-existing hypertension complicating pregnancy, childbirth and the puerperium;NA;NA;NA
+O11;Pre-existing hypertension with pre-eclampsia;NA;NA;NA
+O12;Gestational [pregnancy-induced] edema and proteinuria without hypertension;NA;NA;0
+O13;Gestational [pregnancy-induced] hypertension without significant proteinuria;NA;NA;0
+O14;Pre-eclampsia;NA;NA;NA
+O15;Eclampsia;NA;NA;NA
+O16;Unspecified maternal hypertension;NA;NA;0
+O20;Hemorrhage in early pregnancy;NA;NA;NA
+O21;Excessive vomiting in pregnancy;NA;NA;0
+O22;Venous complications and hemorrhoids in pregnancy;NA;NA;NA
+O23;Infections of genitourinary tract in pregnancy;NA;NA;0
+O24;Diabetes mellitus in pregnancy, childbirth, and the puerperium;NA;NA;0
+O25;Malnutrition in pregnancy, childbirth and the puerperium;NA;NA;0
+O26;Maternal care for other conditions predominantly related to pregnancy;NA;NA;NA
+O28;Abnormal findings on antenatal screening of mother;NA;NA;NA
+O30;Multiple gestation;NA;NA;NA
+O31;Complications specific to multiple gestation;NA;NA;0
+O32;Maternal care for malpresentation of fetus;NA;NA;0
+O34;Maternal care for abnormality of pelvic organs;NA;NA;0
+O35;Maternal care for known or suspected fetal abnormality and damage;NA;NA;NA
+O36;Maternal care for other fetal problems;NA;NA;0
+O40;Polyhydramnios;NA;NA;NA
+O41;Other disorders of amniotic fluid and membranes;NA;NA;NA
+O42;Premature rupture of membranes;NA;NA;0
+O43;Placental disorders;NA;NA;NA
+O44;Placenta previa;NA;NA;NA
+O45;Premature separation of placenta [abruptio placentae];NA;NA;NA
+O46;Antepartum hemorrhage, not elsewhere classified;NA;NA;0
+O47;False labor;NA;NA;0
+O48;Late pregnancy;NA;NA;NA
+O60;Preterm labor;NA;NA;0
+O61;Failed induction of labor;NA;NA;NA
+O62;Abnormalities of forces of labor;NA;NA;NA
+O63;Long labor;NA;NA;NA
+O66;Other obstructed labor;NA;NA;0
+O67;Labor and delivery complicated by intrapartum hemorrhage, not elsewhere classified;NA;NA;NA
+O68;Labor and delivery complicated by abnormality of fetal acid-base balance;NA;NA;0
+O69;Labor and delivery complicated by umbilical cord complications;NA;NA;NA
+O70;Perineal laceration during delivery;NA;NA;0
+O71;Other obstetric trauma;NA;NA;NA
+O72;Postpartum hemorrhage;NA;NA;0
+O73;Retained placenta and membranes, without hemorrhage;NA;NA;0
+O75;Other complications of labor and delivery, not elsewhere classified;NA;NA;NA
+O76;Abnormality in fetal heart rate and rhythm complicating labor and delivery;NA;NA;NA
+O77;Other fetal stress complicating labor and delivery;NA;NA;NA
+O80;Encounter for full-term uncomplicated delivery;NA;NA;0
+O81;NA;NA;NA;0
+O82;Encounter for cesarean delivery without indication;NA;NA;0
+O83;NA;NA;NA;0
+O85;Puerperal sepsis;NA;NA;0
+O86;Other puerperal infections;NA;NA;0
+O87;Venous complications and hemorrhoids in the puerperium;NA;NA;NA
+O88;Obstetric embolism;NA;NA;NA
+O90;Complications of the puerperium, not elsewhere classified;NA;NA;NA
+O92;Other disorders of breast and disorders of lactation associated with pregnancy and the puerperium;NA;NA;0
+O98;Maternal infectious and parasitic diseases classifiable elsewhere but complicating pregnancy, childbirth and the puerperium;NA;NA;0
+O99;Other maternal diseases classifiable elsewhere but complicating pregnancy, childbirth and the puerperium;NA;NA;0
+O9A;Maternal malignant neoplasms, traumatic injuries and abuse classifiable elsewhere but complicating pregnancy, childbirth and the puerperium;NA;NA;NA
+P05;Disorders of newborn related to slow fetal growth and fetal malnutrition;NA;NA;NA
+P07;Disorders of newborn related to short gestation and low birth weight, not elsewhere classified;NA;NA;NA
+P09;Abnormal findings on neonatal screening;NA;NA;NA
+P19;Metabolic acidemia in newborn;NA;NA;NA
+P72;Other transitory neonatal endocrine disorders;NA;NA;NA
+P92;Feeding problems of newborn;NA;NA;NA
+P94;Disorders of muscle tone of newborn;NA;NA;NA
+P96;Other conditions originating in the perinatal period;NA;NA;NA
+P99;NA;NA;NA;NA
+Q00;Anencephaly and similar malformations;NA;NA;NA
+Q04;Other congenital malformations of brain;NA;NA;NA
+Q05;Spina bifida;NA;NA;0
+Q07;Other congenital malformations of nervous system;NA;NA;0
+Q17;Other congenital malformations of ear;NA;NA;NA
+Q18;Other congenital malformations of face and neck;NA;NA;NA
+Q21;Congenital malformations of cardiac septa;NA;NA;0
+Q23;Congenital malformations of aortic and mitral valves;NA;NA;NA
+Q24;Other congenital malformations of heart;NA;NA;NA
+Q25;Congenital malformations of great arteries;NA;NA;NA
+Q26;Congenital malformations of great veins;NA;NA;NA
+Q27;Other congenital malformations of peripheral vascular system;NA;NA;NA
+Q30;Congenital malformations of nose;NA;NA;NA
+Q31;Congenital malformations of larynx;NA;NA;NA
+Q32;Congenital malformations of trachea and bronchus;NA;NA;NA
+Q40;Other congenital malformations of upper alimentary tract;NA;NA;0
+Q50;Congenital malformations of ovaries, fallopian tubes and broad ligaments;NA;NA;NA
+Q51;Congenital malformations of uterus and cervix;NA;NA;NA
+Q60;Renal agenesis and other reduction defects of kidney;NA;NA;NA
+Q62;Congenital obstructive defects of renal pelvis and congenital malformations of ureter;NA;NA;0
+Q63;Other congenital malformations of kidney;NA;NA;NA
+Q64;Other congenital malformations of urinary system;NA;NA;0
+Q67;Congenital musculoskeletal deformities of head, face, spine and chest;NA;NA;NA
+Q68;Other congenital musculoskeletal deformities;NA;NA;NA
+Q75;Other congenital malformations of skull and face bones;NA;NA;NA
+Q78;Other osteochondrodysplasias;NA;NA;NA
+Q79;Congenital malformations of musculoskeletal system, not elsewhere classified;NA;NA;0
+Q82;Other congenital malformations of skin;NA;NA;NA
+Q87;Other specified congenital malformation syndromes affecting multiple systems;NA;NA;0
+Q89;Other congenital malformations, not elsewhere classified;NA;NA;NA
+Q90;Down syndrome;NA;NA;NA
+Q93;Monosomies and deletions from the autosomes, not elsewhere classified;NA;NA;NA
+Q96;Turner's syndrome;NA;NA;NA
+Q99;Other chromosome abnormalities, not elsewhere classified;NA;NA;NA
+R00;Abnormalities of heart beat;1;NA;4
+R01;Cardiac murmurs and other cardiac sounds;NA;NA;0
+R03;Abnormal blood-pressure reading, without diagnosis;1;NA;4
+R04;Hemorrhage from respiratory passages;NA;NA;0
+R05;Cough;1;NA;4
+R06;Abnormalities of breathing;NA;NA;5
+R07;Pain in throat and chest;1;NA;4
+R09;Other symptoms and signs involving the circulatory and respiratory system;1;NA;4
+R10;Abdominal and pelvic pain;1;NA;4
+R11;Nausea and vomiting;1;NA;4
+R12;Heartburn;NA;NA;0
+R13;Aphagia and dysphagia;1;NA;4
+R14;Flatulence and related conditions;NA;NA;0
+R15;Fecal incontinence;NA;NA;0
+R16;Hepatomegaly and splenomegaly, not elsewhere classified;1;NA;3
+R17;Unspecified jaundice;NA;NA;0
+R18;Ascites;NA;NA;0
+R19;Other symptoms and signs involving the digestive system and abdomen;NA;NA;0
+R20;Disturbances of skin sensation;1;NA;2
+R21;Rash and other nonspecific skin eruption;NA;NA;0
+R22;Localized swelling, mass and lump of skin and subcutaneous tissue;NA;NA;0
+R23;Other skin changes;1;NA;3
+R25;Abnormal involuntary movements;1;NA;2
+R26;Abnormalities of gait and mobility;NA;NA;0
+R27;Other lack of coordination;NA;NA;0
+R29;Other symptoms and signs involving the nervous and musculoskeletal systems;NA;NA;0
+R30;Pain associated with micturition;1;NA;2
+R31;Hematuria;NA;NA;0
+R32;Unspecified urinary incontinence;NA;NA;0
+R33;Retention of urine;NA;NA;0
+R34;Anuria and oliguria;NA;NA;5
+R35;Polyuria;1;NA;3
+R36;Urethral discharge;NA;NA;0
+R39;Other and unspecified symptoms and signs involving the genitourinary system;1;NA;3
+R40;Somnolence, stupor and coma;NA;NA;5
+R41;Other symptoms and signs involving cognitive functions and awareness;1;NA;4
+R42;Dizziness and giddiness;NA;NA;1
+R43;Disturbances of smell and taste;NA;NA;NA
+R44;Other symptoms and signs involving general sensations and perceptions;1;NA;2
+R45;Symptoms and signs involving emotional state;1;NA;4
+R46;Symptoms and signs involving appearance and behavior;NA;NA;1
+R47;Speech disturbances, not elsewhere classified;NA;NA;1
+R48;Dyslexia and other symbolic dysfunctions, not elsewhere classified;NA;NA;0
+R49;Voice and resonance disorders;NA;NA;1
+R50;Fever of other and unknown origin;NA;NA;5
+R51;Headache;1;NA;4
+R52;Pain, unspecified;1;NA;3
+R53;Malaise and fatigue;NA;NA;5
+R54;Age-related physical debility;NA;NA;0
+R55;Syncope and collapse;NA;NA;0
+R56;Convulsions, not elsewhere classified;NA;NA;0
+R57;Shock, not elsewhere classified;NA;NA;5
+R58;Hemorrhage, not elsewhere classified;NA;NA;NA
+R59;Enlarged lymph nodes;NA;NA;0
+R60;Edema, not elsewhere classified;1;NA;2
+R61;Generalized hyperhidrosis;NA;NA;0
+R62;Lack of expected normal physiological development in childhood and adults;NA;NA;NA
+R63;Symptoms and signs concerning food and fluid intake;1;NA;2
+R64;Cachexia;NA;NA;0
+R65;Symptoms and signs specifically associated with systemic inflammation and infection;1;NA;2
+R68;Other general symptoms and signs;1;NA;2
+R69;Illness, unspecified;NA;NA;NA
+R70;Elevated erythrocyte sedimentation rate and abnormality of plasma viscosity;NA;NA;0
+R71;Abnormality of red blood cells;NA;NA;NA
+R72;NA;NA;NA;NA
+R73;Elevated blood glucose level;1;NA;2
+R74;Abnormal serum enzyme levels;1;NA;2
+R76;Other abnormal immunological findings in serum;NA;NA;NA
+R77;Other abnormalities of plasma proteins;1;NA;2
+R78;Findings of drugs and other substances, not normally found in blood;NA;NA;0
+R79;Other abnormal findings of blood chemistry;NA;NA;0
+R80;Proteinuria;NA;NA;0
+R81;Glycosuria;NA;NA;NA
+R82;Other and unspecified abnormal findings in urine;NA;NA;0
+R84;Abnormal findings in specimens from respiratory organs and thorax;NA;NA;0
+R87;Abnormal findings in specimens from female genital organs;NA;NA;NA
+R89;Abnormal findings in specimens from other organs, systems and tissues;NA;NA;NA
+R90;Abnormal findings on diagnostic imaging of central nervous system;NA;NA;0
+R91;Abnormal findings on diagnostic imaging of lung;1;NA;4
+R92;Abnormal and inconclusive findings on diagnostic imaging of breast;NA;NA;0
+R93;Abnormal findings on diagnostic imaging of other body structures;NA;NA;0
+R94;Abnormal results of function studies;NA;NA;0
+R97;Abnormal tumor markers;NA;NA;NA
+S00;Superficial injury of head;NA;NA;0
+S01;Open wound of head;NA;NA;0
+S02;Fracture of skull and facial bones;NA;NA;0
+S05;Injury of eye and orbit;NA;NA;0
+S06;Intracranial injury;NA;NA;0
+S09;Other and unspecified injuries of head;NA;NA;NA
+S10;Superficial injury of neck;NA;NA;NA
+S11;Open wound of neck;NA;NA;0
+S12;Fracture of cervical vertebra and other parts of neck;NA;NA;0
+S13;Dislocation and sprain of joints and ligaments at neck level;NA;NA;0
+S14;Injury of nerves and spinal cord at neck level;NA;NA;0
+S15;Injury of blood vessels at neck level;NA;NA;0
+S16;Injury of muscle, fascia and tendon at neck level;NA;NA;NA
+S19;Other specified and unspecified injuries of neck;NA;NA;NA
+S20;Superficial injury of thorax;NA;NA;0
+S21;Open wound of thorax;NA;NA;NA
+S22;Fracture of rib(s), sternum and thoracic spine;NA;NA;0
+S24;Injury of nerves and spinal cord at thorax level;NA;NA;NA
+S25;Injury of blood vessels of thorax;NA;NA;NA
+S27;Injury of other and unspecified intrathoracic organs;NA;NA;0
+S29;Other and unspecified injuries of thorax;NA;NA;NA
+S30;Superficial injury of abdomen, lower back, pelvis and external genitals;NA;NA;0
+S31;Open wound of abdomen, lower back, pelvis and external genitals;NA;NA;0
+S32;Fracture of lumbar spine and pelvis;NA;NA;0
+S35;Injury of blood vessels at abdomen, lower back and pelvis level;NA;NA;0
+S36;Injury of intra-abdominal organs;NA;NA;0
+S37;Injury of urinary and pelvic organs;NA;NA;0
+S39;Other and unspecified injuries of abdomen, lower back, pelvis and external genitals;NA;NA;0
+S40;Superficial injury of shoulder and upper arm;NA;NA;0
+S41;Open wound of shoulder and upper arm;NA;NA;NA
+S42;Fracture of shoulder and upper arm;NA;NA;0
+S43;Dislocation and sprain of joints and ligaments of shoulder girdle;NA;NA;0
+S46;Injury of muscle, fascia and tendon at shoulder and upper arm level;NA;NA;NA
+S49;Other and unspecified injuries of shoulder and upper arm;NA;NA;NA
+S50;Superficial injury of elbow and forearm;NA;NA;0
+S51;Open wound of elbow and forearm;NA;NA;NA
+S52;Fracture of forearm;NA;NA;0
+S53;Dislocation and sprain of joints and ligaments of elbow;NA;NA;NA
+S55;Injury of blood vessels at forearm level;NA;NA;NA
+S56;Injury of muscle, fascia and tendon at forearm level;NA;NA;NA
+S59;Other and unspecified injuries of elbow and forearm;NA;NA;NA
+S60;Superficial injury of wrist, hand and fingers;NA;NA;0
+S61;Open wound of wrist, hand and fingers;NA;NA;0
+S62;Fracture at wrist and hand level;NA;NA;NA
+S63;Dislocation and sprain of joints and ligaments at wrist and hand level;NA;NA;NA
+S64;Injury of nerves at wrist and hand level;NA;NA;NA
+S69;Other and unspecified injuries of wrist, hand and finger(s);NA;NA;NA
+S70;Superficial injury of hip and thigh;NA;NA;0
+S71;Open wound of hip and thigh;NA;NA;0
+S72;Fracture of femur;NA;NA;0
+S73;Dislocation and sprain of joint and ligaments of hip;NA;NA;0
+S76;Injury of muscle, fascia and tendon at hip and thigh level;NA;NA;NA
+S79;Other and unspecified injuries of hip and thigh;NA;NA;NA
+S80;Superficial injury of knee and lower leg;NA;NA;0
+S81;Open wound of knee and lower leg;NA;NA;0
+S82;Fracture of lower leg, including ankle;NA;NA;NA
+S83;Dislocation and sprain of joints and ligaments of knee;NA;NA;NA
+S86;Injury of muscle, fascia and tendon at lower leg level;NA;NA;NA
+S89;Other and unspecified injuries of lower leg;NA;NA;NA
+S90;Superficial injury of ankle, foot and toes;NA;NA;0
+S91;Open wound of ankle, foot and toes;NA;NA;0
+S92;Fracture of foot and toe, except ankle;NA;NA;NA
+S93;Dislocation and sprain of joints and ligaments at ankle, foot and toe level;NA;NA;NA
+S99;Other and unspecified injuries of ankle and foot;NA;NA;NA
+T07;Unspecified multiple injuries;NA;NA;NA
+T14;Injury of unspecified body region;NA;NA;0
+T16;Foreign body in ear;NA;NA;NA
+T17;Foreign body in respiratory tract;NA;NA;0
+T18;Foreign body in alimentary tract;NA;NA;0
+T19;Foreign body in genitourinary tract;NA;NA;NA
+T21;Burn and corrosion of trunk;NA;NA;NA
+T22;Burn and corrosion of shoulder and upper limb, except wrist and hand;NA;NA;NA
+T24;Burn and corrosion of lower limb, except ankle and foot;NA;NA;NA
+T36;Poisoning by, adverse effect of and underdosing of systemic antibiotics;NA;NA;NA
+T37;Poisoning by, adverse effect of and underdosing of other systemic anti- infectives and antiparasitics;NA;NA;NA
+T38;Poisoning by, adverse effect of and underdosing of hormones and their synthetic substitutes and antagonists, not elsewhere classified;NA;NA;NA
+T39;Poisoning by, adverse effect of and underdosing of nonopioid analgesics, antipyretics and antirheumatics;NA;NA;NA
+T40;Poisoning by, adverse effect of and underdosing of narcotics and psychodysleptics [hallucinogens];NA;NA;NA
+T42;Poisoning by, adverse effect of and underdosing of antiepileptic, sedative- hypnotic and antiparkinsonism drugs;NA;NA;0
+T43;Poisoning by, adverse effect of and underdosing of psychotropic drugs, not elsewhere classified;NA;NA;0
+T44;Poisoning by, adverse effect of and underdosing of drugs primarily affecting the autonomic nervous system;NA;NA;NA
+T45;Poisoning by, adverse effect of and underdosing of primarily systemic and hematological agents, not elsewhere classified;NA;NA;0
+T46;Poisoning by, adverse effect of and underdosing of agents primarily affecting the cardiovascular system;NA;NA;NA
+T47;Poisoning by, adverse effect of and underdosing of agents primarily affecting the gastrointestinal system;NA;NA;NA
+T48;Poisoning by, adverse effect of and underdosing of agents primarily acting on smooth and skeletal muscles and the respiratory system;NA;NA;NA
+T49;Poisoning by, adverse effect of and underdosing of topical agents primarily affecting skin and mucous membrane and by ophthalmological, otorhinorlaryngological and dental drugs;NA;NA;NA
+T50;Poisoning by, adverse effect of and underdosing of diuretics and other and unspecified drugs, medicaments and biological substances;NA;NA;NA
+T51;Toxic effect of alcohol;NA;NA;NA
+T58;Toxic effect of carbon monoxide;NA;NA;NA
+T59;Toxic effect of other gases, fumes and vapors;NA;NA;NA
+T62;Toxic effect of other noxious substances eaten as food;NA;NA;NA
+T63;Toxic effect of contact with venomous animals and plants;NA;NA;NA
+T65;Toxic effect of other and unspecified substances;NA;NA;0
+T68;Hypothermia;NA;NA;0
+T69;Other effects of reduced temperature;NA;NA;0
+T70;Effects of air pressure and water pressure;NA;NA;NA
+T71;Asphyxiation;NA;NA;NA
+T74;Adult and child abuse, neglect and other maltreatment, confirmed;NA;NA;NA
+T76;Adult and child abuse, neglect and other maltreatment, suspected;NA;NA;NA
+T78;Adverse effects, not elsewhere classified;NA;NA;0
+T79;Certain early complications of trauma, not elsewhere classified;NA;NA;0
+T80;Complications following infusion, transfusion and therapeutic injection;NA;NA;0
+T81;Complications of procedures, not elsewhere classified;NA;NA;0
+T82;Complications of cardiac and vascular prosthetic devices, implants and grafts;NA;NA;0
+T83;Complications of genitourinary prosthetic devices, implants and grafts;NA;NA;0
+T85;Complications of other internal prosthetic devices, implants and grafts;NA;NA;0
+T86;Complications of transplanted organs and tissue;NA;NA;0
+T88;Other complications of surgical and medical care, not elsewhere classified;NA;NA;0
+T90;NA;NA;NA;0
+T98;NA;NA;NA;0
+U07;NA;NA;NA;???
+U08;NA;NA;NA;0
+U09;NA;NA;NA;0
+U10;NA;NA;NA;0
+U82;NA;NA;NA;???
+U83;NA;NA;NA;NA
+V03;Pedestrian injured in collision with car, pick-up truck or van;NA;NA;NA
+V13;Pedal cycle rider injured in collision with car, pick-up truck or van;NA;NA;NA
+V19;Pedal cycle rider injured in other and unspecified transport accidents;NA;NA;NA
+V23;Motorcycle rider injured in collision with car, pick-up truck or van;NA;NA;NA
+V28;Motorcycle rider injured in noncollision transport accident;NA;NA;NA
+V29;Motorcycle rider injured in other and unspecified transport accidents;NA;NA;NA
+V43;Car occupant injured in collision with car, pick-up truck or van;NA;NA;NA
+V47;Car occupant injured in collision with fixed or stationary object;NA;NA;NA
+V49;Car occupant injured in other and unspecified transport accidents;NA;NA;NA
+V73;Bus occupant injured in collision with car, pick-up truck or van;NA;NA;NA
+V87;Traffic accident of specified type but victim's mode of transport unknown;NA;NA;NA
+V89;Motor- or nonmotor-vehicle accident, type of vehicle unspecified;NA;NA;NA
+W01;Fall on same level from slipping, tripping and stumbling;NA;NA;0
+W10;Fall on and from stairs and steps;NA;NA;0
+W17;Other fall from one level to another;NA;NA;NA
+W18;Other slipping, tripping and stumbling and falls;NA;NA;0
+W19;Unspecified fall;NA;NA;0
+W22;Striking against or struck by other objects;NA;NA;0
+W23;Caught, crushed, jammed or pinched in or between objects;NA;NA;NA
+W26;Contact with knife, sword or dagger;NA;NA;0
+W34;Accidental discharge and malfunction from other and unspecified firearms and guns;NA;NA;NA
+W46;Contact with hypodermic needle;NA;NA;NA
+W50;Accidental hit, strike, kick, twist, bite or scratch by another person;NA;NA;NA
+W54;Contact with dog;NA;NA;NA
+W57;Bitten or stung by nonvenomous insect and other nonvenomous arthropods;NA;NA;NA
+X50;NA;NA;NA;NA
+X58;Exposure to other specified factors;NA;NA;NA
+X83;Intentional self-harm by other specified means;NA;NA;NA
+X93;Assault by handgun discharge;NA;NA;NA
+X95;Assault by other and unspecified firearm and gun discharge;NA;NA;NA
+Y00;Assault by blunt object;NA;NA;NA
+Y01;Assault by pushing from high place;NA;NA;NA
+Y04;Assault by bodily force;NA;NA;NA
+Y07;Perpetrator of assault, maltreatment and neglect;NA;NA;NA
+Y08;Assault by other specified means;NA;NA;NA
+Y09;Assault by unspecified means;NA;NA;NA
+Y24;Other and unspecified firearm discharge, undetermined intent;NA;NA;NA
+Y40;NA;NA;NA;NA
+Y41;NA;NA;NA;NA
+Y42;NA;NA;NA;NA
+Y43;NA;NA;NA;NA
+Y44;NA;NA;NA;NA
+Y54;NA;NA;NA;NA
+Y60;NA;NA;NA;NA
+Y65;Other misadventures during surgical and medical care;NA;NA;NA
+Y83;Surgical operation and other surgical procedures as the cause of abnormal reaction of the patient, or of later complication, without mention of misadventure at the time of the procedure;NA;NA;NA
+Y84;Other medical procedures as the cause of abnormal reaction of the patient, or of later complication, without mention of misadventure at the time of the procedure;1;NA;2
+Y90;Evidence of alcohol involvement determined by blood alcohol level;NA;NA;0
+Y92;Place of occurrence of the external cause;NA;NA;NA
+Y93;Activity codes;NA;NA;NA
+Y95;Nosocomial condition;NA;NA;5
+Y99;External cause status;NA;NA;NA
+Z00;Encounter for general examination without complaint, suspected or reported diagnosis;NA;NA;0
+Z01;Encounter for other special examination without complaint, suspected or reported diagnosis;NA;NA;NA
+Z02;Encounter for administrative examination;NA;NA;0
+Z03;Encounter for medical observation for suspected diseases and conditions ruled out;NA;NA;0
+Z04;Encounter for examination and observation for other reasons;NA;NA;0
+Z09;Encounter for follow-up examination after completed treatment for conditions other than malignant neoplasm;NA;NA;0
+Z11;Encounter for screening for infectious and parasitic diseases;NA;NA;NA
+Z12;Encounter for screening for malignant neoplasms;NA;NA;NA
+Z13;Encounter for screening for other diseases and disorders;NA;NA;NA
+Z14;Genetic carrier;NA;NA;NA
+Z15;Genetic susceptibility to disease;NA;NA;NA
+Z16;Resistance to antimicrobial drugs;NA;NA;NA
+Z17;Estrogen receptor status;NA;NA;NA
+Z18;Retained foreign body fragments;NA;NA;NA
+Z20;Contact with and (suspected) exposure to communicable diseases;NA;NA;0
+Z21;Asymptomatic human immunodeficiency virus [HIV] infection status;NA;NA;0
+Z22;Carrier of infectious disease;NA;NA;????
+Z23;Encounter for immunization;NA;NA;NA
+Z25;NA;NA;NA;NA
+Z27;NA;NA;NA;NA
+Z28;Immunization not carried out and underimmunization status;NA;NA;NA
+Z29;NA;NA;NA;????
+Z30;Encounter for contraceptive management;NA;NA;0
+Z31;Encounter for procreative management;NA;NA;0
+Z32;Encounter for pregnancy test and childbirth and childcare instruction;NA;NA;NA
+Z33;Pregnant state;NA;NA;0
+Z34;Encounter for supervision of normal pregnancy;NA;NA;NA
+Z35;NA;NA;NA;0
+Z36;Encounter for antenatal screening of mother;NA;NA;NA
+Z37;Outcome of delivery;NA;NA;0
+Z38;Liveborn infants according to place of birth and type of delivery;NA;NA;NA
+Z39;Encounter for maternal postpartum care and examination;NA;NA;0
+Z3A;Weeks of gestation;NA;NA;NA
+Z43;Encounter for attention to artificial openings;NA;NA;0
+Z45;Encounter for adjustment and management of implanted device;NA;NA;0
+Z46;Encounter for fitting and adjustment of other devices;NA;NA;0
+Z47;Orthopedic aftercare;NA;NA;NA
+Z48;Encounter for other postprocedural aftercare;NA;NA;0
+Z49;Encounter for care involving renal dialysis;NA;NA;0
+Z51;Encounter for other aftercare;NA;NA;0
+Z52;Donors of organs and tissues;NA;NA;NA
+Z53;Persons encountering health services for specific procedures and treatment, not carried out;NA;NA;0
+Z55;Problems related to education and literacy;NA;NA;0
+Z56;Problems related to employment and unemployment;NA;NA;0
+Z59;Problems related to housing and economic circumstances;NA;NA;0
+Z60;Problems related to social environment;NA;NA;0
+Z62;Problems related to upbringing;NA;NA;NA
+Z63;Other problems related to primary support group, including family circumstances;NA;NA;0
+Z64;Problems related to certain psychosocial circumstances;NA;NA;NA
+Z65;Problems related to other psychosocial circumstances;NA;NA;0
+Z66;Do not resuscitate;NA;NA;NA
+Z67;Blood type;NA;NA;NA
+Z68;Body mass index [BMI];NA;NA;NA
+Z70;Counseling related to sexual attitude, behavior and orientation;NA;NA;NA
+Z71;Persons encountering health services for other counseling and medical advice, not elsewhere classified;NA;1;2
+Z72;Problems related to lifestyle;NA;NA;0
+Z73;Problems related to life management difficulty;NA;NA;0
+Z74;Problems related to care provider dependency;NA;1;2
+Z75;Problems related to medical facilities and other health care;NA;NA;0
+Z76;Persons encountering health services in other circumstances;NA;NA;0
+Z77;Other contact with and (suspected) exposures hazardous to health;NA;NA;NA
+Z78;Other specified health status;NA;NA;NA
+Z79;Long term (current) drug therapy;NA;NA;NA
+Z80;Family history of primary malignant neoplasm;NA;NA;0
+Z81;Family history of mental and behavioral disorders;NA;NA;NA
+Z82;Family history of certain disabilities and chronic diseases (leading to disablement);NA;NA;0
+Z83;Family history of other specific disorders;NA;NA;0
+Z84;Family history of other conditions;NA;NA;NA
+Z85;Personal history of malignant neoplasm;NA;NA;0
+Z86;Personal history of certain other diseases;NA;NA;1
+Z87;Personal history of other diseases and conditions;NA;NA;0
+Z88;Allergy status to drugs, medicaments and biological substances;NA;NA;0
+Z89;Acquired absence of limb;NA;NA;0
+Z90;Acquired absence of organs, not elsewhere classified;NA;NA;0
+Z91;Personal risk factors, not elsewhere classified;NA;NA;0
+Z92;Personal history of medical treatment;NA;NA;0
+Z93;Artificial opening status;NA;NA;0
+Z94;Transplanted organ and tissue status;1;NA;4
+Z95;Presence of cardiac and vascular implants and grafts;1;NA;4
+Z96;Presence of other functional implants;1;NA;4
+Z97;Presence of other devices;1;NA;3
+Z98;Other postprocedural states;NA;NA;0
+Z99;Dependence on enabling machines and devices, not elsewhere classified;1;NA;2

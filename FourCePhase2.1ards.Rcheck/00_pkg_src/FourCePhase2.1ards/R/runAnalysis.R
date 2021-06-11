@@ -3,12 +3,10 @@
 #'
 #' @keywords 4CE
 #'
-#' @param obfuscation True/False
-#' @param obfuscationThreshord level of obfuscation
 #'
 #' @return
 #' @export
-#' @import dplyr tidyr stringr icd caret DT tidyverse icd.data
+#' @import dplyr tidyr stringr icd caret DT tidyverse icd.data metafor
 
 runAnalysis <- function() {
 
@@ -21,7 +19,6 @@ runAnalysis <- function() {
 
     ## run the quality control
     FourCePhase2.1Data::runQC(currSiteId)
-
 
     ## DO NOT CHANGE ANYTHING ABOVE THIS LINE
 
@@ -42,7 +39,7 @@ runAnalysis <- function() {
     ## obfuscation
     obfuscationValue <- -99
 
-    obfuscationThreshord= as.numeric(FourCePhase2.1Data::getObfuscation(currSiteId))
+    obfuscationThreshord= as.numeric(FourCePhase2.1Data::getObfuscation(toupper(currSiteId)))
 
     if(obfuscationThreshord==0){
       obfuscation = FALSE
@@ -94,6 +91,12 @@ runAnalysis <- function() {
     # ## load medication
     # med_code= read.csv(paste0(path_pack,"/doc/4CE_medication.csv"))
 
+    # ## ICD
+    # ICD_comor_comp <- read_csv2(paste0(path_pack,'/data-raw/ICD_comor_comp.csv'))
+    #
+    # ## load elix
+    #  elix_score= read_csv2(paste0(path_pack,'/data-raw/elix_score.csv'))
+
     # pheno_ICD=FourCePhase2.1ards::pheno_ICD
     # comp_class=FourCePhase2.1ards::comp_class
     # sev_proc_icd10=FourCePhase2.1ards::sev_proc_icd10
@@ -108,7 +111,7 @@ runAnalysis <- function() {
     ## input ###
     med_severe = c("SIANES","SICARDIAC")
     loinc_pao2 = "2703-7"
-    ARDS=c('J80','518.82')
+    ARDS=c('J80','518.82','518')
     proc_cpt= c("CPT4:31500","CPT4:94656","CPT4:94657","CPT4:94002")
 
     # P1 : january - july
@@ -251,7 +254,7 @@ runAnalysis <- function() {
 
     pat_nodiag=setdiff(LocalPatientSummary$patient_num,pat_withday$patient_num)
 
-   if (!length(pat_noday) == 0) {
+   if (!length(pat_nodiag) == 0) {
 
      LocalPatientSummary <- LocalPatientSummary %>%
        dplyr::filter(! patient_num %in% pat_nodiag )%>%
@@ -1574,14 +1577,222 @@ runAnalysis <- function() {
     message("Analysis => OK")
 
     ## ========================================
+    ## PART 5 : univariate analysis
+    ## ========================================
+
+    # univariate analysis ARDS  versus No ARDS young
+
+    yi_vi_uni <- function(ayg,outcome1,outcome0,popu_eval,popu_ref){
+
+      temp_metha <- ayg %>%
+        dplyr::filter (GROUP %in% c(outcome0,outcome1)) %>%
+        dplyr::filter(variable %in% c( popu_eval,popu_ref)) %>%
+        mutate(
+          GROUP2 = case_when(
+            GROUP==outcome0 ~ "outcome0",
+            GROUP==outcome1 ~ "outcome1"
+          ))%>%
+        mutate(
+          variable2 = case_when(
+            variable==popu_eval ~ "popu_eval",
+            variable==popu_ref ~ "popu_ref",
+          ))%>%
+        select(GROUP2, variable2, value, periode_group)%>%
+        pivot_wider(names_from = c(GROUP2, variable2), values_from = value)%>%
+        replace(is.na(.), 0)
+
+      temp_yivi <- metafor::escalc(measure = "RR",
+                             ai = outcome1_popu_eval,
+                             bi = outcome0_popu_eval,
+                             ci = outcome1_popu_ref,
+                             di = outcome0_popu_ref,
+                             data = temp_metha,
+                             append = TRUE)
+
+      output_metha=data.frame("periode_group"=temp_yivi$periode_group,
+                             "outcome0" = outcome0,
+                             "outcome1" = outcome1,
+                             "popu_eval" = popu_eval,
+                             "popu_ref" = popu_ref,
+                             "yi"=temp_yivi$yi,
+                             "yi"=temp_yivi$vi)
+
+      return(output_metha)
+    }
+
+
+    uni_age= yi_vi_uni(ayg=output_gen ,
+                         outcome1= "ARDS_18_49",
+                         outcome0 ="NO_ARDS_18_49",
+                         popu_eval= "26to49",
+                         popu_ref= "18to25")
+
+    uni_sex= yi_vi_uni(ayg=output_gen ,
+                       outcome1= "ARDS_18_49",
+                       outcome0 ="NO_ARDS_18_49",
+                       popu_eval= "male",
+                       popu_ref= "female")
+
+    uni_prehosp= yi_vi_uni(ayg=output_gen ,
+                       outcome1= "ARDS_18_49",
+                       outcome0 ="NO_ARDS_18_49",
+                       popu_eval= 'previous_hospi',
+                       popu_ref= 'no_previous_hospi')
+
+    ## comorbidities
+
+    ## number of patient per groups, period, and befor and after
+
+    num_pat_all <- output_gen %>%
+      filter(concept == "patient")%>%
+      filter(variable == "number")%>%
+      select(GROUP, value, periode_group)%>%
+      mutate(time = "all")
+
+    num_pat_before <- output_gen %>%
+      filter(concept == "patient")%>%
+      filter(variable %in% c('previous_hospi'))%>%
+      select(GROUP, value, periode_group)%>%
+      mutate(time = "before")
+
+    num_pat_gen =rbind(num_pat_all,num_pat_before)
+
+    ## comorbidities comparison between ards - no ards young
+
+    outcome1="ARDS_18_49"
+    outcome0="NO_ARDS_18_49"
+
+    variable_uni= c(unique(elix_score$elix_short),unique(substr(ICD10$code,1,3)))
+
+    comb_concept_G=expand.grid(variable_uni,c(outcome0,outcome1),unique(out_comp$periode_group), unique(num_pat_gen$time))
+    colnames(comb_concept_G)=c("variable","GROUP","periode_group","time")
+
+    comb_concept_G<-comb_concept_G %>%
+      left_join(num_pat_gen,by = c("GROUP","periode_group", "time"))%>%
+      rename(npat = value)
+
+    uni_comor_format <- out_proc_diag_med %>%
+      filter(periode_group %in% c("all","before")) %>%
+      filter(GROUP %in% c(outcome1, outcome0)) %>%
+      filter(variable %in% variable_uni)%>%
+      filter(time %in% unique(num_pat_gen$time))%>%
+      mutate(popu_eval =value)%>%
+      right_join(comb_concept_G,by = c("variable","GROUP","periode_group", "time"))%>%
+      mutate(popu_eval =ifelse(is.na(popu_eval),0,popu_eval))%>%
+      mutate(popu_ref = npat - popu_eval)%>%
+      select(GROUP,variable,periode_group,time,popu_eval, popu_ref)%>%
+      mutate( GROUP = case_when(
+        GROUP==outcome0 ~ "outcome0",
+        GROUP==outcome1 ~ "outcome1"))%>%
+      pivot_wider(names_from = c(GROUP), values_from = c(popu_eval, popu_ref))%>%
+      data_frame()
+
+    uni_comor <- metafor::escalc(measure = "RR",
+                      ai = popu_eval_outcome1,
+                      bi = popu_eval_outcome0,
+                      ci = popu_ref_outcome1,
+                      di = popu_ref_outcome0,
+                           data = uni_comor_format,
+                           append = TRUE)
+
+    uni_comor <- uni_comor%>%
+      select("variable","periode_group","time","yi","vi")
+
+
+    ## univariate analysis Young  versus Old  ARDS
+    #  Age
+
+    outcome1="male"
+    outcome0="female"
+    popu_eval="ARDS_18_49"
+    popu_ref="ARDS_sup_49"
+
+    uni_sex_ards <- output_gen %>%
+      dplyr::filter ( variable %in% c(outcome0,outcome1)) %>%
+      dplyr::filter( GROUP %in% c( popu_eval,popu_ref)) %>%
+      mutate(
+        GROUP2 = case_when(
+          GROUP==popu_ref ~ "popu_ref",
+          GROUP==popu_eval ~ "popu_eval"
+        ))%>%
+      mutate(
+        variable2 = case_when(
+          variable==outcome1 ~ "outcome1",
+          variable==outcome0 ~ "outcome0",
+        ))%>%
+      select(GROUP2, variable2, value, periode_group)%>%
+      pivot_wider(names_from = c(variable2,GROUP2), values_from = value)%>%
+      replace(is.na(.), 0)
+
+    uni_sex_ards_yivi <- metafor::escalc(measure = "RR",
+                        ai = outcome1_popu_eval,
+                        bi = outcome0_popu_eval,
+                        ci = outcome1_popu_ref,
+                        di = outcome0_popu_ref,
+                        data = uni_sex_ards,
+                        append = TRUE)
+
+    uni_sex_ards_yivi_out=data.frame("periode_group"=uni_sex_ards_yivi$periode_group,
+                            "outcome0" = outcome0,
+                            "outcome1" = outcome1,
+                            "popu_eval" = popu_eval,
+                            "popu_ref" = popu_ref,
+                            "yi"=uni_sex_ards_yivi$yi,
+                            "yi"=uni_sex_ards_yivi$vi)
+
+    uni_demo = rbind(uni_age,uni_sex,uni_prehosp,uni_sex_ards_yivi_out )
+
+    #  complication
+
+    popu_eval = "ARDS_18_49"
+    popu_ref = "ARDS_sup_49"
+
+    var_uni_comp= c(unique(comp_class$complication_class),unique(substr(ICD10$code,1,3)))
+
+    comb_concept_ARDS=expand.grid(var_uni_comp,c(popu_eval,popu_ref),unique(out_comp$periode_group), "all")
+    colnames(comb_concept_ARDS)=c("variable","GROUP","periode_group","time")
+
+    comb_concept_ARDS<-comb_concept_ARDS %>%
+      left_join(num_pat_gen,by = c("GROUP","periode_group","time"))%>%
+      rename(npat = value)
+
+    uni_comp_format <- out_proc_diag_med %>%
+      filter(GROUP %in% c(popu_eval, popu_ref)) %>%
+      filter(variable %in% var_uni_comp )%>%
+      filter(time=="after")%>%
+      mutate(outcome1 =value)%>%
+      right_join(comb_concept_ARDS,by = c("variable","GROUP","periode_group"))%>%
+      mutate(outcome1 =ifelse(is.na(outcome1),0,outcome1))%>%
+      mutate(outcome0 = npat - outcome1)%>%
+      select(GROUP,variable,periode_group,outcome1, outcome0)%>%
+      mutate( GROUP = case_when(
+        GROUP==popu_eval ~ "popu_eval",
+        GROUP==popu_ref ~ "popu_ref"))%>%
+      pivot_wider(names_from = c(GROUP), values_from = c(outcome1, outcome0))%>%
+      data_frame()
+
+    uni_comp <- metafor::escalc(measure = "RR",
+                           ai = outcome1_popu_eval,
+                           bi = outcome0_popu_eval,
+                           ci = outcome1_popu_ref,
+                           di = outcome0_popu_ref,
+                            data = uni_comp_format,
+                            append = TRUE)
+
+    uni_comp <- uni_comp%>%
+      select("variable","periode_group","yi","vi")
+
+
+    message("Univariate analysis  => OK")
+
+    ## ========================================
     ## PART 5 : Multivariate analysis
     ## ========================================
 
 
     run_logicregression <-
-      function(df, depend_var, ind_vars) {
-        # if (length(unique(df[, depend_var, drop = T])) <= 1)
-        #   return(NULL)
+      function(name, currSiteId,df, depend_var, ind_vars) {
+
         independ_vars <- paste(ind_vars, collapse = ' + ')
         output <- tryCatch(
           {glm(as.formula(paste(depend_var, '~', independ_vars)),
@@ -1595,12 +1806,17 @@ runAnalysis <- function() {
             return(NULL) # return NA in case of error
           }
         )
-        # if (!is.null(output)){
-        #   output$deviance.resid <- NULL
-        #   output$na.action <- NULL
-        #   output$terms <- NULL
-        # }
 
+        if (!is.null(output)){
+
+        multi=data.frame(output$coefficients)
+        multi$siteid=currSiteId
+        multi$variable <- rownames(multi)
+        multi$name=name
+        }
+        else { multi = NULL}
+
+      return(multi)
       }
 
     data_multi <- LocalPatientSummary%>%
@@ -1608,51 +1824,83 @@ runAnalysis <- function() {
       inner_join(comorb_elix_90, by = c("patient_num"))%>%
       filter(GROUP %in% c("ARDS_18_49","NO_ARDS_18_49"))
 
-    ALL_LR <-run_logicregression(
+    LR_ALL <-run_logicregression(
+      name = "ALL",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Pulmonary","Renal","DM","Liver","Obesity","Alcohol","Drugs","CHF","HTN"))
 
-    ALL_LR_wout_RENAL <-run_logicregression(
+    LR_ALL_wout_RENAL <-run_logicregression(
+      name = "ALL_wout_RENAL",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Pulmonary","DM","Liver","Obesity","Alcohol","Drugs","CHF","HTN"))
 
+    LR_ALL_wout_Abuses <-run_logicregression(
+      name = "ALL_wout_Abuses",
+      currSiteId = currSiteId,
+      df= data_multi,
+      depend_var= "ARDS",
+      ind_vars= c("sex","Pulmonary","DM","Liver","Obesity","CHF","HTN"))
+
     LR_CHF <-run_logicregression(
+      name = "CHF",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Obesity","DM","HTN","Alcohol","CHF"))
 
     LR_OBESITY <-run_logicregression(
+      name = "OBESITY",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Obesity","DM","Alcohol"))
 
     LR_DM <-run_logicregression(
+      name = "DM",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Obesity","DM"))
 
     LR_HT <-run_logicregression(
+      name = "HT",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Obesity","DM","Renal","HTN"))
 
     LR_LIVER <-run_logicregression(
+      name = "LIVER",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Obesity","DM","HTN","Liver"))
 
+    LR_RENAL <-run_logicregression(
+      name = "RENAL",
+      currSiteId = currSiteId,
+      df= data_multi,
+      depend_var= "ARDS",
+      ind_vars= c("sex","Obesity","DM","HTN","Renal"))
+
+
     LR_ABUSES <-run_logicregression(
+      name = "ABUSES",
+      currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Alcohol","Drugs"))
 
+    multiresults <- rbind(LR_ALL,LR_ALL_wout_RENAL,LR_CHF,LR_OBESITY,LR_DM, LR_HT, LR_LIVER, LR_RENAL,LR_ABUSES)
 
+    message("Multivariate analysis  => OK")
     ## ========================================
     ## PART 6 : Saving output
     ## ========================================
-
 
     siteid=unique(LocalPatientSummary$siteid)
 
@@ -1661,13 +1909,16 @@ runAnalysis <- function() {
     output_lab$siteid=siteid
     out_proc_diag_med$siteid=siteid
     output_sens$siteid=siteid
+    uni_demo$siteid=siteid
+    uni_comor$siteid=siteid
+    uni_comp$siteid=siteid
 
     ## manage std with 1 patient
     output_lab <- output_lab %>%
         dplyr::mutate(std_value = ifelse(npat == 1, 0, std_value),
                       std_log_value = ifelse(npat == 1, 0, std_log_value))
 
-    var_gen_num = c("number","n_severe" ,"26to49","50to69","70to79","80plus","18to25","female","male","no_previous_hospi","previous_hospi","no_rehospit","rehospit","dead","dead_less_28","dead_less_90","out_hospit_28","out_hospit_90","in_hospital", "death", "out_hospital","no_data")
+    var_gen_num = c("number","n_severe","npat_nodiag","never_severe","ever_severe","26to49","50to69","70to79","80plus","18to25","female","male","no_previous_hospi","previous_hospi","no_rehospit","rehospit","dead","dead_less_28","dead_less_90","out_hospit_28","out_hospit_90","in_hospital", "death", "out_hospital","no_data")
 
     var_gen_ag =c("mean_freq","std_freq", "mean_los", "std_los")
 
@@ -1680,7 +1931,7 @@ runAnalysis <- function() {
     if(obfuscation){
 
         group_less_obf <- output_gen %>%
-            dplyr::filter(variable =="number" &  value< obfuscationThreshord)%>%
+            dplyr::filter(variable =="number" &  value < obfuscationThreshord)%>%
             dplyr::select(GROUP,periode_group)
 
         output_gen <- output_gen %>%
@@ -1731,32 +1982,12 @@ runAnalysis <- function() {
     write.csv(out_proc_diag_med, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_ards_young_proc_diag_med",".csv")), row.names = FALSE, na = "")
     write.csv(obfusc, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_obfusc",".csv")), row.names = FALSE, na = "")
     write.csv(output_sens, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_sens",".csv")), row.names = FALSE, na = "")
-
-
+    write.csv(multiresults, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_multiresults",".csv")), row.names = FALSE, na = "")
+    write.csv(uni_demo, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_uni_demo",".csv")), row.names = FALSE, na = "")
+    write.csv(uni_comor, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_uni_comor",".csv")), row.names = FALSE, na = "")
+    write.csv(uni_comp, file=file.path(getProjectOutputDirectory(), paste0(currSiteId,"_uni_comp",".csv")), row.names = FALSE, na = "")
 
     ## save multi variate analysis
-
-    multiresults <- list(
-      site = currSiteId,
-      ALL_LR =ALL_LR,
-      ALL_LR_wout_RENAL = ALL_LR_wout_RENAL,
-      LR_CHF = LR_CHF,
-      LR_OBESITY = LR_OBESITY,
-      LR_DM = LR_DM,
-      LR_HT = LR_HT,
-      LR_LIVER = LR_LIVER,
-      LR_ABUSES = LR_ABUSES )
-
-    site_results <- paste0(currSiteId, "_multiresults")
-    assign(site_results, multiresults)
-
-    save(
-      list = site_results,
-      file = file.path(
-        getProjectOutputDirectory(),
-        paste0(currSiteId, "_results.rda")
-      )
-    )
 
     cat(
       "Result is saved in",

@@ -1,0 +1,31 @@
+elix_desc;elix_short
+Congestive heart failure;CHF
+Cardiac arrhythmia;Arrhythmia
+Valvular disease;Valvular
+Pulmonary circulation disorder;PHTN
+Peripheral vascular disease;PVD
+Hypertension;HTN
+Hypertension complicated;HTNcx
+Paralysis;Paralysis
+Other neurological disorders;NeuroOther
+Chronic pulmonary disease;Pulmonary
+Diabetes,;DM
+Hypothyroidism;Hypothyroid
+Renal failure;Renal
+Liver disease;Liver
+Peptic ulcer disease;PUD
+AIDS/HIV;HIV
+Lymphoma;Lymphoma
+Metastatic cancer;Mets
+Solid tumor without metastasis;Tumor
+Rheumatoid arthritis;Rheumatic
+Coagulopathy;Coagulopathy
+Obesity;Obesity
+Weight loss;WeightLoss
+Fluid/electrolyte disorders;FluidsLytes
+Blood loss anemia;BloodLoss
+Deficiency anemia;Anemia
+Alcohol abuse;Alcohol
+Drug abuse;Drugs
+Psychoses;Psychoses
+Depression;Depression
