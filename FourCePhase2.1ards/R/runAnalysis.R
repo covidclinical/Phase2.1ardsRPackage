@@ -1919,7 +1919,7 @@ runAnalysis <- function() {
         dplyr::mutate(std_value = ifelse(npat == 1, 0, std_value),
                       std_log_value = ifelse(npat == 1, 0, std_log_value))
 
-    var_gen_num = c("number","n_severe","npat_nodiag","never_severe","ever_severe","26to49","50to69","70to79","80plus","18to25","female","male","no_previous_hospi","previous_hospi","no_rehospit","rehospit","dead","dead_less_28","dead_less_90","out_hospit_28","out_hospit_90","in_hospital", "death", "out_hospital","no_data")
+    var_gen_num = c("number","n_severe","npat_nodiag","never_severe","ever_severe","26to49","50to69","70to79","80plus","18to25","female","male","other","no_previous_hospi","previous_hospi","no_rehospit","rehospit","dead","dead_less_28","dead_less_90","out_hospit_28","out_hospit_90","in_hospital", "death", "out_hospital","no_data")
 
     var_gen_ag =c("mean_freq","std_freq", "mean_los", "std_los")
 
