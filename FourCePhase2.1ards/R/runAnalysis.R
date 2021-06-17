@@ -2,8 +2,6 @@
 #' Runs the analytic workflow for the ards project
 #'
 #' @keywords 4CE
-#'
-#'
 #' @return
 #' @export
 #' @import dplyr tidyr stringr icd caret DT tidyverse icd.data metafor
@@ -132,12 +130,10 @@ runAnalysis <- function() {
     limit_d_befor= -14
     limit_d_after= 90
 
-
     message("load doc and reformat=> OK")
     ## ========================================
     ## PART 3: Group selection
     ## ========================================
-
 
     #remove patient admitted after the last date of inclusion
     LocalPatientSummary <- LocalPatientSummary %>%

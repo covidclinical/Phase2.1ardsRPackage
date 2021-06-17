@@ -26,3 +26,15 @@
 #' @docType data
 
 "sev_proc_icd10"
+
+#' ICD code for complication and comorbidities class
+#'
+#' @docType data
+"ICD_comor_comp"
+
+## load elix
+#'
+#' @docType data
+
+"elix_score"
+
