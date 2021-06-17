@@ -1620,7 +1620,7 @@ runAnalysis <- function() {
 
       } else  {
 
-        output_metha=data.frame("periode_group"=temp_yivi$periode_group,
+        output_metha=data.frame("periode_group"=c("all","P2", "P1"),
                                 "outcome0" = outcome0,
                                 "outcome1" = outcome1,
                                 "popu_eval" = popu_eval,
@@ -1756,7 +1756,7 @@ runAnalysis <- function() {
                             "vi"=uni_sex_ards_yivi$vi)
     } else  {
 
-      uni_sex_ards_yivi_out=data.frame("periode_group"=uni_sex_ards_yivi$periode_group,
+      uni_sex_ards_yivi_out=data.frame("periode_group"=c("all","P2", "P1"),
                                        "outcome0" = outcome0,
                                        "outcome1" = outcome1,
                                        "popu_eval" = popu_eval,
