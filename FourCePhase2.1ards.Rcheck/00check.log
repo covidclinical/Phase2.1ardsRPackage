@@ -7,10 +7,242 @@
 * this is package ‘FourCePhase2.1ards’ version ‘0.0.0.9000’
 * package encoding: UTF-8
 * checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Namespace dependency not required: ‘metafor’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking serialization versions ... OK
+* checking whether package ‘FourCePhase2.1ards’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking DESCRIPTION meta-information ... WARNING
+Non-standard license specification:
+  `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+  license
+Standardizable: FALSE
+* checking top-level files ... NOTE
+Non-standard file/directory found at top level:
+  ‘data-raw’
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking dependencies in R code ... WARNING
+'::' or ':::' import not declared from: ‘metafor’
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+getProjectOutputDirectory: warning in gsub(x = gsub(x =
+  dataRepositoryUrl, pattern = "https://github.com/covidclinical/",
+  fixed = TRUE, replace = ""), pattern = ".git", fixed = TRUE, replace
+  = ""): partial argument match of 'replace' to 'replacement'
+getProjectOutputDirectory: warning in gsub(x = dataRepositoryUrl,
+  pattern = "https://github.com/covidclinical/", fixed = TRUE, replace
+  = ""): partial argument match of 'replace' to 'replacement'
+getProjectOutputDirectory: warning in gsub(x = repositoryName, pattern
+  = "SummariesPublic", replace = "", fixed = TRUE): partial argument
+  match of 'replace' to 'replacement'
+submitAnalysis: warning in gsub(x = gsub(x = dataRepositoryUrl, pattern
+  = "https://github.com/covidclinical/", fixed = TRUE, replace = ""),
+  pattern = ".git", fixed = TRUE, replace = ""): partial argument match
+  of 'replace' to 'replacement'
+submitAnalysis: warning in gsub(x = dataRepositoryUrl, pattern =
+  "https://github.com/covidclinical/", fixed = TRUE, replace = ""):
+  partial argument match of 'replace' to 'replacement'
+get_table1: no visible binding for global variable ‘.’
+get_table1: no visible global function definition for
+  ‘rownames_to_column’
+get_table1: no visible global function definition for ‘blur_it’
+get_table1: no visible binding for global variable ‘n_patients’
+get_table1: no visible global function definition for ‘:=’
+get_table1: no visible binding for global variable ‘prop_patients’
+map_char_elix_codes: no visible binding for global variable
+  ‘concept_type’
+map_char_elix_codes: no visible binding for global variable
+  ‘days_since_admission’
+map_char_elix_codes: no visible binding for global variable ‘value’
+map_char_elix_codes: no visible binding for global variable
+  ‘diagnosis_code’
+map_char_elix_codes: no visible binding for global variable
+  ‘concept_code’
+map_char_elix_codes: no visible binding for global variable
+  ‘patient_num’
+map_char_elix_codes: no visible binding for global variable ‘.’
+map_char_elix_codes: no visible binding for global variable ‘HTN’
+map_char_elix_codes: no visible binding for global variable ‘HTNcx’
+map_char_elix_codes: no visible binding for global variable
+  ‘Abbreviation’
+map_char_elix_codes: no visible binding for global variable ‘long_desc’
+map_char_elix_codes: no visible binding for global variable
+  ‘n_patients’
+runAnalysis: no visible global function definition for ‘read.csv’
+runAnalysis: no visible binding for global variable ‘concept_code’
+runAnalysis: no visible binding for global variable ‘concept_type’
+runAnalysis: no visible binding for global variable ‘code’
+runAnalysis: no visible binding for global variable ‘admission_date’
+runAnalysis: no visible binding for global variable ‘patient_num’
+runAnalysis: no visible binding for global variable ‘age_group’
+runAnalysis: no visible binding for global variable
+  ‘days_since_admission’
+runAnalysis: no visible binding for global variable ‘calendar_date’
+runAnalysis: no visible binding for global variable ‘GROUP’
+runAnalysis: no visible binding for global variable ‘npat’
+runAnalysis: no visible binding for global variable ‘count_pat’
+runAnalysis: no visible binding for global variable ‘value’
+runAnalysis: no visible binding for global variable ‘nodiag_npat’
+runAnalysis: no visible binding for global variable ‘periode_group’
+runAnalysis: no visible binding for global variable ‘in_hospital’
+runAnalysis: no visible binding for global variable ‘freqi’
+runAnalysis: no visible global function definition for ‘sd’
+runAnalysis: no visible binding for global variable ‘mean_freq’
+runAnalysis: no visible binding for global variable ‘std_freq’
+runAnalysis: no visible binding for global variable ‘temp’
+runAnalysis: no visible binding for global variable
+  ‘delay_1rehospit_1admin’
+runAnalysis: no visible binding for global variable ‘length_duration_1’
+runAnalysis: no visible binding for global variable ‘mean_los’
+runAnalysis: no visible binding for global variable ‘std_los’
+runAnalysis: no visible binding for global variable ‘severe’
+runAnalysis: no visible binding for global variable ‘count_proc’
+runAnalysis: no visible binding for global variable ‘concept’
+runAnalysis: no visible binding for global variable ‘pao2’
+runAnalysis: no visible binding for global variable ‘numvalue’
+runAnalysis: no visible binding for global variable ‘PAO2’
+runAnalysis: no visible binding for global variable ‘previous_hospi’
+runAnalysis: no visible binding for global variable ‘number_rehospit’
+runAnalysis: no visible binding for global variable
+  ‘van_walraven_score’
+runAnalysis: no visible binding for global variable ‘elixhauser_score’
+runAnalysis: no visible binding for global variable ‘elix_mean_min7’
+runAnalysis: no visible binding for global variable ‘elix_std_min7’
+runAnalysis: no visible binding for global variable ‘elix_mean_90’
+runAnalysis: no visible binding for global variable ‘elix_std_90’
+runAnalysis: no visible binding for global variable ‘PheCode’
+runAnalysis: no visible binding for global variable
+  ‘complication_class’
+runAnalysis: no visible binding for global variable ‘deceased’
+runAnalysis: no visible binding for global variable ‘death_date’
+runAnalysis: no visible binding for global variable ‘dead_28’
+runAnalysis: no visible binding for global variable ‘dead_90’
+runAnalysis: no visible binding for global variable ‘out_hospit_28’
+runAnalysis: no visible binding for global variable ‘out_hospit_90’
+runAnalysis: no visible binding for global variable ‘dead’
+runAnalysis: no visible binding for global variable ‘dead_less_28’
+runAnalysis: no visible binding for global variable ‘dead_less_90’
+runAnalysis: no visible binding for global variable ‘status_at_d’
+runAnalysis : yi_vi_uni: no visible binding for global variable ‘GROUP’
+runAnalysis : yi_vi_uni: no visible binding for global variable
+  ‘variable’
+runAnalysis : yi_vi_uni: no visible binding for global variable
+  ‘GROUP2’
+runAnalysis : yi_vi_uni: no visible binding for global variable
+  ‘variable2’
+runAnalysis : yi_vi_uni: no visible binding for global variable ‘value’
+runAnalysis : yi_vi_uni: no visible binding for global variable
+  ‘periode_group’
+runAnalysis : yi_vi_uni: no visible binding for global variable ‘.’
+runAnalysis : yi_vi_uni: no visible binding for global variable
+  ‘outcome1_popu_eval’
+runAnalysis : yi_vi_uni: no visible binding for global variable
+  ‘outcome0_popu_eval’
+runAnalysis : yi_vi_uni: no visible binding for global variable
+  ‘outcome1_popu_ref’
+runAnalysis : yi_vi_uni: no visible binding for global variable
+  ‘outcome0_popu_ref’
+runAnalysis: no visible binding for global variable ‘variable’
+runAnalysis: no visible binding for global variable ‘elix_score’
+runAnalysis: no visible binding for global variable ‘time’
+runAnalysis: no visible binding for global variable
+  ‘popu_eval_outcome1’
+runAnalysis: no visible binding for global variable
+  ‘popu_eval_outcome0’
+runAnalysis: no visible binding for global variable ‘popu_ref_outcome1’
+runAnalysis: no visible binding for global variable ‘popu_ref_outcome0’
+runAnalysis: no visible binding for global variable ‘GROUP2’
+runAnalysis: no visible binding for global variable ‘variable2’
+runAnalysis: no visible binding for global variable ‘.’
+runAnalysis: no visible binding for global variable
+  ‘outcome1_popu_eval’
+runAnalysis: no visible binding for global variable
+  ‘outcome0_popu_eval’
+runAnalysis: no visible binding for global variable ‘outcome1_popu_ref’
+runAnalysis: no visible binding for global variable ‘outcome0_popu_ref’
+runAnalysis: no visible binding for global variable ‘comp_class’
+runAnalysis : run_logicregression: no visible global function
+  definition for ‘glm’
+runAnalysis : run_logicregression: no visible global function
+  definition for ‘as.formula’
+runAnalysis: no visible binding for global variable ‘std_value’
+runAnalysis: no visible binding for global variable ‘std_log_value’
+runAnalysis: no visible binding for global variable ‘mean_value’
+runAnalysis: no visible binding for global variable ‘mean_log_value’
+runAnalysis: no visible global function definition for ‘write.csv’
+Undefined global functions or variables:
+  . := Abbreviation GROUP GROUP2 HTN HTNcx PAO2 PheCode admission_date
+  age_group as.formula blur_it calendar_date code comp_class
+  complication_class concept concept_code concept_type count_pat
+  count_proc days_since_admission dead dead_28 dead_90 dead_less_28
+  dead_less_90 death_date deceased delay_1rehospit_1admin
+  diagnosis_code elix_mean_90 elix_mean_min7 elix_score elix_std_90
+  elix_std_min7 elixhauser_score freqi glm in_hospital
+  length_duration_1 long_desc mean_freq mean_log_value mean_los
+  mean_value n_patients nodiag_npat npat number_rehospit numvalue
+  out_hospit_28 out_hospit_90 outcome0_popu_eval outcome0_popu_ref
+  outcome1_popu_eval outcome1_popu_ref pao2 patient_num periode_group
+  popu_eval_outcome0 popu_eval_outcome1 popu_ref_outcome0
+  popu_ref_outcome1 previous_hospi prop_patients read.csv
+  rownames_to_column sd severe status_at_d std_freq std_log_value
+  std_los std_value temp time value van_walraven_score variable
+  variable2 write.csv
+Consider adding
+  importFrom("stats", "as.formula", "glm", "sd", "time")
+  importFrom("utils", "read.csv", "write.csv")
+to your NAMESPACE file.
+* checking Rd files ... NOTE
+prepare_Rd: runAnalysis.Rd:9-11: Dropping empty section \value
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  ‘ICD_comor_comp’ ‘elix_score’
+Undocumented data sets:
+  ‘ICD_comor_comp’ ‘elix_score’
+All user-level objects in a package should have documentation entries.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... WARNING
+  Warning: found non-ASCII strings
+  'S<c3><83><c2><a9>zary disease' in object 'pheno_ICD'
+  'Waldenstr<c3><83><c2><b6>m macroglobulinaemia' in object 'pheno_ICD'
+  'Concentric sclerosis [Bal<c3><83><c2><b3>]' in object 'pheno_ICD'
+  'Guillain-Barr<c3><83><c2><a9> syndrome' in object 'pheno_ICD'
+  'M<c3><83><c2><a9>ni<c3><83>?re disease' in object 'pheno_ICD'
+  'Acn<c3><83><c2><a9> excori<c3><83><c2><a9>e' in object 'pheno_ICD'
+  'Caf<c3><83><c2><a9> au lait spots' in object 'pheno_ICD'
+  'Sicca syndrome [Sj<c3><83><c2><b6>gren]' in object 'pheno_ICD'
+  'Beh<c3><83><c2><a7>et disease' in object 'pheno_ICD'
+  'Juvenile osteochondrosis of head of femur [Legg-Calv<c3><83><c2><a9>-Perthes]' in object 'pheno_ICD'
+  'Kienb<c3><83><c2><b6>ck disease of adults' in object 'pheno_ICD'
+* checking data for ASCII and uncompressed saves ... OK
+* checking examples ... NONE
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
 * DONE
-Status: 1 ERROR
+Status: 4 WARNINGs, 3 NOTEs

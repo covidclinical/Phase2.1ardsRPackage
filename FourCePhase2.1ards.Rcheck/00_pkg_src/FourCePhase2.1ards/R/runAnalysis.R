@@ -6,7 +6,7 @@
 #'
 #' @return
 #' @export
-#' @import dplyr tidyr stringr icd caret DT tidyverse icd.data metafor
+#' @import dplyr tidyr stringr icd caret DT tidyverse icd.data
 
 runAnalysis <- function() {
 
@@ -46,6 +46,9 @@ runAnalysis <- function() {
     } else {
       obfuscation = TRUE
     }
+
+    ### missing value
+    miss_value= -999
 
     ### reformat ICD10  : keep only the 3 first digit
     LocalPatientObservations <- LocalPatientObservations %>%
@@ -1601,6 +1604,8 @@ runAnalysis <- function() {
         pivot_wider(names_from = c(GROUP2, variable2), values_from = value)%>%
         replace(is.na(.), 0)
 
+      if (ncol(temp_metha) ==5 ){
+
       temp_yivi <- metafor::escalc(measure = "RR",
                              ai = outcome1_popu_eval,
                              bi = outcome0_popu_eval,
@@ -1615,7 +1620,19 @@ runAnalysis <- function() {
                              "popu_eval" = popu_eval,
                              "popu_ref" = popu_ref,
                              "yi"=temp_yivi$yi,
-                             "yi"=temp_yivi$vi)
+                             "vi"=temp_yivi$vi)
+
+      } else  {
+
+        output_metha=data.frame("periode_group"=temp_yivi$periode_group,
+                                "outcome0" = outcome0,
+                                "outcome1" = outcome1,
+                                "popu_eval" = popu_eval,
+                                "popu_ref" = popu_ref,
+                                "yi"=miss_value,
+                                "vi"=miss_value)
+
+      }
 
       return(output_metha)
     }
@@ -1724,6 +1741,8 @@ runAnalysis <- function() {
       pivot_wider(names_from = c(variable2,GROUP2), values_from = value)%>%
       replace(is.na(.), 0)
 
+    if (ncol(uni_sex_ards) ==5 ){
+
     uni_sex_ards_yivi <- metafor::escalc(measure = "RR",
                         ai = outcome1_popu_eval,
                         bi = outcome0_popu_eval,
@@ -1738,7 +1757,19 @@ runAnalysis <- function() {
                             "popu_eval" = popu_eval,
                             "popu_ref" = popu_ref,
                             "yi"=uni_sex_ards_yivi$yi,
-                            "yi"=uni_sex_ards_yivi$vi)
+                            "vi"=uni_sex_ards_yivi$vi)
+    } else  {
+
+      uni_sex_ards_yivi_out=data.frame("periode_group"=uni_sex_ards_yivi$periode_group,
+                                       "outcome0" = outcome0,
+                                       "outcome1" = outcome1,
+                                       "popu_eval" = popu_eval,
+                                       "popu_ref" = popu_ref,
+                                       "yi"=miss_value,
+                                       "vi"=miss_value)
+
+    }
+
 
     uni_demo = rbind(uni_age,uni_sex,uni_prehosp,uni_sex_ards_yivi_out )
 
@@ -1788,7 +1819,6 @@ runAnalysis <- function() {
     ## ========================================
     ## PART 5 : Multivariate analysis
     ## ========================================
-
 
     run_logicregression <-
       function(name, currSiteId,df, depend_var, ind_vars) {
@@ -1918,7 +1948,7 @@ runAnalysis <- function() {
         dplyr::mutate(std_value = ifelse(npat == 1, 0, std_value),
                       std_log_value = ifelse(npat == 1, 0, std_log_value))
 
-    var_gen_num = c("number","n_severe","npat_nodiag","never_severe","ever_severe","26to49","50to69","70to79","80plus","18to25","female","male","no_previous_hospi","previous_hospi","no_rehospit","rehospit","dead","dead_less_28","dead_less_90","out_hospit_28","out_hospit_90","in_hospital", "death", "out_hospital","no_data")
+    var_gen_num = c("number","n_severe","npat_nodiag","never_severe","ever_severe","26to49","50to69","70to79","80plus","18to25","female","male","other","no_previous_hospi","previous_hospi","no_rehospit","rehospit","dead","dead_less_28","dead_less_90","out_hospit_28","out_hospit_90","in_hospital", "death", "out_hospital","no_data")
 
     var_gen_ag =c("mean_freq","std_freq", "mean_los", "std_los")
 

@@ -1,0 +1,29 @@
+comp_class              ICD10 code regroups for complication analysis
+getPrivateSummaryRepositoryUrl
+                        Returns the GitHub URL of the Private Summary
+                        Repository for this project for the ards
+                        project
+getProjectOutputDirectory
+                        Returns the name of the project's output
+                        directory. runAnalysis() should save its output
+                        here, and submitAnalysis() will expect to read
+                        from this location. This function checks to
+                        make sure the location exists, and if not,
+                        creates it. for the ards project
+getPublicSummaryRepositoryUrl
+                        Returns the GitHub URL of the Public Summary
+                        Repository for this project for the ards
+                        project
+lab_mapping             lab_mapping with nam and loinc
+med_code                medication class
+pheno_ICD               link between ICD and pheno
+runAnalysis             Runs the analytic workflow for the ards project
+sev_proc_icd10          severe procedure for 4CE severe definition with
+                        PROC-ICD10 classification
+smallCountObfuscation   Obfuscates small counts in result data for
+                        sites where IRBs require such for the ards
+                        project
+submitAnalysis          Submits the results of the analytic workflow
+                        for the ards project
+validateAnalysis        Validates the results of the analytic workflow
+                        for the ards project
