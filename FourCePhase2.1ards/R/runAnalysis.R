@@ -1921,7 +1921,7 @@ runAnalysis <- function() {
       depend_var= "ARDS",
       ind_vars= c("sex","Alcohol","Drugs"))
 
-    multiresults <- rbind(LR_ALL,LR_ALL_wout_RENAL,LR_CHF,LR_OBESITY,LR_DM, LR_HT, LR_LIVER, LR_RENAL,LR_ABUSES)
+    multiresults <- rbind(LR_ALL,LR_ALL_wout_RENAL,LR_ALL_wout_Abuses,LR_CHF,LR_OBESITY,LR_DM, LR_HT, LR_LIVER, LR_RENAL,LR_ABUSES)
 
     message("Multivariate analysis  => OK")
     ## ========================================
