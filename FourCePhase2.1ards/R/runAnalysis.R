@@ -875,11 +875,18 @@ runAnalysis <- function() {
 
     ### elixhauser_score
 
+    ## remove ICD-10 code no specific for elixhauser classification:
+
+    icd_remove_code = c("Z45","Z49","Z50","Z71","Z72","Z94","Z95","Z99")
+
+    loc_pat_obs_elix <- LocalPatientObservations%>%
+      filter(! concept_code %in%  icd_remove_code)
+
     comorb_names_elix <- get_quan_elix_names()
     comorbs_elix <- as.vector(comorb_names_elix$Abbreviation)
 
     comorb_elix_before <- map_char_elix_codes(
-        df = LocalPatientObservations,
+        df = loc_pat_obs_elix,
         comorb_names = comorb_names_elix,
         t1 = -365,
         t2 = limit_d_befor,
@@ -913,7 +920,7 @@ runAnalysis <- function() {
     output_gen=rbind(output_gen,output_elix_before,output_elix_before_p)
 
     comorb_elix_90 <- map_char_elix_codes(
-        df = LocalPatientObservations,
+        df = loc_pat_obs_elix,
         comorb_names = comorb_names_elix,
         t1 = -365,
         t2 = 90,
