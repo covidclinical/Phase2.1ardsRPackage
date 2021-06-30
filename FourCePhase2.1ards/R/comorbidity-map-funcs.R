@@ -47,7 +47,19 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
   if (truncate == TRUE) {
     icd10_comorb_map <- lapply(icd10_comorb_map, first_3)
     icd9_comorb_map <- lapply(icd9_comorb_map, first_3)
+
+    ### remove specific ICD10 code if trunc
+
+    icd10_comorb_map$Alcohol= c("F10","K70","T51") # remove"E52" ,"G62", ,"G62" "I42", "Z50","Z71","Z72"
+    icd10_comorb_map$Arrhythmia = c("I44","I45","I47","I48","I49","R00","T82","Z45") # remove "Z95"
+    icd10_comorb_map$Drugs = c("F11","F12","F13","F14","F15","F16","F18","F19") # remove  "Z71" "Z72"
+    icd10_comorb_map$Liver = c("B18","I85","K70","K71","K72","K73","K74","K76") # remove   "Z94" ,"I86","I98"
+    icd10_comorb_map$PVD = c("I70","I71","I73","I77","I79","K55" ) # remove   "Z95"
+    icd10_comorb_map$Renal = c("I12","I13","N18","N19","N25","Z49") # remove   "Z95","Z94","Z99"
+    icd10_comorb_map$HTN = c("I10","I11","I12","I13","I15") # ADD code for HTN complicated "I11","I12","I13","I15"
+
   }
+
 
   if (truncate == FALSE) {
     # convert icd code to short format (without decimals) to facilitate mapping
