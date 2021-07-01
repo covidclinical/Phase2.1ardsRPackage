@@ -11,7 +11,7 @@ runAnalysis <- function() {
     ## make sure this instance has the latest version of the quality control and data wrangling code available
     devtools::install_github("https://github.com/covidclinical/Phase2.1DataRPackage", subdir="FourCePhase2.1Data", upgrade=FALSE)
 
-    ## get the site identifier assocaited with the files stored in the /4ceData/Input directory that
+    ## get the site identifier associated with the files stored in the /4ceData/Input directory that
     ## is mounted to the container
     currSiteId = FourCePhase2.1Data::getSiteId()
 
@@ -1855,21 +1855,21 @@ runAnalysis <- function() {
       currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
-      ind_vars= c("sex","Pulmonary","Renal","DM","Liver","Obesity","Alcohol","Drugs","CHF","HTN"))
+      ind_vars= c("sex","Pulmonary","Renal","DM","Liver","Obesity","Alcohol","CHF","HTN"))
 
     LR_ALL_wout_RENAL <-run_logicregression(
       name = "ALL_wout_RENAL",
       currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
-      ind_vars= c("sex","Pulmonary","DM","Liver","Obesity","Alcohol","Drugs","CHF","HTN"))
+      ind_vars= c("sex","Pulmonary","DM","Liver","Obesity","Alcohol","CHF","HTN"))
 
     LR_ALL_wout_Abuses <-run_logicregression(
       name = "ALL_wout_Abuses",
       currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
-      ind_vars= c("sex","Pulmonary","DM","Liver","Obesity","CHF","HTN"))
+      ind_vars= c("sex","Pulmonary","DM","Liver","Obesity","CHF","HTN","Renal"))
 
     LR_CHF <-run_logicregression(
       name = "CHF",
@@ -1912,7 +1912,6 @@ runAnalysis <- function() {
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Obesity","DM","HTN","Renal"))
-
 
     LR_ABUSES <-run_logicregression(
       name = "ABUSES",
