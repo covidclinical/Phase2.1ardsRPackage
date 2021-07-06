@@ -878,6 +878,13 @@ runAnalysis <- function() {
     comorb_names_elix <- get_quan_elix_names()
     comorbs_elix <- as.vector(comorb_names_elix$Abbreviation)
 
+    comorb_names_elix$Comorbidity
+
+    de<-data.frame("Cancer","Cancer")
+    names(de)<-names(comorb_names_elix)
+
+    comorb_names_elix <- rbind(comorb_names_elix, de)
+
     comorb_elix_before <- map_char_elix_codes(
         df = LocalPatientObservations,
         comorb_names = comorb_names_elix,

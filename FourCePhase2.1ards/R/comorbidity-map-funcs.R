@@ -40,6 +40,12 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
   if (map_type == "elixhauser") {
     icd10_comorb_map = icd::icd10_map_quan_elix
     icd9_comorb_map = icd::icd9_map_quan_elix
+
+
+    ## add regroupment cancer = Lymphoma+ Tumor +Mets
+
+    icd10_comorb_map$Cancer= c(icd10_comorb_map$Lymphoma,  icd10_comorb_map$Tumor, icd10_comorb_map$Mets )
+
   }
 
   ## Because the 4CE has truncated ICD codes, we will also truncate the icd package index maps
@@ -127,8 +133,11 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
       mutate(HTN = pmax(HTN, HTNcx, na.rm = TRUE)) %>%
       select(-HTNcx)
 
+    icd_map_wout_K <- icd_map%>%
+      select(-Cancer)
+
     van_walraven_score <- icd::van_walraven_from_comorbid(
-      icd_map,
+      icd_map_wout_K,
       visit_name = 'patient_num',
       hierarchy = TRUE
     ) %>%
