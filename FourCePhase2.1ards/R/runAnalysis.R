@@ -115,16 +115,16 @@ runAnalysis <- function() {
     ARDS=c('J80','518.82','518')
     proc_cpt= c("CPT4:31500","CPT4:94656","CPT4:94657","CPT4:94002")
 
-    # P1 : january - july
-    # P2 : august - december
-
-    start_date_p1=as.POSIXct(as.Date("2020-01-01"), tz = Sys.timezone())
-    end_date_p1=as.POSIXct(as.Date("2020-07-01"), tz = Sys.timezone())
-    start_date_p2=as.POSIXct(as.Date("2020-12-31"), tz = Sys.timezone())
 
     # date of inclusion
-    last_date_inclusion=as.POSIXct(as.Date("2020-12-31"), tz = Sys.timezone())
+    last_date_inclusion=as.POSIXct(as.Date("2021-02-28"), tz = Sys.timezone())
 
+
+    # P1 : january - july
+    # P2 : august - december
+    start_date_p1=as.POSIXct(as.Date("2020-01-01"), tz = Sys.timezone())
+    end_date_p1=as.POSIXct(as.Date("2020-07-01"), tz = Sys.timezone())
+    start_date_p2=last_date_inclusion
 
     ### limit before / after
     limit_d_befor= -14
@@ -1682,7 +1682,7 @@ runAnalysis <- function() {
     outcome1="ARDS_18_49"
     outcome0="NO_ARDS_18_49"
 
-    variable_uni= c(unique(elix_score$elix_short),unique(substr(ICD10$code,1,3)))
+    variable_uni= c(unique(elix_score$elix_short),"Cancer",unique(substr(ICD10$code,1,3)))
 
     comb_concept_G=expand.grid(variable_uni,c(outcome0,outcome1),unique(out_comp$periode_group), unique(num_pat_gen$time))
     colnames(comb_concept_G)=c("variable","GROUP","periode_group","time")
@@ -1864,6 +1864,13 @@ runAnalysis <- function() {
       depend_var= "ARDS",
       ind_vars= c("sex","Pulmonary","Renal","DM","Liver","Obesity","Alcohol","CHF","HTN"))
 
+    LR_ALL_wtK <-run_logicregression(
+      name = "ALL",
+      currSiteId = currSiteId,
+      df= data_multi,
+      depend_var= "ARDS",
+      ind_vars= c("sex","Pulmonary","Renal","DM","Liver","Obesity","Alcohol","CHF","HTN","Cancer"))
+
     LR_ALL_wout_RENAL <-run_logicregression(
       name = "ALL_wout_RENAL",
       currSiteId = currSiteId,
@@ -1927,7 +1934,7 @@ runAnalysis <- function() {
       depend_var= "ARDS",
       ind_vars= c("sex","Alcohol","Drugs"))
 
-    multiresults <- rbind(LR_ALL,LR_ALL_wout_RENAL,LR_ALL_wout_Abuses,LR_CHF,LR_OBESITY,LR_DM, LR_HT, LR_LIVER, LR_RENAL,LR_ABUSES)
+    multiresults <- rbind(LR_ALL,LR_ALL_wtK,LR_ALL_wout_RENAL,LR_ALL_wout_Abuses,LR_CHF,LR_OBESITY,LR_DM, LR_HT, LR_LIVER, LR_RENAL,LR_ABUSES)
 
     message("Multivariate analysis  => OK")
     ## ========================================
