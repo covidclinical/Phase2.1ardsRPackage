@@ -877,6 +877,7 @@ runAnalysis <- function() {
 
     comorb_names_elix <- get_quan_elix_names()
     comorbs_elix <- as.vector(comorb_names_elix$Abbreviation)
+    comorbs_elix <- c(comorbs_elix,"Cancer")
 
     comorb_names_elix$Comorbidity
 
