@@ -1866,7 +1866,7 @@ runAnalysis <- function() {
       ind_vars= c("sex","Pulmonary","Renal","DM","Liver","Obesity","Alcohol","CHF","HTN"))
 
     LR_ALL_wtK <-run_logicregression(
-      name = "ALL",
+      name = "ALL_wtK",
       currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
