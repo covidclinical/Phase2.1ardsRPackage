@@ -935,7 +935,18 @@ runAnalysis <- function() {
         mutate(patient_num = as.integer(patient_num))%>%
         data.frame()
 
+    df_temp <- LocalPatientObservations %>%
+      filter(concept_type %in% c("DIAG-ICD10", "DIAG-ICD9"),
+             days_since_admission >= -365 & days_since_admission <= 90)
+
+    message(paste("df_temp : number of disctinct patient  ",length(unique(df_temp$patient_num))))
+
     message(paste(" row number comorb_elix_90 ",nrow(comorb_elix_90)))
+    message(paste(" comorb_elix_90  number of disctinct patient ",length(unique(comorb_elix_90$patient_num))))
+
+    message(paste("LocalPatientObservations number of disctinct patient ",length(unique(LocalPatientObservations$patient_num))))
+
+
 
     output_elix_90 <- LocalPatientSummary  %>%
         dplyr::inner_join(comorb_elix_90, by = "patient_num")%>%
@@ -979,8 +990,7 @@ runAnalysis <- function() {
                       time="before")%>%
         data.frame()
 
-    message(paste("LocalPatientObservations number of disctinct patient ",length(unique(LocalPatientObservations$patient_num))))
-    message(paste("LocalPatientSummary number of disctinct patient ",length(unique(LocalPatientSummary$patient_num))))
+   message(paste("LocalPatientSummary number of disctinct patient ",length(unique(LocalPatientSummary$patient_num))))
 
     output_elix_90_score <- LocalPatientSummary  %>%
         dplyr::inner_join(comorb_elix_90, by = "patient_num")%>%
