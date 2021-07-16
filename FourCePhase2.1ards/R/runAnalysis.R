@@ -776,6 +776,9 @@ runAnalysis <- function() {
 
     output_sens=rbind(output_sens,output_sens_y)
 
+
+    message("Extraction QC")
+
     ### age
 
     age<-  LocalPatientSummary %>%
@@ -879,8 +882,6 @@ runAnalysis <- function() {
     comorbs_elix <- as.vector(comorb_names_elix$Abbreviation)
     comorbs_elix <- c(comorbs_elix,"Cancer")
 
-    comorb_names_elix$Comorbidity
-
     de<-data.frame("Cancer","Cancer")
     names(de)<-names(comorb_names_elix)
 
@@ -934,6 +935,8 @@ runAnalysis <- function() {
         mutate(patient_num = as.integer(patient_num))%>%
         data.frame()
 
+    message(paste(" row number comorb_elix_90 ",nrow(comorb_elix_90)))
+
     output_elix_90 <- LocalPatientSummary  %>%
         dplyr::inner_join(comorb_elix_90, by = "patient_num")%>%
         dplyr::group_by(GROUP) %>%
@@ -955,13 +958,12 @@ runAnalysis <- function() {
 
     output_gen=rbind(output_gen,output_elix_90,output_elix_90_p)
 
-
     ### elixhauser_score by commorbdities
 
     output_elix_before_score <- LocalPatientSummary  %>%
         dplyr::inner_join(comorb_elix_before, by = "patient_num")%>%
         dplyr::group_by(GROUP) %>%
-        dplyr::summarise(across(comorbs_elix, ~sum(.x, na.rm = TRUE)))%>%
+        dplyr::summarise(across(all_of(comorbs_elix), ~sum(.x, na.rm = TRUE)))%>%
         pivot_longer(comorbs_elix,names_to = "variable", values_to = "value")%>%
         dplyr::mutate(concept="elix",
                       periode_group="all",
@@ -971,16 +973,19 @@ runAnalysis <- function() {
     output_elix_before_score_p <- LocalPatientSummary  %>%
         dplyr::inner_join(comorb_elix_before, by = "patient_num")%>%
         dplyr::group_by(GROUP,periode_group) %>%
-        dplyr::summarise(across(comorbs_elix, ~sum(.x, na.rm = TRUE)))%>%
+        dplyr::summarise(across(all_of(comorbs_elix), ~sum(.x, na.rm = TRUE)))%>%
         pivot_longer(comorbs_elix,names_to = "variable", values_to = "value")%>%
         dplyr::mutate(concept="elix",
                       time="before")%>%
         data.frame()
 
+    message(paste("LocalPatientObservations number of disctinct patient ",length(unique(LocalPatientObservations$patient_num))))
+    message(paste("LocalPatientSummary number of disctinct patient ",length(unique(LocalPatientSummary$patient_num))))
+
     output_elix_90_score <- LocalPatientSummary  %>%
         dplyr::inner_join(comorb_elix_90, by = "patient_num")%>%
         dplyr::group_by(GROUP) %>%
-        dplyr::summarise(across(comorbs_elix, ~sum(.x, na.rm = TRUE)))%>%
+        dplyr::summarise(across(all_of(comorbs_elix), ~sum(.x, na.rm = TRUE)))%>%
         pivot_longer(comorbs_elix,names_to = "variable", values_to = "value")%>%
         dplyr::mutate(concept="elix",
                       periode_group="all",
@@ -990,12 +995,11 @@ runAnalysis <- function() {
     output_elix_90_score_p <- LocalPatientSummary  %>%
         dplyr::inner_join(comorb_elix_90, by = "patient_num")%>%
         dplyr::group_by(GROUP,periode_group) %>%
-        dplyr::summarise(across(comorbs_elix, ~sum(.x, na.rm = TRUE)))%>%
+        dplyr::summarise(across(all_of(comorbs_elix), ~sum(.x, na.rm = TRUE)))%>%
         pivot_longer(comorbs_elix,names_to = "variable", values_to = "value")%>%
         dplyr::mutate(concept="elix",
                       time="all")%>%
         data.frame()
-
 
     out_elix=rbind(output_elix_before_score,output_elix_before_score_p,output_elix_90_score,output_elix_90_score_p)
 
@@ -1004,12 +1008,10 @@ runAnalysis <- function() {
     ICD=rbind(ICD10[,c("code","long_desc","major","sub_chapter","chapter")],
               ICD9[,c("code","long_desc","major","sub_chapter","chapter")])
 
-
     diagnosis<-LocalPatientObservations %>%
         dplyr::filter( concept_type %in% c("DIAG-ICD10","DIAG-ICD9" )) %>%
         dplyr::left_join( ICD10[,c("code","long_desc","major","sub_chapter","chapter")],by =c( "concept_code" = "code"))%>%
         data.frame()
-
 
     # all time
     out_iCD_all <- LocalPatientObservations %>%
@@ -1030,7 +1032,6 @@ runAnalysis <- function() {
                       concept=concept_type)%>%
         dplyr::mutate(time="all")%>%
         data.frame()
-
 
     # before time
     out_iCD_before <- LocalPatientObservations %>%
@@ -1106,7 +1107,6 @@ runAnalysis <- function() {
         dplyr::filter( concept_type %in% c("DIAG-ICD10","DIAG-ICD9" )) %>%
         dplyr::left_join( FourCePhase2.1ards::pheno_ICD[,c("ICD","ICD.String","PheCode","Phenotype")],by =c( "concept_code" = "ICD"))%>%
         data.frame()
-
 
     # all time
     out_phe_all <-diag_pheno %>%
