@@ -888,7 +888,8 @@ runAnalysis <- function() {
     comorb_names_elix <- rbind(comorb_names_elix, de)
 
     comorb_elix_before <- map_char_elix_codes(
-        df = LocalPatientObservations,
+        df = LocalPatientObservations%>%
+          select(-c("periode_group","GROUP","ARDS","PROC_SEVERE","MED_SEVERE")) ,
         comorb_names = comorb_names_elix,
         t1 = -365,
         t2 = limit_d_befor,
@@ -922,7 +923,8 @@ runAnalysis <- function() {
     output_gen=rbind(output_gen,output_elix_before,output_elix_before_p)
 
     comorb_elix_90 <- map_char_elix_codes(
-        df = LocalPatientObservations,
+        df = LocalPatientObservations%>%
+          select(-c("periode_group","GROUP","ARDS","PROC_SEVERE","MED_SEVERE")),
         comorb_names = comorb_names_elix,
         t1 = -365,
         t2 = 90,
@@ -945,8 +947,6 @@ runAnalysis <- function() {
     message(paste(" comorb_elix_90  number of disctinct patient ",length(unique(comorb_elix_90$patient_num))))
 
     message(paste("LocalPatientObservations number of disctinct patient ",length(unique(LocalPatientObservations$patient_num))))
-
-
 
     output_elix_90 <- LocalPatientSummary  %>%
         dplyr::inner_join(comorb_elix_90, by = "patient_num")%>%
@@ -1868,84 +1868,91 @@ runAnalysis <- function() {
       inner_join(comorb_elix_90, by = c("patient_num"))%>%
       filter(GROUP %in% c("ARDS_18_49","NO_ARDS_18_49"))
 
-    LR_ALL <-run_logicregression(
-      name = "ALL",
+    LR_ALL_uni <-run_logicregression(
+      name = "LR_ALL_uni",
+      currSiteId = currSiteId,
+      df= data_multi,
+      depend_var= "ARDS",
+      ind_vars= c("sex","Pulmonary","CHF","DM","HTN","Liver","Obesity","Paralysis","PUD","PVD","Valvular","Renal"))
+
+    LR_ALL_old <-run_logicregression(
+      name = "LR_ALL_old",
       currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Pulmonary","Renal","DM","Liver","Obesity","Alcohol","CHF","HTN"))
 
-    LR_ALL_wtK <-run_logicregression(
-      name = "ALL_wtK",
-      currSiteId = currSiteId,
-      df= data_multi,
-      depend_var= "ARDS",
-      ind_vars= c("sex","Pulmonary","Renal","DM","Liver","Obesity","Alcohol","CHF","HTN","Cancer"))
+    # LR_ALL_wtK <-run_logicregression(
+    #   name = "ALL_wtK",
+    #   currSiteId = currSiteId,
+    #   df= data_multi,
+    #   depend_var= "ARDS",
+    #   ind_vars= c("sex","Pulmonary","Renal","DM","Liver","Obesity","Alcohol","CHF","HTN","Cancer"))
 
-    LR_ALL_wout_RENAL <-run_logicregression(
-      name = "ALL_wout_RENAL",
+    LR_ALL_more_5 <-run_logicregression(
+      name = "LR_ALL_more_5",
       currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
-      ind_vars= c("sex","Pulmonary","DM","Liver","Obesity","Alcohol","CHF","HTN"))
+      ind_vars= c("sex","Pulmonary","CHF","DM","HTN","Liver","Obesity","Paralysis","Valvular","Renal"))
 
-    LR_ALL_wout_Abuses <-run_logicregression(
-      name = "ALL_wout_Abuses",
+    LR_ALL_more_10 <-run_logicregression(
+      name = "LR_ALL_more_10",
       currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
-      ind_vars= c("sex","Pulmonary","DM","Liver","Obesity","CHF","HTN","Renal"))
+      ind_vars= c("sex","Pulmonary","CHF","DM","HTN","Liver","Obesity","Renal"))
 
     LR_CHF <-run_logicregression(
-      name = "CHF",
+      name = "LR_CHF",
       currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
-      ind_vars= c("sex","Obesity","DM","HTN","Alcohol","CHF"))
+      ind_vars= c("sex","Obesity","DM","HTN","Alcohol","CHF","Valvular","PVD"))
 
     LR_OBESITY <-run_logicregression(
-      name = "OBESITY",
+      name = "LR_OBESITY",
       currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
-      ind_vars= c("sex","Obesity","DM","Alcohol"))
+      ind_vars= c("sex","Obesity","DM","Alcohol","Paralysis","PVD"))
 
     LR_DM <-run_logicregression(
-      name = "DM",
+      name = "LR_DM",
       currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
-      ind_vars= c("sex","Obesity","DM"))
+      ind_vars= c("sex","Obesity","DM","PVD"))
 
     LR_HT <-run_logicregression(
-      name = "HT",
+      name = "LR_HT",
       currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Obesity","DM","Renal","HTN"))
 
     LR_LIVER <-run_logicregression(
-      name = "LIVER",
+      name = "LR_LIVER",
       currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
-      ind_vars= c("sex","Obesity","DM","HTN","Liver"))
+      ind_vars= c("sex","Obesity","DM","HTN","Liver","PUD"))
 
     LR_RENAL <-run_logicregression(
-      name = "RENAL",
+      name = "LR_RENAL",
       currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Obesity","DM","HTN","Renal"))
 
     LR_ABUSES <-run_logicregression(
-      name = "ABUSES",
+      name = "LR_ABUSES",
       currSiteId = currSiteId,
       df= data_multi,
       depend_var= "ARDS",
       ind_vars= c("sex","Alcohol","Drugs"))
 
-    multiresults <- rbind(LR_ALL,LR_ALL_wtK,LR_ALL_wout_RENAL,LR_ALL_wout_Abuses,LR_CHF,LR_OBESITY,LR_DM, LR_HT, LR_LIVER, LR_RENAL,LR_ABUSES)
+    multiresults <- rbind(LR_ALL_uni,LR_ALL_old,LR_ALL_more_5,LR_ALL_more_10,LR_CHF,LR_OBESITY,LR_DM, LR_HT, LR_LIVER, LR_RENAL,LR_ABUSES)
 
     message("Multivariate analysis  => OK")
     ## ========================================

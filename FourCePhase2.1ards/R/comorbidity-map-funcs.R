@@ -27,10 +27,14 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
     filter(concept_type == "DIAG-ICD10") %>%
     distinct()
 
+  message(paste("icd10 : number of  patient  ",length(unique(icd10$patient_num))))
+
   icd9 <- df %>%
     select(-c(days_since_admission, value)) %>%
     filter(concept_type == "DIAG-ICD9") %>%
     distinct()
+
+  message(paste("icd9 : number of  patient  ",length(unique(icd9$patient_num))))
 
   # quan prefixes revised charlson & elixhauser mapping
   if (map_type == "charlson") {
@@ -40,7 +44,6 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
   if (map_type == "elixhauser") {
     icd10_comorb_map = icd::icd10_map_quan_elix
     icd9_comorb_map = icd::icd9_map_quan_elix
-
 
     ## add regroupment cancer = Lymphoma+ Tumor +Mets
 
@@ -112,6 +115,8 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
       .groups = 'drop'
     )
 
+  message(paste("icd_map : number of  patient  ",length(unique(icd_map$patient_num))))
+
   ## Calculate Index Scores
   if (map_type == 'charlson') {
     charlson_score <- icd::charlson_from_comorbid(
@@ -166,6 +171,8 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
   }
 
 
+  message(paste("index_scores : number of  patient  ",length(unique(index_scores$patient_num))))
+
   # Identify the specific codes that mapped
   # unlist the charlson mapping lists
   icd10$concept_code <- as.character(icd10$concept_code)
@@ -180,12 +187,16 @@ map_char_elix_codes <- function(df, comorb_names, t1, t2, map_type, truncate = T
     # this will return all comorbidities that mapped to our patient data
     inner_join(icd10, by = "concept_code")
 
+  message(paste("icd10_map : number of  patient  ",length(unique(icd10_map$patient_num))))
+
   icd9_map <-
     purrr::map_df(icd9_comorb_map, ~ as.data.frame(.x), .id = "name") %>%
     `colnames<-`(c("Abbreviation", "concept_code")) %>%
     mutate(concept_code = as.character(concept_code)) %>%
     distinct() %>%
     inner_join(icd9, by = "concept_code")
+
+  message(paste("icd9_map : number of  patient  ",length(unique(icd9_map$patient_num))))
 
   # explain_codes will add additional information regarding the code name
   # add if statements in order to handle sites that only have ICD 9 or 10 codes but not both
