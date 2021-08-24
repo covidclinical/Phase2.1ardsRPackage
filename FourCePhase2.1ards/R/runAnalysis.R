@@ -581,7 +581,6 @@ runAnalysis <- function() {
 
     ## Medication:
 
-
     ###Average number of medication per day
 
     med_day <- LocalPatientObservations %>%
@@ -887,9 +886,23 @@ runAnalysis <- function() {
 
     comorb_names_elix <- rbind(comorb_names_elix, de)
 
+    ## if both ICD10 and ICD 9, select select only ICD 10
+
+    if (sum(c("DIAG-ICD10","DIAG-ICD9") %in% unique(LocalPatientObservations$concept_type))==2) {
+
+      LocalPatientObservations_elix= LocalPatientObservations%>%
+        filter(concept_type == "DIAG-ICD10") %>%
+        select(-c("periode_group","GROUP","ARDS","PROC_SEVERE","MED_SEVERE"))
+
+    } else {
+
+      LocalPatientObservations_elix <- LocalPatientObservations%>%
+        select(-c("periode_group","GROUP","ARDS","PROC_SEVERE","MED_SEVERE"))
+
+    }
+
     comorb_elix_before <- map_char_elix_codes(
-        df = LocalPatientObservations%>%
-          select(-c("periode_group","GROUP","ARDS","PROC_SEVERE","MED_SEVERE")) ,
+        df = LocalPatientObservations_elix ,
         comorb_names = comorb_names_elix,
         t1 = -365,
         t2 = limit_d_befor,
@@ -899,7 +912,7 @@ runAnalysis <- function() {
 
     comorb_elix_before <- comorb_elix_before$index_scores %>%
         rename('elixhauser_score' = van_walraven_score)%>%
-        mutate(patient_num = as.integer(patient_num))
+        mutate(patient_num = as.double(patient_num))
 
     output_elix_before <- LocalPatientSummary  %>%
         dplyr::inner_join(comorb_elix_before, by = "patient_num")%>%
@@ -923,8 +936,7 @@ runAnalysis <- function() {
     output_gen=rbind(output_gen,output_elix_before,output_elix_before_p)
 
     comorb_elix_90 <- map_char_elix_codes(
-        df = LocalPatientObservations%>%
-          select(-c("periode_group","GROUP","ARDS","PROC_SEVERE","MED_SEVERE")),
+        df = LocalPatientObservations_elix,
         comorb_names = comorb_names_elix,
         t1 = -365,
         t2 = 90,
@@ -934,7 +946,7 @@ runAnalysis <- function() {
 
     comorb_elix_90 <- comorb_elix_90$index_scores %>%
         rename('elixhauser_score' = van_walraven_score)%>%
-        mutate(patient_num = as.integer(patient_num))%>%
+        mutate(patient_num = as.double(patient_num))%>%
         data.frame()
 
     df_temp <- LocalPatientObservations %>%
